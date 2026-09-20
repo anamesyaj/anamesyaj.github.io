@@ -154,18 +154,21 @@ canvas#ambient{position:fixed;inset:0;width:100%;height:100%;z-index:-5;pointer-
 .hero-orbit__ring--a::before{left:50%;top:-4px}.hero-orbit__ring--a::after{right:7%;bottom:21%;background:var(--acid)}
 .hero-orbit__ring--b{inset:22%;border-style:dashed;border-color:rgba(255,255,255,.13);animation:spinReverse 17s linear infinite}
 .hero-orbit__core{
-  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:36%;aspect-ratio:1;border-radius:50%;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  background:rgba(10,13,18,.76);border:1px solid rgba(255,255,255,.15);backdrop-filter:blur(22px);
-  box-shadow:0 0 70px rgba(101,239,248,.07),inset 0 0 36px rgba(255,255,255,.025)
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:39%;aspect-ratio:1;border-radius:50%;
+  overflow:hidden;background:#0b0f14;border:1px solid rgba(255,255,255,.18);
+  box-shadow:0 0 80px rgba(101,239,248,.08),0 24px 70px rgba(0,0,0,.42)
 }
-.hero-orbit__core span,.hero-orbit__core small{font:500 7px/1 "DM Mono",monospace;letter-spacing:.13em;color:#69717c}
-.hero-orbit__core strong{font-size:clamp(18px,2vw,30px);letter-spacing:-.05em;margin:6px 0}
+.hero-profile>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.88) contrast(1.04)}
+.hero-profile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 42%,rgba(5,8,11,.9) 100%)}
+.hero-profile__caption{position:absolute;left:15%;right:15%;bottom:12%;z-index:2;text-align:center;display:flex;flex-direction:column;align-items:center}
+.hero-profile__caption span,.hero-profile__caption small{font:500 6px/1.2 "DM Mono",monospace;letter-spacing:.12em;color:#a4adb7}
+.hero-profile__caption strong{font-size:clamp(14px,1.6vw,24px);letter-spacing:-.04em;margin:5px 0 3px}
 .hero-orbit__node{
-  position:absolute;display:grid;place-items:center;width:48px;height:48px;border-radius:50%;
-  border:1px solid var(--line);background:rgba(10,13,18,.72);backdrop-filter:blur(12px);
-  font:500 8px/1 "DM Mono",monospace;color:#b7bdc5
+  position:absolute;display:flex;flex-direction:column;align-items:center;justify-content:center;width:54px;height:54px;border-radius:50%;
+  border:1px solid var(--line);background:rgba(10,13,18,.78);backdrop-filter:blur(12px);color:#b7bdc5
 }
+.hero-orbit__node b{font:500 10px/1 "DM Mono",monospace;color:#eef1f3}
+.hero-orbit__node small{margin-top:4px;font:500 6px/1 "DM Mono",monospace;letter-spacing:.11em;color:#69717c}
 .hero-orbit__node.n1{left:8%;top:25%}.hero-orbit__node.n2{right:4%;top:34%}.hero-orbit__node.n3{left:18%;bottom:9%}.hero-orbit__node.n4{right:17%;bottom:10%}
 .hero-manifesto{
   position:absolute;left:clamp(24px,4.5vw,76px);bottom:126px;max-width:480px;padding-left:16px;border-left:1px solid var(--cyan)
@@ -185,8 +188,6 @@ canvas#ambient{position:fixed;inset:0;width:100%;height:100%;z-index:-5;pointer-
 }
 .scene-cta:hover{background:#f4f6f7;color:#0b0d10;border-color:#fff}
 .scene-cta b{font-size:15px;font-weight:400}
-.hero-coordinate{position:absolute;font:500 7px/1 "DM Mono",monospace;letter-spacing:.15em;color:#404650}
-.hero-coordinate.x{left:9px;top:50%;writing-mode:vertical-rl}.hero-coordinate.y{right:9px;top:50%;writing-mode:vertical-rl}
 
 .scene-heading{display:grid;grid-template-columns:1fr .6fr;gap:56px;align-items:end;margin-bottom:42px}
 .scene-heading h2{margin:10px 0 0;font-size:clamp(3.6rem,6.5vw,7.5rem);line-height:.88;letter-spacing:-.075em}
@@ -363,12 +364,15 @@ canvas#ambient{position:fixed;inset:0;width:100%;height:100%;z-index:-5;pointer-
 .about-orbit::before,.about-orbit::after{content:"";position:absolute;border-radius:50%;border:1px solid rgba(255,255,255,.085)}
 .about-orbit::before{inset:2%;animation:spin 30s linear infinite}.about-orbit::after{inset:21%;border-style:dashed;animation:spinReverse 20s linear infinite}
 .about-orbit__core{
-  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:42%;aspect-ratio:1;border-radius:50%;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid var(--line);
-  background:rgba(10,13,18,.77);backdrop-filter:blur(18px);box-shadow:0 0 70px rgba(154,124,255,.07)
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:46%;aspect-ratio:1;border-radius:50%;
+  overflow:hidden;border:1px solid rgba(255,255,255,.15);
+  background:rgba(10,13,18,.77);box-shadow:0 0 80px rgba(154,124,255,.08),0 24px 70px rgba(0,0,0,.38)
 }
-.about-orbit__core span,.about-orbit__core small{font:500 7px/1 "DM Mono",monospace;letter-spacing:.12em;color:#747c87}
-.about-orbit__core strong{font-size:32px;letter-spacing:-.06em;margin:7px 0}
+.profile-portrait>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.9) contrast(1.03)}
+.profile-portrait::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 44%,rgba(5,8,11,.93) 100%)}
+.profile-portrait__meta{position:absolute;left:12%;right:12%;bottom:12%;z-index:2;text-align:center;display:flex;flex-direction:column;align-items:center}
+.profile-portrait__meta span,.profile-portrait__meta small{font:500 6px/1.2 "DM Mono",monospace;letter-spacing:.11em;color:#a2abb5}
+.profile-portrait__meta strong{font:500 17px/1 "DM Mono",monospace;color:#f0f3f5;margin:5px 0 4px;letter-spacing:-.03em}
 .tool-chip{
   position:absolute;padding:9px 11px;border:1px solid var(--line);border-radius:999px;background:rgba(9,12,17,.8);backdrop-filter:blur(11px);
   font:500 7px/1 "DM Mono",monospace;letter-spacing:.08em;color:#aab1bb
@@ -471,7 +475,7 @@ canvas#ambient{position:fixed;inset:0;width:100%;height:100%;z-index:-5;pointer-
   .proof-scan{top:46%}
   .experience-line__axis{font-size:6px}.experience-line__segment{font-size:6px;padding:0 8px}.experience-line__segment.s3{left:16%;width:84%}.experience-line__award{left:20%}
   .about-statement h2{font-size:clamp(3rem,14vw,5rem)}
-  .about-orbit{width:94vw;margin:36px -8px 0 auto}.about-orbit__core strong{font-size:25px}
+  .about-orbit{width:94vw;margin:36px -8px 0 auto}.profile-portrait__meta strong{font-size:15px}
   .tool-chip{font-size:6px;padding:7px 9px}
   .profile-notes article{grid-template-columns:1fr;gap:7px}
   .contact-channel{padding:19px;gap:22px}.contact-link{grid-template-columns:58px 1fr auto}.contact-link strong{font-size:.78rem}
