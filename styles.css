@@ -451,11 +451,11 @@ canvas#ambient{position:fixed;inset:0;width:100%;height:100%;z-index:-5;pointer-
   .hero-manifesto{bottom:170px;max-width:410px}
   .hero-index{display:none}
   .scene-cta{top:auto;bottom:100px;right:24px}
-  .system-map{height:700px}
+  .system-map{height:560px}
   .system-map__wires{display:none}
   .system-node{width:155px;height:82px}.n-frame{left:5%;top:7%}.n-direct{right:5%;top:7%}.n-verify{left:5%;bottom:8%}.n-ship{right:5%;bottom:8%}
-  .system-detail{bottom:110px}
-  .proof-field{height:610px}.proof-number.p1{left:5%;top:10%}.proof-number.p2{right:5%;left:auto;top:15%}.proof-number.p3{right:5%;top:48%}.proof-number.p4{left:6%;bottom:8%}
+  .system-detail{bottom:78px}
+  .proof-field{height:500px}.proof-number.p1{left:5%;top:10%}.proof-number.p2{right:5%;left:auto;top:15%}.proof-number.p3{right:5%;top:48%}.proof-number.p4{left:6%;bottom:8%}
   .about-orbit{width:min(520px,78vw)}
   .profile-notes{width:100%;margin-top:28px}
   .contact-channel{grid-template-columns:1fr}
@@ -484,9 +484,9 @@ canvas#ambient{position:fixed;inset:0;width:100%;height:100%;z-index:-5;pointer-
   .project-card__name{left:42px;right:19px;bottom:25px}.project-card__name strong{font-size:24px;max-width:180px}
   .project-card__metric{right:19px;bottom:25px}.project-card__metric strong{font-size:16px}
   .dossier{padding:22px}.dossier h3{font-size:clamp(2.8rem,13vw,4.3rem)}.dossier dl{grid-template-columns:1fr}.dossier__serial{flex-direction:column;gap:7px}
-  .system-map{height:650px;border-radius:25px}.system-core{width:165px;top:48%}
+  .system-map{height:560px;border-radius:25px}.system-core{width:165px;top:48%}
   .system-node{width:145px;height:78px;padding:12px}.n-frame{left:3%;top:7%}.n-direct{right:3%;top:20%}.n-verify{left:3%;bottom:20%}.n-ship{right:3%;bottom:7%}
-  .system-detail{bottom:315px;width:90%;grid-template-columns:1fr}.system-detail>p{grid-column:1}.system-detail>strong{margin-top:6px}
+  .system-detail{bottom:216px;width:90%;grid-template-columns:1fr}.system-detail>p{grid-column:1}.system-detail>strong{margin-top:6px}
   .method-strip{margin-top:12px}
   .proof-title h2{font-size:clamp(4rem,19vw,7rem)}
   .proof-field{height:560px;margin-top:0}.proof-number strong{font-size:clamp(4.3rem,19vw,7rem)}.proof-number.p1{left:5%;top:8%}.proof-number.p2{right:4%;top:27%}.proof-number.p3{right:6%;top:51%}.proof-number.p4{left:5%;bottom:7%}
