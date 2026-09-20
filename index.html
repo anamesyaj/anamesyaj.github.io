@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css?v=canvas-v7b-compact-orbits">
+  <link rel="stylesheet" href="/styles.css?v=canvas-v8-readable-bg">
 </head>
 <body data-scene="intro">
   <div class="boot" id="boot" aria-hidden="true">
@@ -26,6 +26,15 @@
   </div>
 
   <canvas id="ambient" aria-hidden="true"></canvas>
+  <div class="ambient-world" aria-hidden="true">
+    <div class="ambient-world__mesh"></div>
+    <div class="ambient-world__orb ambient-world__orb--a"></div>
+    <div class="ambient-world__orb ambient-world__orb--b"></div>
+    <div class="ambient-world__orb ambient-world__orb--c"></div>
+    <div class="ambient-world__arc ambient-world__arc--a"></div>
+    <div class="ambient-world__arc ambient-world__arc--b"></div>
+    <div class="ambient-world__beam"></div>
+  </div>
   <div class="cursor-orb" id="cursorOrb" aria-hidden="true"></div>
   <div class="grain" aria-hidden="true"></div>
   <div class="scanline" aria-hidden="true"></div>
@@ -152,6 +161,18 @@
           </div>
 
           <span class="deck-console__hint"><span class="hint-desktop">CLICK A CARD TO REORDER THE ARCHIVE</span><span class="hint-mobile">SWIPE ACTIVE CARD · LEFT NEXT · RIGHT PREVIOUS</span></span>
+          <div class="mobile-project-readout" id="mobileProjectReadout" aria-live="polite">
+            <div class="mobile-project-readout__top">
+              <span id="mobileSummaryCase">CASE 01</span>
+              <b id="mobileSummaryState">PRIVATE ALPHA</b>
+            </div>
+            <h3 id="mobileSummaryTitle">Gold Ops OS</h3>
+            <p id="mobileSummaryText">Governed XAUUSD trading-operations platform with explicit human authorization, security gates, broker-secret custody, and evidence-driven release checks.</p>
+            <div class="mobile-project-readout__proof">
+              <span>PROOF</span>
+              <strong id="mobileSummaryProof">836/836 Vitest · 782 database tests</strong>
+            </div>
+          </div>
         </div>
 
         <aside class="dossier" id="projectDossier">
@@ -281,6 +302,6 @@
     <span>SCROLL TO NAVIGATE · CLICK TO OPERATE</span>
   </footer>
 
-  <script src="/script.js?v=canvas-v7b-compact-orbits"></script>
+  <script src="/script.js?v=canvas-v8-readable-bg"></script>
 </body>
 </html>
