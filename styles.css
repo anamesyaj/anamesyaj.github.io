@@ -732,3 +732,78 @@ canvas#ambient{position:fixed;inset:0;width:100%;height:100%;z-index:-5;pointer-
 /* Keep animated background behind, never competing with copy */
 .scene--intro::before{background:linear-gradient(90deg,rgba(7,9,13,.58) 0%,rgba(7,9,13,.22) 58%,rgba(7,9,13,.08) 100%)}
 @media(max-width:900px){.scene--intro::before{background:rgba(7,9,13,.2)}}
+
+/* V10 — mobile performance mode + restrained type scale */
+@media(max-width:900px){
+  .hero-title h1{font-size:clamp(4rem,13vw,6.7rem);line-height:.84}
+  .scene-heading h2{font-size:clamp(2.8rem,10vw,4.6rem);line-height:.96}
+  .proof-title h2{font-size:clamp(3.2rem,12vw,5.5rem);line-height:.88}
+  .about-statement h2{font-size:clamp(2.9rem,10vw,4.8rem);line-height:1}
+  .contact-channel h3{font-size:clamp(1.9rem,7vw,3rem);line-height:1}
+  .mobile-project-readout h3{font-size:clamp(1.9rem,7vw,2.65rem)}
+  .proof-number strong{font-size:clamp(3.2rem,11vw,5rem)}
+}
+@media(max-width:650px){
+  .hero-title h1{font-size:clamp(3.35rem,17vw,5rem);line-height:.86}
+  .scene-heading h2{font-size:clamp(2.45rem,11.5vw,3.85rem);line-height:.98}
+  .proof-title h2{font-size:clamp(2.9rem,14vw,4.4rem);line-height:.9}
+  .about-statement h2{font-size:clamp(2.5rem,11.5vw,3.8rem);line-height:1.02}
+  .proof-number strong{font-size:clamp(3rem,15vw,4.3rem)}
+  .contact-channel h3{font-size:clamp(1.75rem,8vw,2.6rem)}
+  .mobile-project-readout h3{font-size:clamp(1.8rem,9vw,2.35rem)}
+  .project-card__name strong{font-size:21px}
+  .project-card__metric strong{font-size:15px}
+}
+
+/* Coarse-pointer devices use a lighter compositing path.
+   Keep card gestures fluid and preserve only the most useful ambient motion. */
+.perf-lite .grain{display:none}
+.perf-lite .scanline{display:none}
+.perf-lite .cursor-orb{display:none}
+.perf-lite .ambient-world__mesh{opacity:.09;animation-duration:30s}
+.perf-lite .ambient-world__orb{
+  filter:none;mix-blend-mode:normal;will-change:transform
+}
+.perf-lite .ambient-world__orb--a{
+  width:78vw;height:78vw;left:-38vw;top:10vh;opacity:.11;
+  animation:ambientFloatA 28s ease-in-out infinite
+}
+.perf-lite .ambient-world__orb--b{
+  width:72vw;height:72vw;right:-42vw;top:52vh;opacity:.08;
+  animation:ambientFloatB 34s ease-in-out infinite
+}
+.perf-lite .ambient-world__orb--c,.perf-lite .ambient-world__arc--b,.perf-lite .ambient-world__beam{display:none}
+.perf-lite .ambient-world__arc--a{
+  width:105vw;height:105vw;right:-58vw;top:9vh;opacity:.24;
+  animation:spin 34s linear infinite
+}
+.perf-lite .hud,
+.perf-lite .scene-rail,
+.perf-lite .hero-manifesto,
+.perf-lite .mobile-project-readout,
+.perf-lite .dossier,
+.perf-lite .system-map,
+.perf-lite .system-node,
+.perf-lite .system-detail,
+.perf-lite .about-orbit__core,
+.perf-lite .hero-orbit__core,
+.perf-lite .contact-channel{
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important
+}
+.perf-lite .project-card{
+  box-shadow:0 22px 48px rgba(0,0,0,.32),0 7px 18px rgba(0,0,0,.22)
+}
+.perf-lite .project-card.is-active{
+  box-shadow:0 32px 68px rgba(0,0,0,.42),0 10px 24px rgba(0,0,0,.24)
+}
+.perf-lite .hero-orbit__ring--a{animation-duration:32s}
+.perf-lite .hero-orbit__ring--b{animation-duration:24s}
+.perf-lite .hero-orbit::before{animation-duration:30s}
+.perf-lite .hero-orbit::after{display:none}
+.perf-lite .about-orbit::before{animation-duration:32s}
+.perf-lite .about-orbit::after{display:none}
+.perf-lite .system-core::before{animation-duration:24s}
+.perf-lite .system-core::after{display:none}
+.perf-lite .system-core__pulse{display:none}
+.perf-lite .dossier::before{animation-duration:34s}
