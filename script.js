@@ -61,19 +61,43 @@ function resizeAmbient() {
   ambient.style.width = innerWidth + 'px';
   ambient.style.height = innerHeight + 'px';
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  const count = Math.min(72, Math.floor(innerWidth / 18));
-  particles = Array.from({ length: count }, () => ({
+  const mobile = innerWidth < 700;
+  const count = mobile ? Math.min(34, Math.floor(innerWidth / 11)) : Math.min(62, Math.floor(innerWidth / 22));
+  particles = Array.from({ length: count }, (_, i) => ({
     x: Math.random() * innerWidth,
     y: Math.random() * innerHeight,
-    vx: (Math.random() - .5) * .11,
-    vy: (Math.random() - .5) * .11,
-    r: .35 + Math.random() * 1.05,
-    a: .16 + Math.random() * .34
+    vx: (Math.random() - .5) * .105,
+    vy: (Math.random() - .5) * .105,
+    r: .35 + Math.random() * 1.15,
+    a: .12 + Math.random() * .28,
+    signal: i % 11 === 0
   }));
 }
 function drawAmbient() {
   if (!ambient || !ctx) return;
   ctx.clearRect(0, 0, innerWidth, innerHeight);
+
+  const maxLink = innerWidth < 700 ? 92 : 132;
+  const maxLinkSq = maxLink * maxLink;
+  for (let i = 0; i < particles.length; i++) {
+    const a = particles[i];
+    for (let j = i + 1; j < particles.length; j++) {
+      const b = particles[j];
+      const dx = a.x - b.x;
+      const dy = a.y - b.y;
+      const d2 = dx * dx + dy * dy;
+      if (d2 > maxLinkSq) continue;
+      const alpha = (1 - d2 / maxLinkSq) * .07;
+      ctx.strokeStyle = `rgba(101,239,248,${alpha})`;
+      ctx.lineWidth = .55;
+      ctx.beginPath();
+      ctx.moveTo(a.x, a.y);
+      ctx.lineTo(b.x, b.y);
+      ctx.stroke();
+    }
+  }
+
+  const t = performance.now() * .00018;
   for (const p of particles) {
     p.x += p.vx;
     p.y += p.vy;
@@ -81,11 +105,22 @@ function drawAmbient() {
     if (p.x > innerWidth + 8) p.x = -8;
     if (p.y < -8) p.y = innerHeight + 8;
     if (p.y > innerHeight + 8) p.y = -8;
-    ctx.fillStyle = `rgba(255,255,255,${p.a})`;
+
+    if (p.signal) {
+      const pulse = .35 + (Math.sin(t * 9 + p.x * .02) + 1) * .18;
+      ctx.fillStyle = `rgba(101,239,248,${pulse})`;
+      ctx.shadowBlur = 12;
+      ctx.shadowColor = 'rgba(101,239,248,.45)';
+    } else {
+      ctx.fillStyle = `rgba(255,255,255,${p.a})`;
+      ctx.shadowBlur = 0;
+    }
+
     ctx.beginPath();
-    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.arc(p.x, p.y, p.signal ? p.r + .8 : p.r, 0, Math.PI * 2);
     ctx.fill();
   }
+  ctx.shadowBlur = 0;
   if (!reduced) requestAnimationFrame(drawAmbient);
 }
 resizeAmbient();
@@ -243,6 +278,11 @@ function showDossier(key) {
   animateSwap(document.getElementById('dossierRole'), p.role);
   animateSwap(document.getElementById('dossierProof'), p.proof);
   animateSwap(document.getElementById('dossierSerial'), p.serial);
+  animateSwap(document.getElementById('mobileSummaryCase'), 'CASE ' + p.caseNo);
+  animateSwap(document.getElementById('mobileSummaryState'), p.state);
+  animateSwap(document.getElementById('mobileSummaryTitle'), p.title);
+  animateSwap(document.getElementById('mobileSummaryText'), p.summary);
+  animateSwap(document.getElementById('mobileSummaryProof'), p.proof);
   const stack = document.getElementById('dossierStack');
   if (stack) {
     stack.innerHTML = p.stack.map(item => '<span>' + item + '</span>').join('');
