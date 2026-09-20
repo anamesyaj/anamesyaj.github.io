@@ -46,6 +46,22 @@ canvas#ambient{position:fixed;inset:0;width:100%;height:100%;z-index:-5;pointer-
   background:radial-gradient(circle,rgba(101,239,248,.065),rgba(101,239,248,.018) 34%,transparent 69%);
   filter:blur(10px);
 }
+.ambient-world{position:fixed;inset:0;z-index:-4;pointer-events:none;overflow:hidden}
+.ambient-world__mesh{position:absolute;inset:-18%;opacity:.24;background:
+  linear-gradient(rgba(255,255,255,.026) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(255,255,255,.026) 1px,transparent 1px);
+  background-size:72px 72px;transform:perspective(900px) rotateX(63deg) translateY(38%);transform-origin:center bottom;
+  animation:meshDrift 18s linear infinite}
+.ambient-world__orb{position:absolute;border-radius:50%;filter:blur(48px);opacity:.22;mix-blend-mode:screen}
+.ambient-world__orb--a{width:42vw;height:42vw;left:-12vw;top:8vh;background:radial-gradient(circle,rgba(101,239,248,.45),transparent 66%);animation:ambientFloatA 20s ease-in-out infinite}
+.ambient-world__orb--b{width:46vw;height:46vw;right:-18vw;top:36vh;background:radial-gradient(circle,rgba(154,124,255,.34),transparent 67%);animation:ambientFloatB 24s ease-in-out infinite}
+.ambient-world__orb--c{width:34vw;height:34vw;left:34vw;bottom:-17vw;background:radial-gradient(circle,rgba(199,255,89,.18),transparent 68%);animation:ambientFloatC 22s ease-in-out infinite}
+.ambient-world__arc{position:absolute;border-radius:50%;border:1px solid rgba(255,255,255,.045);opacity:.6}
+.ambient-world__arc::before{content:"";position:absolute;inset:-1px;border-radius:50%;background:conic-gradient(from 0deg,transparent 0 18%,rgba(101,239,248,.24) 18% 20%,transparent 20% 59%,rgba(154,124,255,.18) 59% 61%,transparent 61% 100%);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 calc(100% - 1px));mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 calc(100% - 1px))}
+.ambient-world__arc--a{width:68vw;height:68vw;right:-28vw;top:-12vw;animation:spin 40s linear infinite}
+.ambient-world__arc--b{width:52vw;height:52vw;left:-22vw;bottom:-18vw;animation:spinReverse 32s linear infinite}
+.ambient-world__beam{position:absolute;left:-15%;top:54%;width:130%;height:1px;background:linear-gradient(90deg,transparent,rgba(101,239,248,.08),rgba(255,255,255,.12),rgba(154,124,255,.08),transparent);transform:rotate(-8deg);animation:beamSweep 11s ease-in-out infinite}
+
 .boot{
   position:fixed;inset:0;z-index:1000;background:#07090d;display:grid;place-items:center;
   transition:clip-path .9s cubic-bezier(.76,0,.24,1) .4s,visibility 0s linear 1.3s;
@@ -515,3 +531,32 @@ canvas#ambient{position:fixed;inset:0;width:100%;height:100%;z-index:-5;pointer-
   .scene-heading{margin-bottom:28px}
   .proof-title{margin-bottom:12px}
 }
+
+.mobile-project-readout{display:none}
+@media(max-width:900px){
+  .scene--work,.work-stage,.deck-console{overflow:visible}
+  .mobile-project-readout{display:block;margin:18px 0 4px;padding:18px;border:1px solid rgba(255,255,255,.11);border-radius:20px;background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.016));backdrop-filter:blur(16px);box-shadow:0 18px 48px rgba(0,0,0,.18)}
+  .mobile-project-readout__top{display:flex;justify-content:space-between;gap:14px;font:500 7px/1 "DM Mono",monospace;letter-spacing:.13em;color:#737c87}
+  .mobile-project-readout__top b{font-weight:500;color:var(--acid)}
+  .mobile-project-readout h3{margin:12px 0 10px;font-size:clamp(2rem,8vw,3rem);line-height:.95;letter-spacing:-.055em}
+  .mobile-project-readout p{margin:0;color:#b4bbc4;line-height:1.68;font-size:.9rem}
+  .mobile-project-readout__proof{margin-top:16px;padding-top:12px;border-top:1px solid var(--line);display:grid;gap:6px}
+  .mobile-project-readout__proof span{font:500 7px/1 "DM Mono",monospace;letter-spacing:.13em;color:#68717c}
+  .mobile-project-readout__proof strong{font-size:.84rem;line-height:1.45}
+  .dossier{display:none}
+}
+@media(max-width:650px){
+  .project-deck{height:505px}
+  .project-card{top:47%}
+  .deck-console__hint{margin-top:6px}
+  .mobile-project-readout{margin-top:14px}
+  .ambient-world__mesh{background-size:54px 54px;opacity:.18}
+  .ambient-world__orb{filter:blur(34px);opacity:.18}
+  .ambient-world__arc--a{width:110vw;height:110vw;right:-58vw;top:4vh}
+  .ambient-world__arc--b{width:90vw;height:90vw;left:-52vw;bottom:6vh}
+}
+@keyframes meshDrift{to{background-position:72px 72px}}
+@keyframes ambientFloatA{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(10vw,8vh,0) scale(1.08)}}
+@keyframes ambientFloatB{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(-10vw,-7vh,0) scale(.94)}}
+@keyframes ambientFloatC{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(-6vw,-8vh,0)}}
+@keyframes beamSweep{0%,100%{transform:translateY(-7vh) rotate(-8deg);opacity:.18}50%{transform:translateY(12vh) rotate(-8deg);opacity:.65}}
