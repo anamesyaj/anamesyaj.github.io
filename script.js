@@ -1,4 +1,6 @@
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const perfLite = reduced || matchMedia('(pointer: coarse)').matches || innerWidth < 900;
+document.documentElement.classList.toggle('perf-lite', perfLite);
 
 const boot = document.getElementById('boot');
 if (boot && !reduced) {
@@ -55,49 +57,64 @@ let particles = [];
 
 function resizeAmbient() {
   if (!ambient || !ctx) return;
-  const dpr = Math.min(devicePixelRatio || 1, 2);
+  const dpr = perfLite ? 1 : Math.min(devicePixelRatio || 1, 1.5);
   ambient.width = Math.floor(innerWidth * dpr);
   ambient.height = Math.floor(innerHeight * dpr);
   ambient.style.width = innerWidth + 'px';
   ambient.style.height = innerHeight + 'px';
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  const mobile = innerWidth < 700;
-  const count = mobile ? Math.min(34, Math.floor(innerWidth / 11)) : Math.min(62, Math.floor(innerWidth / 22));
+  const count = perfLite ? Math.min(18, Math.max(12, Math.floor(innerWidth / 24))) : Math.min(48, Math.floor(innerWidth / 26));
   particles = Array.from({ length: count }, (_, i) => ({
     x: Math.random() * innerWidth,
     y: Math.random() * innerHeight,
-    vx: (Math.random() - .5) * .105,
-    vy: (Math.random() - .5) * .105,
-    r: .35 + Math.random() * 1.15,
-    a: .12 + Math.random() * .28,
-    signal: i % 11 === 0
+    vx: (Math.random() - .5) * (perfLite ? .07 : .1),
+    vy: (Math.random() - .5) * (perfLite ? .07 : .1),
+    r: .4 + Math.random() * .9,
+    a: .11 + Math.random() * .23,
+    signal: i % (perfLite ? 7 : 10) === 0
   }));
 }
-function drawAmbient() {
+
+let lastAmbientFrame = 0;
+function drawAmbient(now = performance.now()) {
   if (!ambient || !ctx) return;
+  if (document.hidden) {
+    if (!reduced) requestAnimationFrame(drawAmbient);
+    return;
+  }
+
+  const frameInterval = perfLite ? 33 : 16;
+  if (now - lastAmbientFrame < frameInterval) {
+    if (!reduced) requestAnimationFrame(drawAmbient);
+    return;
+  }
+  lastAmbientFrame = now;
+
   ctx.clearRect(0, 0, innerWidth, innerHeight);
 
-  const maxLink = innerWidth < 700 ? 92 : 132;
-  const maxLinkSq = maxLink * maxLink;
-  for (let i = 0; i < particles.length; i++) {
-    const a = particles[i];
-    for (let j = i + 1; j < particles.length; j++) {
-      const b = particles[j];
-      const dx = a.x - b.x;
-      const dy = a.y - b.y;
-      const d2 = dx * dx + dy * dy;
-      if (d2 > maxLinkSq) continue;
-      const alpha = (1 - d2 / maxLinkSq) * .07;
-      ctx.strokeStyle = `rgba(101,239,248,${alpha})`;
-      ctx.lineWidth = .55;
-      ctx.beginPath();
-      ctx.moveTo(a.x, a.y);
-      ctx.lineTo(b.x, b.y);
-      ctx.stroke();
+  if (!perfLite) {
+    const maxLink = 124;
+    const maxLinkSq = maxLink * maxLink;
+    for (let i = 0; i < particles.length; i++) {
+      const a = particles[i];
+      for (let j = i + 1; j < particles.length; j++) {
+        const b = particles[j];
+        const dx = a.x - b.x;
+        const dy = a.y - b.y;
+        const d2 = dx * dx + dy * dy;
+        if (d2 > maxLinkSq) continue;
+        const alpha = (1 - d2 / maxLinkSq) * .055;
+        ctx.strokeStyle = `rgba(101,239,248,${alpha})`;
+        ctx.lineWidth = .5;
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.stroke();
+      }
     }
   }
 
-  const t = performance.now() * .00018;
+  const t = now * .00018;
   for (const p of particles) {
     p.x += p.vx;
     p.y += p.vy;
@@ -107,17 +124,19 @@ function drawAmbient() {
     if (p.y > innerHeight + 8) p.y = -8;
 
     if (p.signal) {
-      const pulse = .35 + (Math.sin(t * 9 + p.x * .02) + 1) * .18;
+      const pulse = .26 + (Math.sin(t * 9 + p.x * .02) + 1) * .12;
       ctx.fillStyle = `rgba(101,239,248,${pulse})`;
-      ctx.shadowBlur = 12;
-      ctx.shadowColor = 'rgba(101,239,248,.45)';
+      if (!perfLite) {
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = 'rgba(101,239,248,.35)';
+      }
     } else {
       ctx.fillStyle = `rgba(255,255,255,${p.a})`;
       ctx.shadowBlur = 0;
     }
 
     ctx.beginPath();
-    ctx.arc(p.x, p.y, p.signal ? p.r + .8 : p.r, 0, Math.PI * 2);
+    ctx.arc(p.x, p.y, p.signal ? p.r + .55 : p.r, 0, Math.PI * 2);
     ctx.fill();
   }
   ctx.shadowBlur = 0;
@@ -256,7 +275,7 @@ function renderDeck(stagger = false) {
 
 function animateSwap(el, text) {
   if (!el) return;
-  if (!reduced) {
+  if (!reduced && !perfLite) {
     el.animate(
       [{ opacity: .2, transform: 'translateY(5px)' }, { opacity: 1, transform: 'translateY(0)' }],
       { duration: 330, easing: 'cubic-bezier(.16,1,.3,1)' }
@@ -286,7 +305,7 @@ function showDossier(key) {
   const stack = document.getElementById('dossierStack');
   if (stack) {
     stack.innerHTML = p.stack.map(item => '<span>' + item + '</span>').join('');
-    if (!reduced) {
+    if (!reduced && !perfLite) {
       [...stack.children].forEach((el, i) => el.animate(
         [{ opacity: 0, transform: 'translateY(5px)' }, { opacity: 1, transform: 'translateY(0)' }],
         { duration: 300, delay: i * 35, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'both' }
