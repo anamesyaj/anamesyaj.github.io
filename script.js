@@ -141,7 +141,7 @@ const deckProjects = {
     role: 'Founder · AI-Assisted Product & Workflow Builder',
     proof: '836/836 Vitest · 782 database tests',
     stack: ['Supabase', 'Vercel', 'Vitest', 'Product Ops'],
-    serial: 'MJ / SYS-01 / 2026',
+    serial: 'PRIVATE ALPHA · BUILD EVIDENCE · 2026',
     accent: '#f2ca52'
   },
   aspirva: {
@@ -153,7 +153,7 @@ const deckProjects = {
     role: 'Product Owner · AI-Assisted Builder',
     proof: '310 automated tests passing · runtime launch proven',
     stack: ['Windows', 'AI Workflows', 'QA', 'Release Readiness'],
-    serial: 'MJ / SYS-02 / 2026',
+    serial: 'WINDOWS PRE-RELEASE · 2026',
     accent: '#1ea3b0'
   },
   growth: {
@@ -165,7 +165,7 @@ const deckProjects = {
     role: 'Product Owner · AI Workflow Designer',
     proof: '257/257 tests passing at R3 checkpoint',
     stack: ['YouTube APIs', 'Turso', 'Azure', 'AI Gateway'],
-    serial: 'MJ / SYS-03 / 2026',
+    serial: 'R3 CHECKPOINT · 2026',
     accent: '#7ef7ee'
   },
   studio: {
@@ -177,7 +177,7 @@ const deckProjects = {
     role: 'Workflow / Automation Builder',
     proof: 'Local production workflow · 60 FPS rendering direction',
     stack: ['FFmpeg', 'TypeScript', 'Local-first', 'Automation'],
-    serial: 'MJ / SYS-04 / 2026',
+    serial: 'LOCAL-FIRST PRODUCTION · 2026',
     accent: '#b9f43b'
   }
 };
