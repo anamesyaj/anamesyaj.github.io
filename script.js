@@ -307,7 +307,150 @@ function shuffleProjectDeck() {
   }, 1050);
 }
 
-deckCards.forEach((card, index) => card.addEventListener('click', () => bringToFront(index)));
+const canSwipeDeck = () => matchMedia('(pointer: coarse)').matches || innerWidth < 900;
+let swipeState = null;
+
+function finishSwipe(direction, card) {
+  if (!card) return;
+  card.classList.remove('is-dragging');
+  card.classList.add('is-swipe-exit');
+  card.dataset.swiped = '1';
+
+  const currentTransform = getComputedStyle(card).transform;
+  const exitX = direction === 'left' ? -innerWidth * .82 : innerWidth * .82;
+  const exitRot = direction === 'left' ? -18 : 18;
+
+  const anim = card.animate(
+    [
+      { transform: currentTransform, opacity: 1 },
+      { transform: `translate(-50%,-50%) translate(${exitX}px,-30px) rotate(${exitRot}deg) scale(.96)`, opacity: .12 }
+    ],
+    { duration: reduced ? 1 : 285, easing: 'cubic-bezier(.4,0,.2,1)', fill: 'forwards' }
+  );
+
+  anim.finished.finally(() => {
+    anim.cancel();
+    card.style.transform = '';
+    card.style.opacity = '';
+    card.classList.remove('is-swipe-exit');
+
+    if (direction === 'left') {
+      const current = deckOrder.shift();
+      deckOrder.push(current);
+    } else {
+      const previous = deckOrder.pop();
+      deckOrder.unshift(previous);
+    }
+
+    renderDeck(true);
+    showDossier(deckCards[deckOrder[0]].dataset.project);
+    if (navigator.vibrate) navigator.vibrate(8);
+    setTimeout(() => delete card.dataset.swiped, 320);
+  });
+}
+
+function resetDraggedCard(card) {
+  if (!card) return;
+  card.classList.remove('is-dragging');
+  card.style.transform = '';
+  card.style.opacity = '';
+  renderDeck();
+  setTimeout(() => delete card.dataset.swiped, 220);
+}
+
+deckCards.forEach((card, index) => {
+  card.addEventListener('click', e => {
+    if (card.dataset.swiped === '1') {
+      e.preventDefault();
+      return;
+    }
+    bringToFront(index);
+  });
+
+  card.addEventListener('pointerdown', e => {
+    if (!canSwipeDeck() || !card.classList.contains('is-active') || deck?.classList.contains('is-shuffling')) return;
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
+
+    swipeState = {
+      card,
+      pointerId: e.pointerId,
+      startX: e.clientX,
+      startY: e.clientY,
+      lastX: e.clientX,
+      lastTime: performance.now(),
+      velocityX: 0,
+      axis: null
+    };
+    card.setPointerCapture?.(e.pointerId);
+  });
+
+  card.addEventListener('pointermove', e => {
+    if (!swipeState || swipeState.card !== card || swipeState.pointerId !== e.pointerId) return;
+
+    const dx = e.clientX - swipeState.startX;
+    const dy = e.clientY - swipeState.startY;
+
+    if (!swipeState.axis && Math.hypot(dx, dy) > 8) {
+      swipeState.axis = Math.abs(dx) > Math.abs(dy) * 1.15 ? 'x' : 'y';
+      if (swipeState.axis === 'x') {
+        card.classList.add('is-dragging');
+        card.dataset.swiped = '1';
+      }
+    }
+
+    if (swipeState.axis !== 'x') return;
+    if (e.cancelable) e.preventDefault();
+
+    const now = performance.now();
+    const dt = Math.max(1, now - swipeState.lastTime);
+    swipeState.velocityX = (e.clientX - swipeState.lastX) / dt;
+    swipeState.lastX = e.clientX;
+    swipeState.lastTime = now;
+
+    const resistance = 1 - Math.min(Math.abs(dx) / (innerWidth * 1.35), .28);
+    const dragX = dx * resistance;
+    const dragY = clamp(dy * .12, -18, 18);
+    const rotation = clamp(dx * .035, -13, 13);
+    const fade = clamp(1 - Math.abs(dx) / (innerWidth * 1.6), .72, 1);
+
+    card.style.transform = `translate(-50%,-50%) translate(calc(var(--dx) + ${dragX}px),calc(var(--dy) + ${dragY}px)) rotate(calc(var(--rot) + ${rotation}deg)) scale(calc(var(--scale) + .012))`;
+    card.style.opacity = String(fade);
+  });
+
+  const release = e => {
+    if (!swipeState || swipeState.card !== card || swipeState.pointerId !== e.pointerId) return;
+
+    const dx = e.clientX - swipeState.startX;
+    const axis = swipeState.axis;
+    const velocity = swipeState.velocityX;
+    swipeState = null;
+
+    try { card.releasePointerCapture?.(e.pointerId); } catch (_) {}
+
+    if (axis !== 'x') {
+      resetDraggedCard(card);
+      return;
+    }
+
+    const distanceThreshold = Math.min(96, innerWidth * .23);
+    const velocityThreshold = .48;
+    const committed = Math.abs(dx) >= distanceThreshold || Math.abs(velocity) >= velocityThreshold;
+
+    if (!committed) {
+      resetDraggedCard(card);
+      return;
+    }
+
+    finishSwipe(dx < 0 ? 'left' : 'right', card);
+  };
+
+  card.addEventListener('pointerup', release);
+  card.addEventListener('pointercancel', e => {
+    if (swipeState?.card === card) swipeState = null;
+    resetDraggedCard(card);
+  });
+});
+
 document.getElementById('shuffleDeck')?.addEventListener('click', shuffleProjectDeck);
 document.getElementById('nextProject')?.addEventListener('click', () => {
   const first = deckOrder.shift();
