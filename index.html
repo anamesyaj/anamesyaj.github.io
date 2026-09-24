@@ -1,307 +1,253 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#07090d">
-  <meta name="description" content="Mark Jay Lisay — AI workflow, product operations, automation and QA portfolio.">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta property="og:title" content="Mark Jay Lisay — Systems in Motion">
-  <meta property="og:description" content="Interactive portfolio for AI-assisted product building, automation, operations and QA.">
-  <meta property="og:image" content="https://avatars.githubusercontent.com/u/305338593?v=4&amp;s=460">
-  <title>Mark Jay Lisay — Systems in Motion</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css?v=canvas-v10-mobile-perf">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0f172a">
+  <meta name="description" content="Mark Jay Lisay is an AI Workflow and Product Operations Specialist building human-controlled automation and testable digital products, grounded in four years of operations experience at Accenture.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://anamesyaj.github.io/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Mark Jay Lisay  -  AI Workflow & Product Operations">
+  <meta property="og:description" content="From complex operations to systems that work. Explore AI-assisted product building, automation, QA and measurable operations results.">
+  <meta property="og:url" content="https://anamesyaj.github.io/">
+  <meta property="og:image" content="https://avatars.githubusercontent.com/u/305338593?v=4">
+  <title>Mark Jay Lisay | AI Workflow, Automation & Product Operations</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/site.css">
+  <script>
+    try { if (localStorage.getItem('mj-theme') === 'light') document.documentElement.dataset.theme = 'light'; } catch (e) {}
+  </script>
+  <script type="application/ld+json">{
+    "@context":"https://schema.org",
+    "@type":"Person",
+    "name":"Mark Jay Lisay",
+    "url":"https://anamesyaj.github.io/",
+    "image":"https://avatars.githubusercontent.com/u/305338593?v=4",
+    "jobTitle":"AI Workflow & Product Operations Specialist",
+    "email":"mailto:markjay.lisay@gmail.com",
+    "sameAs":["https://github.com/anamesyaj","https://linkedin.com/in/markjaylisay"],
+    "alumniOf":{"@type":"CollegeOrUniversity","name":"Mariano Marcos State University"},
+    "knowsAbout":["AI-assisted workflows","Process automation","Quality assurance","Product requirements","Financial reconciliation"]
+  }</script>
 </head>
-<body data-scene="intro">
-  <div class="boot" id="boot" aria-hidden="true">
-    <div class="boot__grid"></div>
-    <div class="boot__copy">
-      <span>MJ / PORTFOLIO SYSTEM</span>
-      <strong>INITIALIZING CANVAS</strong>
-      <i></i>
+<body class="antialiased">
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <!-- STICKY NAVBAR -->
+  <header id="site-header" class="site-header sticky top-0 z-50">
+    <div class="mx-auto flex h-[72px] max-w-6xl items-center justify-between gap-4 px-5 sm:px-7 lg:px-10">
+      <a class="brand flex shrink-0 items-center gap-3" href="#top" aria-label="Mark Jay Lisay, return to top">
+        <span class="brand-mark" aria-hidden="true">MJ<span>.</span></span>
+        <span class="hidden font-semibold tracking-tight sm:inline">Mark Jay Lisay</span>
+      </a>
+      <nav id="primary-nav" class="primary-nav" aria-label="Primary navigation">
+        <a class="nav-link is-current" href="#top">Home</a>
+        <a class="nav-link" href="#about">About</a>
+        <a class="nav-link" href="#skills">Skills</a>
+        <a class="nav-link" href="#projects">Work</a>
+        <a class="nav-link" href="#approach">Approach</a>
+        <a class="nav-link" href="#experience">Experience</a>
+        <a class="nav-link" href="#contact">Contact</a>
+      </nav>
+      <div class="flex items-center gap-2">
+        <button id="theme-toggle" class="icon-button" type="button" aria-label="Switch to light theme" aria-pressed="false" title="Toggle color theme">
+          <svg class="theme-sun" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+          <svg class="theme-moon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"/></svg>
+        </button>
+        <a href="#contact" class="nav-contact hidden sm:inline-flex">Let's talk <span aria-hidden="true">↗</span></a>
+        <button id="menu-toggle" class="icon-button menu-toggle" type="button" aria-controls="primary-nav" aria-expanded="false" aria-label="Open navigation menu">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
     </div>
-  </div>
-
-  <canvas id="ambient" aria-hidden="true"></canvas>
-  <div class="ambient-world" aria-hidden="true">
-    <div class="ambient-world__mesh"></div>
-    <div class="ambient-world__orb ambient-world__orb--a"></div>
-    <div class="ambient-world__orb ambient-world__orb--b"></div>
-    <div class="ambient-world__orb ambient-world__orb--c"></div>
-    <div class="ambient-world__arc ambient-world__arc--a"></div>
-    <div class="ambient-world__arc ambient-world__arc--b"></div>
-    <div class="ambient-world__beam"></div>
-  </div>
-  <div class="cursor-orb" id="cursorOrb" aria-hidden="true"></div>
-  <div class="grain" aria-hidden="true"></div>
-  <div class="scanline" aria-hidden="true"></div>
-
-  <header class="hud">
-    <a class="hud__brand" href="#intro" aria-label="Back to intro">
-      <span class="hud__dot"></span>
-      <span>MARK JAY LISAY</span>
-    </a>
-    <div class="hud__mode"><span>INTERACTIVE PORTFOLIO</span><b id="hudScene">00 / ORIGIN</b></div>
-    <div class="hud__status"><i></i><span>OPERATIONS · AI WORKFLOW · PRODUCT SYSTEMS</span></div>
   </header>
 
-  <nav class="scene-rail" aria-label="Portfolio scenes">
-    <button class="scene-rail__item is-active" data-target="intro"><span>00</span><b>Origin</b></button>
-    <button class="scene-rail__item" data-target="work"><span>01</span><b>Work</b></button>
-    <button class="scene-rail__item" data-target="system"><span>02</span><b>Method</b></button>
-    <button class="scene-rail__item" data-target="proof"><span>03</span><b>Proof</b></button>
-    <button class="scene-rail__item" data-target="about"><span>04</span><b>Profile</b></button>
-  </nav>
-
-  <div class="progress-rail" aria-hidden="true"><i id="progressBar"></i></div>
-
-  <main class="canvas">
-    <section class="scene scene--intro" id="intro" data-label="00 / ORIGIN">
-      <div class="scene-grid"></div>
-
-      <div class="hero-kicker reveal">
-        <span>AI WORKFLOW</span><i></i><span>PRODUCT OPERATIONS</span><i></i><span>AUTOMATION</span>
-      </div>
-
-      <div class="hero-title reveal" data-depth="0.28">
-        <span class="hero-title__ghost">SYSTEMS</span>
-        <h1><span>SYSTEMS</span><span>IN MOTION.</span></h1>
-      </div>
-
-      <div class="hero-orbit" aria-hidden="true" data-depth="0.46">
-        <div class="hero-orbit__ring hero-orbit__ring--a"></div>
-        <div class="hero-orbit__ring hero-orbit__ring--b"></div>
-        <div class="hero-orbit__core hero-profile">
-          <img src="https://avatars.githubusercontent.com/u/305338593?v=4&amp;s=460" alt="Mark Jay Lisay GitHub profile photo">
-          <div class="hero-profile__caption">
-            <span>MARK JAY LISAY</span>
-            <strong>AI WORKFLOW</strong>
-            <small>PRODUCT OPERATIONS</small>
+  <main id="main">
+    <!-- HERO -->
+    <section id="top" class="hero section-anchor relative isolate overflow-hidden">
+      <div class="hero-grid" aria-hidden="true"></div>
+      <div class="mx-auto grid max-w-6xl items-center gap-11 px-5 pb-20 pt-16 sm:px-7 sm:pb-24 sm:pt-20 lg:grid-cols-[1.15fr_.85fr] lg:gap-16 lg:px-10 lg:pb-28 lg:pt-28">
+        <div class="relative z-10">
+          <p class="eyebrow mb-6"><span class="eyebrow-dot" aria-hidden="true"></span> OPERATIONS · AI WORKFLOWS · QA & AUTOMATION</p>
+          <h1 class="hero-heading max-w-[750px] font-extrabold tracking-tight">Turn complex operations into <span class="accent-gradient">systems your team can trust.</span></h1>
+          <p class="body-lead mt-7 max-w-[600px]">When manual processes create rework and AI outputs need oversight, I bring operations discipline, automation and evidence-led QA to the solution.</p>
+          <div class="mt-9 flex flex-wrap items-center gap-3">
+            <a href="#projects" class="button button-primary">Explore Work <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
+            <a href="assets/Mark_Jay_Lisay_Public_Resume.pdf" download="Mark_Jay_Lisay_Public_Resume.pdf" type="application/pdf" class="button button-quiet">Download Résumé <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 3v12m-4-4 4 4 4-4M4 17v3h16v-3"/></svg></a>
+          </div>
+          <div class="hero-proof mt-12 grid max-w-[580px] grid-cols-3 gap-4 border-t pt-6 sm:gap-7">
+            <div><strong>130<span class="stat-suffix">/mo</span></strong><span>Business accounts</span></div>
+            <div><strong>97<span class="stat-suffix">%</span></strong><span>Average quality audit</span></div>
+            <div><strong>98<span class="stat-suffix">%</span></strong><span>SLA performance</span></div>
           </div>
         </div>
-        <span class="hero-orbit__node n1"><b>4Y</b><small>OPS</small></span>
-        <span class="hero-orbit__node n2"><b>97%</b><small>QA</small></span>
-        <span class="hero-orbit__node n3"><b>98%</b><small>SLA</small></span>
-        <span class="hero-orbit__node n4"><b>4</b><small>SYSTEMS</small></span>
-      </div>
-
-      <div class="hero-manifesto reveal">
-        <span class="micro-label">OPERATING PRINCIPLE / 01</span>
-        <p>I turn ambiguous work into <strong>clear systems</strong> that can be tested, operated, and improved.</p>
-      </div>
-
-      <div class="hero-index reveal">
-        <span>01</span><p>Define the behavior.</p>
-        <span>02</span><p>Direct the system.</p>
-        <span>03</span><p>Verify the evidence.</p>
-        <span>04</span><p>Ship with control.</p>
-      </div>
-
-      <a class="scene-cta magnetic reveal" href="#work"><span>ENTER THE ARCHIVE</span><b>↘</b></a>
-
-
-    </section>
-
-    <section class="scene scene--work" id="work" data-label="01 / PROJECT ARCHIVE">
-      <div class="scene-grid"></div>
-
-      <header class="scene-heading reveal">
-        <div>
-          <span class="micro-label">PROJECT ARCHIVE / 04 ACTIVE SYSTEMS</span>
-          <h2>Pull a system<br><em>from the deck.</em></h2>
-        </div>
-        <p>Not a project gallery. A set of operating systems with different constraints, evidence, and visual identities.</p>
-      </header>
-
-      <div class="work-stage reveal">
-        <div class="deck-console">
-          <div class="deck-console__top">
-            <span><i></i> CASE DECK</span>
-            <div>
-              <button id="shuffleDeck" type="button">SHUFFLE</button>
-              <button id="nextProject" type="button">NEXT →</button>
+        <div class="hero-visual relative mx-auto w-full max-w-[460px] lg:ml-auto">
+          <div class="portrait-halo" aria-hidden="true"></div>
+          <div class="portrait-card">
+            <div class="portrait-card-header"><span><span class="status-dot" aria-hidden="true"></span> OPERATIONS × BUILDER</span><span>01 / PROFILE</span></div>
+            <div class="portrait-wrap">
+              <div class="portrait-fallback" aria-hidden="true">MJ<span>.</span></div>
+              <img src="https://avatars.githubusercontent.com/u/305338593?v=4&amp;size=512" alt="Mark Jay Lisay  -  GitHub profile photograph" width="360" height="360" fetchpriority="high" decoding="async" referrerpolicy="no-referrer" onerror="this.hidden=true">
             </div>
+            <div class="portrait-card-footer"><div><strong>Mark Jay Lisay</strong><span>Ilocos Norte, Philippines</span></div><span class="portrait-chevron" aria-hidden="true">↗</span></div>
           </div>
-
-          <div class="project-deck" id="projectDeck">
-            <button class="project-card project-card--gold" data-project="gold" type="button">
-              <span class="project-card__edge">01 / PRIVATE ALPHA</span>
-              <div class="project-card__meta"><span>GOVERNED TRADING OPERATIONS</span><b>01</b></div>
-              <div class="project-card__asset"><img src="/assets/projects/gold-ops-os-logo.png" alt=""></div>
-              <div class="project-card__name"><small>FOUNDER / AI-ASSISTED PRODUCT BUILDER</small><strong>Gold Ops OS</strong></div>
-              <div class="project-card__metric"><strong>836/836</strong><span>Vitest</span></div>
-            </button>
-
-            <button class="project-card project-card--aspirva" data-project="aspirva" type="button">
-              <span class="project-card__edge">02 / WINDOWS PRODUCT</span>
-              <div class="project-card__meta"><span>CAREER OPERATING SYSTEM</span><b>02</b></div>
-              <div class="project-card__asset"><img src="/assets/projects/aspirva-symbol.jpg" alt=""></div>
-              <div class="project-card__name"><small>PRODUCT OWNER / AI-ASSISTED BUILDER</small><strong>Aspirva</strong></div>
-              <div class="project-card__metric"><strong>310</strong><span>tests passing</span></div>
-            </button>
-
-            <button class="project-card project-card--growth" data-project="growth" type="button">
-              <span class="project-card__edge">03 / CREATOR INTELLIGENCE</span>
-              <div class="project-card__meta"><span>EVIDENCE-DRIVEN CHANNEL OPERATOR</span><b>03</b></div>
-              <div class="project-card__asset project-card__asset--growth"><img src="/assets/projects/puddleloom-mark.svg" alt=""><div><strong>PuddleLoom</strong><span>GROWTH OS</span></div></div>
-              <div class="project-card__name"><small>PRODUCT OWNER / AI WORKFLOW DESIGN</small><strong>Growth OS</strong></div>
-              <div class="project-card__metric"><strong>257/257</strong><span>R3 tests</span></div>
-            </button>
-
-            <button class="project-card project-card--studio" data-project="studio" type="button">
-              <span class="project-card__edge">04 / MEDIA AUTOMATION</span>
-              <div class="project-card__meta"><span>LOCAL-FIRST PRODUCTION SYSTEM</span><b>04</b></div>
-              <div class="project-card__asset project-card__asset--studio"><img src="/assets/projects/puddleloom-studio-logo.svg" alt=""></div>
-              <div class="project-card__name"><small>WORKFLOW / AUTOMATION BUILDER</small><strong>PuddleLoom Studio</strong></div>
-              <div class="project-card__metric"><strong>LOCAL</strong><span>media engine</span></div>
-            </button>
-          </div>
-
-          <span class="deck-console__hint"><span class="hint-desktop">CLICK A CARD TO REORDER THE ARCHIVE</span><span class="hint-mobile">SWIPE ACTIVE CARD · LEFT NEXT · RIGHT PREVIOUS</span></span>
-          <div class="mobile-project-readout" id="mobileProjectReadout" aria-live="polite">
-            <div class="mobile-project-readout__top">
-              <span id="mobileSummaryCase">CASE 01</span>
-              <b id="mobileSummaryState">PRIVATE ALPHA</b>
-            </div>
-            <h3 id="mobileSummaryTitle">Gold Ops OS</h3>
-            <p id="mobileSummaryText">Governed XAUUSD trading-operations platform with explicit human authorization, security gates, broker-secret custody, and evidence-driven release checks.</p>
-            <div class="mobile-project-readout__proof">
-              <span>PROOF</span>
-              <strong id="mobileSummaryProof">836/836 Vitest · 782 database tests</strong>
-            </div>
-          </div>
-        </div>
-
-        <aside class="dossier" id="projectDossier">
-          <div class="dossier__cross x1"></div><div class="dossier__cross x2"></div>
-          <div class="dossier__top"><span id="dossierCase">CASE FILE / 01</span><b id="dossierState">PRIVATE ALPHA</b></div>
-          <div class="dossier__signal"><i></i><span id="dossierKicker">GOVERNED TRADING OPERATIONS</span></div>
-          <h3 id="dossierTitle">Gold Ops OS</h3>
-          <p id="dossierSummary">Governed XAUUSD trading-operations platform with explicit human authorization, security gates, broker-secret custody, and evidence-driven release checks.</p>
-          <dl>
-            <div><dt>ROLE</dt><dd id="dossierRole">Founder · AI-Assisted Product & Workflow Builder</dd></div>
-            <div><dt>PROOF</dt><dd id="dossierProof">836/836 Vitest · 782 database tests</dd></div>
-          </dl>
-          <div class="dossier__stack" id="dossierStack"><span>Supabase</span><span>Vercel</span><span>Vitest</span><span>Product Ops</span></div>
-          <div class="dossier__serial"><span id="dossierSerial">BUILD EVIDENCE / 2026</span><span>TESTED · DOCUMENTED · HUMAN-CONTROLLED</span></div>
-        </aside>
-      </div>
-    </section>
-
-    <section class="scene scene--system" id="system" data-label="02 / METHOD">
-      <div class="scene-grid"></div>
-
-      <header class="scene-heading scene-heading--system reveal">
-        <div>
-          <span class="micro-label">METHOD / NOT A MAGIC TRICK</span>
-          <h2>How the system<br><em>gets controlled.</em></h2>
-        </div>
-        <p>AI is useful when the workflow around it is explicit. The model is one component. The operating system is the product.</p>
-      </header>
-
-      <div class="system-map reveal" id="systemMap">
-        <svg class="system-map__wires" viewBox="0 0 1000 620" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M500 310 C380 310 335 180 205 165"></path>
-          <path d="M500 310 C620 310 665 180 795 165"></path>
-          <path d="M500 310 C380 310 335 440 205 455"></path>
-          <path d="M500 310 C620 310 665 440 795 455"></path>
-        </svg>
-
-        <button class="system-node n-frame is-active" data-step="frame" type="button"><span>01</span><strong>FRAME</strong><small>Problem → desired behavior</small></button>
-        <button class="system-node n-direct" data-step="direct" type="button"><span>02</span><strong>DIRECT</strong><small>Missions → constraints</small></button>
-        <button class="system-node n-verify" data-step="verify" type="button"><span>03</span><strong>VERIFY</strong><small>Tests → evidence</small></button>
-        <button class="system-node n-ship" data-step="ship" type="button"><span>04</span><strong>SHIP</strong><small>Gate → release</small></button>
-
-        <div class="system-core" data-depth="0.2">
-          <div class="system-core__pulse"></div>
-          <span>OWNER</span><strong>CONTROL</strong><small>NO SILENT AUTHORITY</small>
-        </div>
-
-        <div class="system-detail" id="systemDetail">
-          <span id="systemDetailNo">01 / FRAME</span>
-          <strong id="systemDetailTitle">Make the desired behavior explicit.</strong>
-          <p id="systemDetailCopy">Define the problem, boundaries, evidence required, and what must remain under human control before implementation begins.</p>
-        </div>
-      </div>
-
-      <div class="method-strip reveal">
-        <span>PROBLEM</span><i>→</i><span>ACCEPTANCE</span><i>→</i><span>AGENT MISSION</span><i>→</i><span>TEST</span><i>→</i><span>EVIDENCE</span><i>→</i><span>RELEASE</span>
-      </div>
-    </section>
-
-    <section class="scene scene--proof" id="proof" data-label="03 / PROOF">
-      <div class="scene-grid"></div>
-
-      <div class="proof-title reveal"><span class="micro-label">OPERATIONS FOUNDATION / MEASURED WORK</span><h2>Evidence<br>before adjectives.</h2></div>
-
-      <div class="proof-field reveal">
-        <article class="proof-number p1"><span>ACCOUNT LOAD</span><strong data-count="130">0</strong><small>business accounts / month</small></article>
-        <article class="proof-number p2"><span>QUALITY</span><strong class="percent" data-count="97">0</strong><small>average annual audit score</small></article>
-        <article class="proof-number p3"><span>SLA</span><strong class="percent" data-count="98">0</strong><small>service performance</small></article>
-        <article class="proof-number p4"><span>AUTOMATION</span><strong data-count="5">0</strong><small>+ hours removed from a complex reconciliation case</small></article>
-
-        <div class="proof-scan"><i></i><span>OPERATIONS SIGNAL / VERIFIED EXPERIENCE</span></div>
-      </div>
-
-      <div class="experience-line reveal">
-        <div class="experience-line__axis"><span>2022</span><span>2023</span><span>2024</span><span>2025</span><span>2026</span></div>
-        <div class="experience-line__track">
-          <div class="experience-line__segment s1"><i></i><span>Transaction Processor</span></div>
-          <div class="experience-line__segment s2"><i></i><span>Appeals Analyst</span></div>
-          <div class="experience-line__segment s3"><i></i><span>Premium Reconciliation Analyst</span></div>
-          <div class="experience-line__award"><strong>TOP 1 AGENT</strong><span>+ Top Performer · 2023</span></div>
+          <div class="portrait-side-note"><span class="mini-spark" aria-hidden="true">✳</span> Operational rigor. Human-controlled AI.</div>
         </div>
       </div>
     </section>
 
-    <section class="scene scene--about" id="about" data-label="04 / PROFILE">
-      <div class="scene-grid"></div>
 
-      <div class="about-statement reveal">
-        <span class="micro-label">PROFILE / OPERATIONS × BUILDER</span>
-        <h2>I work best where the process is <em>repetitive, ambiguous, fragile,</em> or difficult to explain.</h2>
+    <!-- THE HIRING MANAGER'S PROBLEM -->
+    <section id="challenge" class="section-anchor section-block challenge-section">
+      <div class="mx-auto max-w-6xl px-5 sm:px-7 lg:px-10">
+        <div class="section-intro reveal"><div><span class="section-kicker">THE PROBLEM</span><h2 class="section-heading mt-4">The work is complex.<br><span class="accent-text">The system should not be.</span></h2></div><p class="body-copy">For operations, automation and product teams that need to deliver more without sacrificing quality or control.</p></div>
+        <div class="challenge-grid mt-9 grid gap-4 md:grid-cols-3">
+          <article class="challenge-card reveal"><span class="challenge-number">01 / THE BUSINESS PROBLEM</span><h3>Manual exceptions slow delivery.</h3><p>Disconnected data, repetitive checks and unclear handoffs turn routine work into preventable rework.</p></article>
+          <article class="challenge-card reveal"><span class="challenge-number">02 / THE LEADERSHIP PROBLEM</span><h3>Progress needs proof.</h3><p>Teams need clear ownership, visible quality measures and reliable evidence before approving new workflows.</p></article>
+          <article class="challenge-card reveal"><span class="challenge-number">03 / THE PRINCIPLE</span><h3>Automation should earn trust.</h3><p>Useful AI reduces effort while people retain authority over risk, exceptions and consequential decisions.</p></article>
+        </div>
       </div>
+    </section>
 
-      <div class="about-orbit reveal">
-        <div class="about-orbit__core profile-portrait">
-          <img src="https://avatars.githubusercontent.com/u/305338593?v=4&amp;s=460" alt="Mark Jay Lisay GitHub profile photo">
-          <div class="profile-portrait__meta">
-            <span>MARK JAY LISAY</span>
-            <strong>@anamesyaj</strong>
-            <small>AI WORKFLOW + PRODUCT OPERATIONS</small>
+    <!-- ABOUT ME -->
+    <section id="about" class="section-anchor section-block">
+      <div class="mx-auto grid max-w-6xl gap-9 px-5 sm:px-7 lg:grid-cols-[.78fr_1.22fr] lg:gap-20 lg:px-10">
+        <div class="reveal"><span class="section-kicker">01 / ABOUT ME</span><h2 class="section-heading mt-4">I know where the<br><span class="accent-text">friction hides.</span></h2></div>
+        <div class="reveal">
+          <p class="about-intro">I have worked through the records that do not match, the exceptions that need investigation and the deadlines that cannot slip. That is why I start by understanding the real process before building anything around it.</p>
+          <p class="body-copy mt-5">Across four years at Accenture, I built a foundation in healthcare and financial operations. Today I apply it to AI-assisted product building: define requirements, direct agents, inspect outputs, test the result and keep consequential decisions under human control.</p>
+          <div class="about-callout mt-8"><span class="callout-rule" aria-hidden="true"></span><p>My mission: make complex work easier to run, easier to verify and easier for people to trust.</p></div>
+          <div class="mt-8 flex flex-wrap gap-3 text-sm"><span class="subtle-pill">4 years at Accenture</span><span class="subtle-pill">Finance + healthcare operations</span><span class="subtle-pill">Cum Laude · MMSU</span></div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- MEASURED TRACK RECORD -->
+    <section id="results" class="section-anchor section-block results-section section-alt">
+      <div class="mx-auto max-w-6xl px-5 sm:px-7 lg:px-10">
+        <div class="section-intro reveal"><div><span class="section-kicker">DOCUMENTED TRACK RECORD</span><h2 class="section-heading mt-4">Results, not<br><span class="accent-text">just responsibilities.</span></h2></div><p class="body-copy">Measured operations results from my Accenture work, separate from the test checkpoints of my AI-assisted product projects.</p></div>
+        <div class="results-grid mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <article class="result-tile reveal"><strong>130<span>/mo</span></strong><h3>Business accounts</h3><p>Premium reconciliation across business-level and member-level records.</p></article>
+          <article class="result-tile reveal"><strong>97<span>%</span></strong><h3>Average quality audit</h3><p>Maintained through discrepancy investigation and controlled processing.</p></article>
+          <article class="result-tile reveal"><strong>98<span>%</span></strong><h3>SLA performance</h3><p>Delivery discipline across recurring reconciliation workloads.</p></article>
+          <article class="result-tile reveal"><strong>5<span>+ hrs</span></strong><h3>Time removed</h3><p>One complex reconciliation case accelerated with an Excel VBA macro.</p></article>
+        </div>
+        <article class="impact-story reveal mt-7">
+          <div><span class="section-kicker">REAL-WORLD AUTOMATION CASE</span><h3>When matching payments became the bottleneck</h3><p>Complex member-level reconciliation involved repetitive matching and exception handling. I built an Excel VBA macro to automatically match qualifying payments, while keeping review of the remaining exceptions in the workflow.</p></div>
+          <div class="impact-outcome"><span>DOCUMENTED OUTCOME</span><strong>5+ hours</strong><p>Reduced processing time for one super-complex reconciliation case.</p><small>What this means for your team: automate repeatable decisions first, then focus human attention where it adds the most value.</small></div>
+        </article>
+        <p class="recognition-line mt-6">Also recognized as Top 1 Agent and Top Performer for two months in 2023, with 100% performance and quality-audit results during that period.</p>
+      </div>
+    </section>
+
+    <!-- SKILLS GRID -->
+    <section id="skills" class="section-anchor section-block section-alt">
+      <div class="mx-auto max-w-6xl px-5 sm:px-7 lg:px-10">
+        <div class="section-intro reveal"><div><span class="section-kicker">02 / SKILLS</span><h2 class="section-heading mt-4">The tools. <span class="accent-text">The thinking.</span></h2></div><p class="body-copy">Technical workflows meet the operational judgment needed to ship them responsibly.</p></div>
+        <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:mt-12 lg:grid-cols-3">
+          <article class="skill-card reveal"><div class="skill-top"><span class="skill-icon">01</span><span class="skill-kind">TECHNICAL</span></div><h3>AI & Automation</h3><p>AI-agent coordination, prompt engineering, n8n, webhooks and output review.</p><div class="skill-tags"><span>ChatGPT</span><span>Claude Code</span><span>Gemini</span><span>n8n</span></div></article>
+          <article class="skill-card reveal"><div class="skill-top"><span class="skill-icon">02</span><span class="skill-kind">PRODUCT</span></div><h3>Product & Delivery</h3><p>Requirements, user flows, acceptance criteria, release gates and documentation.</p><div class="skill-tags"><span>Product scope</span><span>Git/GitHub</span><span>Human-in-loop</span></div></article>
+          <article class="skill-card reveal"><div class="skill-top"><span class="skill-icon">03</span><span class="skill-kind">TECHNICAL</span></div><h3>QA & Engineering</h3><p>Functional and regression testing, defect review and evidence-based release checks.</p><div class="skill-tags"><span>GitHub Actions</span><span>REST / JSON</span><span>Python & TS foundations</span></div></article>
+          <article class="skill-card reveal"><div class="skill-top"><span class="skill-icon">04</span><span class="skill-kind">PLATFORMS</span></div><h3>Cloud & Integrations</h3><p>Deployments and product workflows spanning databases, APIs and cloud tools.</p><div class="skill-tags"><span>Supabase</span><span>Azure</span><span>Vercel</span><span>Turso</span></div></article>
+          <article class="skill-card reveal"><div class="skill-top"><span class="skill-icon">05</span><span class="skill-kind">OPERATIONS</span></div><h3>Data & Process</h3><p>Reconciliation, discrepancy investigation, spreadsheet automation and reporting.</p><div class="skill-tags"><span>Excel VBA</span><span>Power Query</span><span>QuickBooks</span></div></article>
+          <article class="skill-card reveal"><div class="skill-top"><span class="skill-icon">06</span><span class="skill-kind">SOFT SKILLS</span></div><h3>How I Work</h3><p>Structured problem-solving, clear documentation, careful review and continuous improvement.</p><div class="skill-tags"><span>Ownership</span><span>Clarity</span><span>Quality focus</span></div></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURED PROJECTS -->
+    <section id="projects" class="section-anchor section-block">
+      <div class="mx-auto max-w-6xl px-5 sm:px-7 lg:px-10">
+        <div class="section-intro reveal"><div><span class="section-kicker">03 / FEATURED PROJECTS</span><h2 class="section-heading mt-4">Built with purpose.<br><span class="accent-text">Checked with evidence.</span></h2></div><p class="body-copy">Three AI-assisted products, each with explicit boundaries and documented delivery checkpoints.</p></div>
+        <div class="mt-10 grid gap-5 lg:mt-12 lg:grid-cols-3">
+          <article class="project-card reveal" aria-labelledby="project-gold-title">
+            <div class="project-art project-art-gold"><span class="project-art-corner">01 / GOVERNED OPS</span><img src="https://anamesyaj.github.io/assets/projects/gold-ops-os-logo.png" alt="Gold Ops OS logo" loading="lazy" decoding="async" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span class="project-art-fallback" hidden>G<span>O</span></span><div class="project-art-floor"></div></div>
+            <div class="project-content"><div class="project-status"><span class="status-dot gold-dot"></span> PRIVATE ALPHA</div><h3 id="project-gold-title">Gold Ops OS</h3><p>Governed XAUUSD operations with human authorization, security gates and evidence-led release checks - not an autonomous trading bot.</p><div class="project-metric"><strong>836 / 836</strong><span>Vitest tests passed · 782 database tests at documented checkpoint</span></div><div class="project-stack"><span>Supabase</span><span>PostgreSQL</span><span>Vercel</span><span>Vitest</span></div><details class="case-expand"><summary>Explore the case study <span aria-hidden="true">+</span></summary><div class="case-steps"><div><span>THE PROBLEM</span><p>Trading workflows need explicit approvals and careful handling of credentials.</p></div><div><span>MY APPROACH</span><p>I defined bounded agent missions, security and release gates, and coordinated auth, Supabase/PostgreSQL and Vercel delivery.</p></div><div><span>DOCUMENTED OUTCOME</span><p>836/836 Vitest tests across 62 files and 782 database tests at the documented checkpoint; private alpha.</p></div><div><span>WHY IT MATTERS</span><p>I can structure and verify high-stakes workflows without confusing automation with authorization.</p></div></div></details></div>
+          </article>
+          <article class="project-card reveal" aria-labelledby="project-aspirva-title">
+            <div class="project-art project-art-aspirva"><span class="project-art-corner">02 / CAREER SYSTEM</span><img src="https://anamesyaj.github.io/assets/projects/aspirva-symbol.jpg" alt="Aspirva logo" loading="lazy" decoding="async" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span class="project-art-fallback" hidden>A<span>.</span></span><div class="project-art-floor"></div></div>
+            <div class="project-content"><div class="project-status"><span class="status-dot teal-dot"></span> WINDOWS PRE-RELEASE</div><h3 id="project-aspirva-title">Aspirva</h3><p>A career operating system bringing together job discovery, candidate intelligence, résumé workflows and interview support.</p><div class="project-metric"><strong>310</strong><span>Automated tests passing in audited Windows lineage; Store certification pending</span></div><div class="project-stack"><span>Windows</span><span>AI workflows</span><span>Automated QA</span><span>MSIX</span></div><details class="case-expand"><summary>Explore the case study <span aria-hidden="true">+</span></summary><div class="case-steps"><div><span>THE PROBLEM</span><p>Career decisions are fragmented across job discovery, résumé preparation and interview work.</p></div><div><span>MY APPROACH</span><p>I directed a local-first Windows career operating system with candidate intelligence, structured workflows and release-readiness checks.</p></div><div><span>DOCUMENTED OUTCOME</span><p>310 passing automated tests in the audited Windows lineage. Store certification remains a release-stage gate.</p></div><div><span>WHY IT MATTERS</span><p>I connect a user problem to product requirements, recovery work and measurable QA before release.</p></div></div></details></div>
+          </article>
+          <article class="project-card reveal" aria-labelledby="project-growth-title">
+            <div class="project-art project-art-growth"><span class="project-art-corner">03 / CREATOR INTELLIGENCE</span><img src="https://anamesyaj.github.io/assets/projects/puddleloom-mark.svg" alt="PuddleLoom logo" loading="lazy" decoding="async" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span class="project-art-fallback" hidden>P<span>L</span></span><div class="project-art-floor"></div></div>
+            <div class="project-content"><div class="project-status"><span class="status-dot mint-dot"></span> CONTROLLED ACTIVATION</div><h3 id="project-growth-title">PuddleLoom Growth OS</h3><p>YouTube intelligence organized around an evidence-driven loop, with privacy, authenticity and owner-control boundaries.</p><div class="project-metric"><strong>257 / 257</strong><span>Tests passing at merged R3 checkpoint; AI route activation gated</span></div><div class="project-stack"><span>YouTube APIs</span><span>Turso</span><span>Azure</span><span>Gemini</span></div><details class="case-expand"><summary>Explore the case study <span aria-hidden="true">+</span></summary><div class="case-steps"><div><span>THE PROBLEM</span><p>Creators need a repeatable way to turn scattered channel analytics into controlled experiments.</p></div><div><span>MY APPROACH</span><p>I designed a documented observe-to-learn loop with YouTube APIs, durable state, AI routing and owner-control boundaries.</p></div><div><span>DOCUMENTED OUTCOME</span><p>257/257 tests passed at the merged R3 checkpoint; live AI-route activation remains gated.</p></div><div><span>WHY IT MATTERS</span><p>I turn disconnected signals into an auditable operator workflow instead of unverified AI advice.</p></div></div></details></div>
+          </article>
+        </div>
+        <p class="project-disclaimer mt-6">Project metrics reflect the documented checkpoints in my résumé. Private source code and unreleased capabilities are not presented as public launches.</p>
+      </div>
+    </section>
+
+
+    <!-- DOCUMENTED METHOD + ILLUSTRATIVE FIRST 90 DAYS -->
+    <section id="approach" class="section-anchor section-block plan-section">
+      <div class="mx-auto max-w-6xl px-5 sm:px-7 lg:px-10">
+        <div class="section-intro reveal"><div><span class="section-kicker">THE PLAN</span><h2 class="section-heading mt-4">A practical path<br><span class="accent-text">from friction to flow.</span></h2></div><p class="body-copy">A repeatable method shaped by operations work and AI-assisted product delivery. Human review is a design requirement, not an afterthought.</p></div>
+        <ol class="method-grid mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <li class="method-step reveal"><span>01 / FRAME</span><h3>Find the real bottleneck.</h3><p>Map the current process, owners, exceptions, baseline measures and desired behavior.</p></li>
+          <li class="method-step reveal"><span>02 / DESIGN</span><h3>Make success explicit.</h3><p>Define boundaries, user flows, acceptance criteria and the points that require a person.</p></li>
+          <li class="method-step reveal"><span>03 / VERIFY</span><h3>Demand evidence.</h3><p>Test realistic cases, review failures and compare outcomes to the agreed quality bar.</p></li>
+          <li class="method-step reveal"><span>04 / RELEASE</span><h3>Ship with control.</h3><p>Document changes, preserve approval gates and measure whether the workflow improved.</p></li>
+        </ol>
+        <div class="first90 mt-14 reveal">
+          <div class="first90-heading"><span class="section-kicker">HOW I WOULD START</span><h3>My first 90 days</h3><p>An illustrative onboarding plan for an operations, automation or AI workflow role, not a claim about a previous engagement.</p></div>
+          <ol class="first90-grid mt-6 grid gap-4 md:grid-cols-3">
+            <li><span>DAYS 01-30</span><h4>Listen and map</h4><p>Shadow the work, understand the systems and owners, establish quality and throughput baselines, and identify the three highest-friction processes.</p></li>
+            <li><span>DAYS 31-60</span><h4>Pilot with evidence</h4><p>Choose a bounded use case, agree on acceptance tests, build with stakeholder input and run a measured, human-reviewed pilot.</p></li>
+            <li><span>DAYS 61-90</span><h4>Improve and transfer</h4><p>Review time saved, quality, defects and adoption. Refine the workflow, document runbooks and recommend a controlled next release.</p></li>
+          </ol>
+        </div>
+        <div class="kpi-block mt-14 reveal">
+          <div class="section-intro"><div><span class="section-kicker">KPI FRAMEWORK</span><h3 class="kpi-heading mt-3">What I measure.</h3></div><p class="body-copy">Role-relevant indicators I would baseline and monitor in a new engagement, not claims of results already achieved there.</p></div>
+          <div class="kpi-grid mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <div><strong>Quality & accuracy</strong><span>Audit score, rework rate and defect escape</span></div>
+            <div><strong>On-time delivery</strong><span>SLA attainment and turnaround time</span></div>
+            <div><strong>Exception backlog</strong><span>Open cases, aging and resolution speed</span></div>
+            <div><strong>Time returned</strong><span>Minutes or hours eliminated per workflow</span></div>
+            <div><strong>Release confidence</strong><span>Test coverage, acceptance and failed cases</span></div>
+            <div><strong>Human control</strong><span>Approval coverage and auditable decisions</span></div>
           </div>
         </div>
-        <span class="tool-chip t1">GitHub</span><span class="tool-chip t2">Supabase</span><span class="tool-chip t3">TypeScript</span><span class="tool-chip t4">Python</span><span class="tool-chip t5">FFmpeg</span><span class="tool-chip t6">n8n</span><span class="tool-chip t7">Vercel</span><span class="tool-chip t8">Excel VBA</span>
+        <p class="risk-line mt-9">Without clear ownership and verification, automation can simply make an inconsistent process run faster. I build the checks, evidence and handoffs that make improvement sustainable.</p>
       </div>
+    </section>
 
-      <div class="profile-notes reveal">
-        <article><span>01 / OPERATIONS</span><p>Accenture · Health Operations · Transaction Premium Reconciliation · Appeals · Transaction Processing.</p></article>
-        <article><span>02 / BUILDER</span><p>Gold Ops OS · Aspirva · PuddleLoom Growth OS · PuddleLoom Studio — product direction, workflow design, QA gates, and AI-assisted implementation.</p></article>
-        <article><span>03 / EDUCATION</span><p>BSBA Marketing Management · Mariano Marcos State University · Cum Laude.</p></article>
+    <!-- EXPERIENCE TIMELINE -->
+    <section id="experience" class="section-anchor section-block section-alt">
+      <div class="mx-auto max-w-6xl px-5 sm:px-7 lg:px-10">
+        <div class="section-intro reveal"><div><span class="section-kicker">04 / EXPERIENCE</span><h2 class="section-heading mt-4">A foundation in <span class="accent-text">getting it right.</span></h2></div><p class="body-copy">Four years of finance and healthcare operations, with measurable results and targeted automation.</p></div>
+        <ol class="experience-timeline mt-10 lg:mt-12">
+          <li class="timeline-entry reveal"><div class="timeline-meta"><span class="timeline-period">DEC 2022  -  PRESENT</span><span class="timeline-company">ACCENTURE</span></div><div class="timeline-copy"><h3>Transaction Premium Reconciliation Analyst</h3><p>Manage approximately 130 business accounts monthly, investigate 30-100 discrepancies and reconcile portfolios ranging from 50 to more than 3,000 members.</p><div class="timeline-highlights"><span>97% avg. quality audit</span><span>98% SLA</span><span>5+ hours saved with Excel VBA</span></div><p class="timeline-extra">Top 1 Agent and Top Performer for two months in 2023, with 100% performance and audit results during that period.</p></div></li>
+          <li class="timeline-entry reveal"><div class="timeline-meta"><span class="timeline-period">2024  -  2025</span><span class="timeline-company">FREELANCE · CONCURRENT</span></div><div class="timeline-copy"><h3>QuickBooks Online Bookkeeper</h3><p>Supported three Philippine enterprises with transaction categorization, bank reconciliation, invoicing, financial statements and related bookkeeping workflows.</p></div></li>
+          <li class="timeline-entry reveal"><div class="timeline-meta"><span class="timeline-period">OCT  -  DEC 2022</span><span class="timeline-company">ACCENTURE</span></div><div class="timeline-copy"><h3>Appeals Analyst</h3><p>Processed more than 50 healthcare appeals per eight-hour shift, resolving incomplete information and maintaining case documentation.</p></div></li>
+          <li class="timeline-entry reveal"><div class="timeline-meta"><span class="timeline-period">AUG  -  OCT 2022</span><span class="timeline-company">ACCENTURE</span></div><div class="timeline-copy"><h3>Transaction Processor</h3><p>Verified health-plan enrollments and updated member records for accuracy and completeness.</p></div></li>
+        </ol>
+        <div class="education-strip reveal mt-7"><div><span class="section-kicker">EDUCATION</span><strong>BSBA, Marketing Management · Cum Laude</strong><span>Mariano Marcos State University · 2022</span></div><div class="education-strip-badge" aria-hidden="true">MMSU <span>↗</span></div></div>
       </div>
+    </section>
 
-      <div class="contact-channel reveal" id="contact">
-        <div>
-          <span class="micro-label">CHANNEL / OPEN</span>
-          <h3>Bring me the process<br>that should work better.</h3>
+    <!-- CONTACT AND RESUME DOWNLOAD -->
+    <section id="contact" class="section-anchor section-block contact-section">
+      <div class="mx-auto grid max-w-6xl gap-10 px-5 sm:px-7 lg:grid-cols-[.9fr_1.1fr] lg:gap-16 lg:px-10">
+        <div class="reveal"><span class="section-kicker">05 / CONTACT</span><h2 class="section-heading mt-4">Ready for a process<br>your team can <span class="accent-text">trust?</span></h2><p class="body-copy mt-6 max-w-[430px]">If you need reliable automation, stronger process controls or evidence-led AI product delivery, let's discuss the work.</p>
+          <div class="contact-details mt-9"><a href="mailto:markjay.lisay@gmail.com">markjay.lisay@gmail.com <span aria-hidden="true">↗</span></a><div class="mt-5 flex flex-wrap gap-3"><a href="https://github.com/anamesyaj" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="https://linkedin.com/in/markjaylisay" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></div></div>
+          <div class="resume-panel mt-9"><div><span class="resume-panel-label">THE FULL STORY</span><strong>Download my public résumé.</strong><span>PDF · 2 pages · contact details protected</span></div><a class="resume-icon-link" href="assets/Mark_Jay_Lisay_Public_Resume.pdf" download="Mark_Jay_Lisay_Public_Resume.pdf" type="application/pdf" aria-label="Download Mark Jay Lisay résumé PDF"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v12m-4-4 4 4 4-4M4 17v3h16v-3"/></svg></a></div>
         </div>
-        <div class="contact-channel__actions">
-          <a class="contact-link magnetic" href="mailto:markjay.lisay@gmail.com"><span>EMAIL</span><strong>markjay.lisay@gmail.com</strong><b>↗</b></a>
-          <a class="contact-link magnetic" href="https://github.com/anamesyaj" target="_blank" rel="noreferrer"><span>CODE</span><strong>github.com/anamesyaj</strong><b>↗</b></a>
-          <a class="contact-link magnetic" href="https://linkedin.com/in/markjaylisay" target="_blank" rel="noreferrer"><span>NETWORK</span><strong>LinkedIn / Mark Jay Lisay</strong><b>↗</b></a>
+        <div class="contact-form-panel reveal"><h3>Send a message</h3><p class="body-copy mt-2 text-sm">This form prepares an email in your mail app. Nothing is stored or sent until you press Send there.</p>
+          <form id="contact-form" class="mt-7 space-y-5" action="mailto:markjay.lisay@gmail.com" method="get">
+            <div class="grid gap-5 sm:grid-cols-2"><div><label for="contact-name">Your name <span aria-hidden="true">*</span></label><input id="contact-name" name="name" type="text" autocomplete="name" maxlength="100" required placeholder="Your name"></div><div><label for="contact-email">Your email <span aria-hidden="true">*</span></label><input id="contact-email" name="email" type="email" autocomplete="email" maxlength="254" required placeholder="you@example.com"></div></div>
+            <div><label for="contact-message">Your message <span aria-hidden="true">*</span></label><textarea id="contact-message" name="message" rows="5" maxlength="2500" required placeholder="Tell me a little about what you're building..."></textarea></div>
+            <button class="button button-primary w-full sm:w-auto" type="submit">Open email app <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button>
+            <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
+          </form>
+          <button id="copy-email" class="copy-email mt-4" type="button">No email app? Copy my address <span aria-hidden="true">↗</span></button>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="footer-hud">
-    <span>MJ / SYSTEMS IN MOTION / 2026</span>
-    <span>SCROLL TO NAVIGATE · CLICK TO OPERATE</span>
-  </footer>
-
-  <script src="/script.js?v=canvas-v10-mobile-perf"></script>
+  <footer class="site-footer"><div class="mx-auto flex max-w-6xl flex-col items-start justify-between gap-3 px-5 py-7 sm:flex-row sm:items-center sm:px-7 lg:px-10"><span>© <span id="year">2026</span> Mark Jay Lisay</span><span>Built with intention. Tested with evidence.</span><a href="#top" aria-label="Back to top">Back to top ↑</a></div></footer>
+  <script src="assets/site.js" defer></script>
 </body>
 </html>
