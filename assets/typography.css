@@ -1,0 +1,101 @@
+/* Mobile-first portfolio type scale, loaded after the existing theme stylesheet.
+   Uses system fonts only: zero extra font downloads and no new animation. */
+:root {
+  --type-body: clamp(.975rem, .18vw + .94rem, 1.05rem);
+  --type-small: clamp(.875rem, .14vw + .855rem, .95rem);
+  --type-label: .75rem;
+  --type-lead: clamp(1.0625rem, .6vw + .99rem, 1.25rem);
+  --type-h1: clamp(2.15rem, 1.3rem + 4.2vw, 4.65rem);
+  --type-h2: clamp(1.85rem, 1.2rem + 2.3vw, 3.2rem);
+  --type-h3: clamp(1.16rem, .8vw + 1.05rem, 1.5rem);
+  --measure: 68ch;
+}
+html { text-size-adjust:100%; -webkit-text-size-adjust:100%; }
+body {
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',sans-serif;
+  font-size:var(--type-body); line-height:1.65; font-synthesis:none; font-optical-sizing:auto;
+}
+p,li,label,input,textarea,small,span {overflow-wrap:break-word;}
+p {hanging-punctuation:first last;}
+.hero-heading {
+  font-size:var(--type-h1);line-height:1.1;letter-spacing:-.047em;
+  font-weight:800;text-wrap:balance;max-width:16ch;
+}
+.section-heading {
+  font-size:var(--type-h2);line-height:1.14;letter-spacing:-.042em;
+  font-weight:790;text-wrap:balance;
+}
+.hero-heading,.section-heading,.visitor-explorer-intro h3,.project-content h3,
+.timeline-copy h3,.method-step h3 {overflow-wrap:normal;word-break:normal;hyphens:auto;}
+.body-lead {font-size:var(--type-lead);line-height:1.65;max-width:57ch;letter-spacing:-.008em;}
+.body-copy,.about-intro,.hero-manifesto p,
+.challenge-card p,.skill-card p,.project-content>p,.method-step p,
+.timeline-copy>p,.impact-story>div:first-child p,
+.visitor-explorer-intro p,.visitor-focus-copy p,.visitor-focus-proof p,
+.first90-heading p,.first90-grid li p,.case-steps p,
+.kpi-grid span,.risk-line,.recognition-line {
+  font-size:var(--type-body);line-height:1.67;
+}
+.body-copy,.about-intro,.impact-story>div:first-child p,.risk-line {max-width:var(--measure);}
+.about-intro {font-size:clamp(1.075rem,.65vw + 1.02rem,1.34rem);line-height:1.65;letter-spacing:-.01em;}
+.section-intro>p {max-width:53ch;}
+.section-kicker,.eyebrow,.challenge-number,.skill-kind,.project-status,
+.project-art-corner,.timeline-period,.timeline-company,.resume-panel-label,
+.method-step>span,.first90-grid li>span,.impact-outcome>span,.case-steps span,
+.visitor-focus-copy>span,.visitor-focus-proof>span {
+  font-size:var(--type-label);letter-spacing:.06em;line-height:1.45;
+}
+.eyebrow {letter-spacing:.055em;}
+.brand-wordmark {font-size:.9375rem;letter-spacing:-.025em;}
+.nav-link {font-size:.875rem;line-height:1.4;}
+.nav-contact,.button,.project-live-link,.visitor-tab,.case-toggle-all {font-size:.925rem;line-height:1.35;}
+.button {min-height:48px;}
+.hero-proof strong,.result-tile>strong,.project-metric strong,.impact-outcome strong,
+.visitor-focus-proof strong {font-variant-numeric:tabular-nums lining-nums;}
+.hero-proof strong {font-size:clamp(1.5rem,2.3vw,1.96rem);line-height:1.12;letter-spacing:-.035em;}
+.hero-proof div>span {font-size:clamp(.78rem,.3vw + .74rem,.86rem);line-height:1.45;}
+.result-tile>strong {font-size:clamp(2.2rem,3.8vw,3.2rem);line-height:1.08;letter-spacing:-.045em;}
+.result-tile h3 {font-size:1rem;line-height:1.38;}
+.result-tile p,.project-disclaimer,.recognition-line,.timeline-copy .timeline-extra,
+.project-link-note,.impact-outcome small {font-size:var(--type-small);line-height:1.6;}
+.challenge-card h3,.skill-card h3,.method-step h3,.timeline-copy h3,
+.project-content h3,.impact-story h3,.first90-grid li h4,
+.visitor-focus-copy h4 {font-size:var(--type-h3);line-height:1.33;letter-spacing:-.025em;}
+.visitor-explorer-intro h3,.contact-form-panel h3,.first90-heading h3,.kpi-heading {
+  font-size:clamp(1.45rem,1.75vw + 1.08rem,2.15rem);line-height:1.22;letter-spacing:-.035em;
+}
+.visitor-focus-copy h4 {margin-top:11px;}
+.project-metric strong {font-size:clamp(1.5rem,2vw,1.72rem);letter-spacing:-.035em;}
+.project-metric span {font-size:.875rem;line-height:1.52;}
+.project-stack span,.skill-tags span,.timeline-highlights span,.subtle-pill {font-size:.8rem;line-height:1.35;}
+.case-expand summary {font-size:.9rem;line-height:1.4;min-height:44px;}
+.case-steps p {font-size:.9rem;}
+.kpi-grid strong,.education-strip strong {font-size:1rem;line-height:1.4;}
+.portrait-card-header {font-size:.7rem;letter-spacing:.045em;}
+.portrait-card-footer strong {font-size:1.0625rem;}
+.portrait-card-footer span:not(.portrait-chevron),.portrait-side-note {font-size:.8rem;line-height:1.4;}
+.visitor-explorer-intro p,.visitor-focus-copy p,.visitor-focus-proof p {max-width:62ch;}
+.visitor-tab {font-weight:700;min-height:46px;}
+.contact-form-panel label {font-size:.9rem;line-height:1.4;}
+.contact-form-panel input,.contact-form-panel textarea {font-size:1rem;line-height:1.5;min-height:48px;}
+.contact-details a,.resume-panel strong,.copy-email {font-size:.9375rem;}
+.form-status,.site-footer {font-size:.8125rem;line-height:1.5;}
+.contact-details a,.project-content h3,.project-live-link {overflow-wrap:anywhere;}
+@media (max-width:760px) {
+  .hero-heading {line-height:1.09;letter-spacing:-.038em;max-width:18ch;}
+  .section-heading {line-height:1.17;letter-spacing:-.035em;}
+  .section-block {padding-block:clamp(57px,8vw,78px);}
+  .body-lead {font-size:1.04rem;line-height:1.66;}
+  .hero-proof strong {font-size:clamp(1.45rem,5.5vw,1.75rem);}
+  .visitor-tab {font-size:.84rem;padding-inline:9px;}
+  .brand-wordmark {font-size:.84rem;}
+  .section-intro {gap:19px;}
+}
+@media (max-width:380px) {
+  .hero-heading {font-size:clamp(2.05rem,1.3rem + 4.2vw,2.65rem);}
+  .section-heading {font-size:clamp(1.77rem,1.2rem + 2.3vw,2.25rem);}
+  .hero-proof div>span {font-size:.78rem;}
+  .visitor-tab {font-size:.8rem;}
+  .brand-wordmark {font-size:.8rem;}
+}
+@media (prefers-reduced-motion:reduce) {html {scroll-behavior:auto;}}
