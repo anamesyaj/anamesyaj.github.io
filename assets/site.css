@@ -1077,13 +1077,9 @@ html[data-theme="light"] .skill-icon {
 .project-art-aspirva .project-art-fallback span {
   color: #0d9488;
 }
-.project-art-growth {
-  color: #9bffe8;
-  background: linear-gradient(125deg,#0a302e,#101b29);
-}
-.project-art-growth img {
-  max-height: 90px;
-}
+.project-art-studio { color: #9bffe8; background: radial-gradient(circle at 44% 42%,rgba(185,244,59,.12),transparent 55%),linear-gradient(125deg,#122923,#101b29); }
+.project-art-studio img { max-width: 86%; max-height: 83px; }
+.project-art-studio .project-art-fallback span { color: #b9f43b; }
 .project-content {
   display: flex;
   flex: 1;
@@ -1857,3 +1853,14 @@ html[data-theme="light"] .skill-icon {
     }
   }
 }
+
+/* Live project links. In-card links are distinct from expandable case studies. */
+.project-links { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:9px 12px; margin-top:17px; }
+.project-live-link { display:inline-flex; justify-content:space-between; align-items:center; gap:10px; min-height:42px; padding:10px 13px; border:1px solid var(--border-strong); border-radius:11px; color:var(--accent-strong); background:var(--accent-wash); font-size:12px; font-weight:800; text-decoration:none; transition:transform .18s ease,border-color .18s ease; }
+.project-live-link:hover { transform:translateY(-2px); border-color:var(--accent-strong); }
+.project-live-link:focus-visible { outline:3px solid var(--accent-strong); outline-offset:3px; }
+.project-live-link span { font-size:16px; line-height:1; }
+.project-link-note { color:var(--muted); font-size:10px; line-height:1.4; }
+.project-metric code { font:inherit; overflow-wrap:anywhere; }
+@media(max-width:390px) { .project-links { align-items:flex-start; flex-direction:column; } .project-live-link { width:100%; } }
+@media(prefers-reduced-motion:reduce) { .project-live-link { transition:none; } }
