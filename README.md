@@ -6,7 +6,7 @@ A minimal, mobile-first, single-page portfolio that applies the StoryBrand frame
 
 Sticky navigation, reader-first hero, the operational problem, story-driven About Me, documented results, categorized skills, three featured project case studies, a practical methodology, an illustrative first-90-days plan, role-relevant KPI framework, experience timeline, and contact with a PDF download.
 
-The three project case studies and all quoted operational metrics come from the résumé. The 90-day plan and KPI framework are forward-looking examples, not prior achievements. No unverifiable Customer Success, churn, ARR or testimonial claims are included.
+The operations metrics and Gold Ops OS/Aspirva evidence come from the résumé; the PuddleLoom Studio web-tool scope comes from the requested GitHub development branch. The 90-day plan and KPI framework are forward-looking examples, not prior achievements. No unverifiable Customer Success, churn, ARR or testimonial claims are included.
 
 ## Run locally
 
