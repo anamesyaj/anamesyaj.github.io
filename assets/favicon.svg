@@ -1,1 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#0f172a"/><path d="M14 43V21h6l8 12 8-12h6v22h-6V31l-8 12-8-12v12z" fill="#eef2ff"/><circle cx="51" cy="43" r="4" fill="#818cf8"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+<style>.shell{fill:#151e34;stroke:#404d83}.m{stroke:#f5f7ff}.j{stroke:#a5b4fc}.dot{fill:#a5b4fc}
+@media(prefers-color-scheme:light){.shell{fill:#f0f3ff;stroke:#a5acf0}.m{stroke:#1e2b49}.j{stroke:#4338ca}.dot{fill:#4338ca}}</style>
+<rect class="shell" x="1.2" y="1.2" width="45.6" height="45.6" rx="14" stroke-width="1.2"/>
+<path class="m" d="M9.25 33.25v-18l9 10.75 9-10.75v18" fill="none" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+<path class="j" d="M38 15.25V30.2c0 5-3.25 8.05-7.65 8.05-2.7 0-4.75-.95-6.25-2.65" fill="none" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+<circle class="dot" cx="38" cy="9.8" r="2.2"/>
+</svg>
