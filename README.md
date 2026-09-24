@@ -28,3 +28,7 @@ The site uses the GitHub avatar for `anamesyaj` with a local initials fallback. 
 ## Studio source of truth
 
 Studio content and its bundled logo come from `anamesyaj/puddleloom-studio` branch `feat/web-pwa-foundation`, notably `web/src/StudioShell.tsx`, `web/package.json`, `web/wrangler.jsonc` and `web/public/puddleloom-logo-dark.svg`. Nine routed tool workspaces are present; no claim is made that all are production-complete.
+
+## Theme and accessibility review (2026-09-24)
+
+The static site includes a separate, no-dependency `assets/theme-audit.css` stylesheet loaded after the compiled Tailwind base. It supplies paired light/dark tokens for portrait and branded project artwork, plus readable text colors on accent buttons. `assets/theme-interaction.js` adds a keyboard-operated visitor-priority selector and an expand/collapse-all control for the three project case studies. Both enhancements use the documented source material and no added tracking, remote libraries, or recurring animation loops. For changes to the theme layer edit `assets/theme-audit.css` (the Tailwind source remains `src/input.css`).
