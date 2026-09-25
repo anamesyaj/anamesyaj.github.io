@@ -1,0 +1,181 @@
+/* Persistent desktop rail + five-item phone dock with a floating orbit theme control.
+   Loaded last to refine the original portfolio app without rebuilding its content. */
+:root{--app-sidebar:clamp(224px,19.2vw,264px)}
+/* Desktop is a desktop from 1024px, not only on ultra-wide monitors. */
+@media(min-width:1024px){
+  html.app-shell{scroll-padding-top:18px}
+  html.app-shell #site-header{display:none!important}
+  .portfolio-rail{
+    position:fixed!important;inset:0 auto 0 0;z-index:100;display:flex!important;
+    width:var(--app-sidebar);height:100vh;height:100dvh;min-height:0;
+    flex-direction:column;overflow-y:auto;overscroll-behavior-y:contain;
+    padding:clamp(20px,2.1vw,30px) 18px 21px;
+    background:var(--app-rail-bg);color:var(--app-rail-text);
+    border-right:1px solid var(--border);scrollbar-width:thin;
+    box-shadow:8px 0 32px rgba(0,0,0,.055);
+  }
+  .portfolio-rail__avatar{
+    flex:none;display:block;width:68px;height:68px;object-fit:cover;object-position:center;
+    border-radius:22px;border:2px solid var(--app-avatar-border);
+    box-shadow:0 10px 24px var(--shadow)
+  }
+  .portfolio-rail__name{margin:16px 0 5px;font-size:1.27rem;font-weight:820;letter-spacing:-.035em;line-height:1.17;color:var(--app-rail-text)}
+  .portfolio-rail__role{margin:0;color:var(--muted);font-size:.81rem;line-height:1.48}
+  .portfolio-rail__socials{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin:18px 0 0}
+  .portfolio-rail__socials a{
+    display:inline-flex;align-items:center;justify-content:center;min-width:43px;min-height:42px;
+    padding:9px 10px;border:1px solid var(--border-strong);border-radius:12px;
+    font-size:.77rem;font-weight:750;color:var(--app-rail-text);text-decoration:none;
+    background:var(--surface);transition:border-color .2s ease,transform .2s ease
+  }
+  .portfolio-rail__socials a:hover{border-color:var(--hy-gold);color:var(--hy-gold);transform:translateY(-2px)}
+  .portfolio-rail__theme{
+    flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;
+    width:100%;min-height:46px;margin-top:14px;padding:9px 12px;
+    border:1px solid var(--border);border-radius:12px;background:var(--surface);
+    color:var(--app-rail-text);font-size:.86rem;font-weight:750;cursor:pointer;
+    transition:background-color .18s,border-color .18s
+  }
+  .portfolio-rail__theme:hover{background:var(--accent-wash);border-color:var(--accent-strong)}
+  .portfolio-rail__theme svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
+  .portfolio-rail__theme .theme-sun,.portfolio-rail__theme .theme-moon{display:none}
+  html[data-theme="dark"] .portfolio-rail__theme .theme-sun{display:block}
+  html[data-theme="light"] .portfolio-rail__theme .theme-moon{display:block}
+  .portfolio-rail__divider{flex:none;height:1px;margin:21px 0 13px;background:var(--border)}
+  .portfolio-rail__nav{display:grid;gap:4px;width:100%;padding-bottom:8px}
+  .portfolio-rail__nav a{
+    position:relative;display:flex;align-items:center;gap:12px;
+    min-height:44px;width:100%;padding:9px 12px;
+    border:1px solid transparent;border-radius:12px;background:transparent;
+    color:var(--muted);font-size:.87rem;font-weight:750;line-height:1.25;text-decoration:none;
+    transition:background .18s,border-color .18s,color .18s;
+  }
+  .portfolio-rail__nav a .rail-index{width:22px;flex:none;color:var(--hy-gold);font-size:.69rem;letter-spacing:.02em;font-variant-numeric:tabular-nums}
+  .portfolio-rail__nav a:is(:hover,:focus-visible,.is-current,[aria-current="page"]){
+    border-color:var(--border);background:var(--accent-wash);color:var(--app-rail-text)
+  }
+  .portfolio-rail__nav a[aria-current="page"]::before{
+    content:"";position:absolute;left:0;top:11px;bottom:11px;width:3px;border-radius:3px;background:var(--hy-gold)
+  }
+  .portfolio-rail__bottom{display:grid;gap:12px;margin-top:auto;padding-top:18px}
+  .portfolio-rail__resume{
+    display:flex;align-items:center;justify-content:space-between;gap:9px;
+    min-height:47px;padding:12px 13px;background:var(--hy-gold);color:#201809;
+    border:1px solid transparent;border-radius:12px;
+    text-decoration:none;font-size:.83rem;font-weight:850
+  }
+  .portfolio-rail__resume:hover{filter:brightness(1.1)}
+  .portfolio-rail__foot{margin:0;color:var(--muted);font-size:.68rem;line-height:1.6}
+  html.app-shell main,html.app-shell .site-footer{margin-left:var(--app-sidebar)!important}
+  .mobile-tabs,.mobile-theme-float{display:none!important}
+  html.app-shell main>section[data-app-view]{scroll-margin-top:18px}
+  html.app-shell .section-block>.mx-auto{max-width:1250px;padding-inline:clamp(20px,3vw,46px)}
+}
+@media(min-width:1024px) and (max-width:1359px){
+  html.app-shell .hero>.mx-auto{
+    width:100%;max-width:1230px;grid-template-columns:minmax(0,1fr);
+    gap:27px;padding-inline:clamp(24px,4vw,46px);
+  }
+  html.app-shell .hero-visual{display:none!important}
+  html.app-shell .home-bento{
+    display:grid;grid-column:1;grid-row:auto;
+    grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;
+  }
+  html.app-shell .bento-tile{min-height:187px;padding:17px}
+  html.app-shell .bento-tile--projects{grid-column:auto;min-height:187px}
+  html.app-shell .bento-tile__title{font-size:clamp(1.07rem,1.55vw,1.32rem)}
+  html.app-shell .bento-tile__description{font-size:.83rem}
+}
+@media(min-width:1360px){
+  html.app-shell .hero-visual{display:none!important}
+  html.app-shell .home-bento{grid-column:2;grid-row:1}
+}
+@media(min-width:1024px) and (max-height:750px){
+  .portfolio-rail{padding-top:17px;padding-bottom:16px}
+  .portfolio-rail__avatar{width:58px;height:58px;border-radius:18px}
+  .portfolio-rail__name{margin-top:10px}
+  .portfolio-rail__socials{margin-top:10px}
+  .portfolio-rail__theme{margin-top:9px;min-height:40px}
+  .portfolio-rail__divider{margin:12px 0 9px}
+  .portfolio-rail__nav a{min-height:39px;padding-block:7px}
+  .portfolio-rail__bottom{padding-top:10px}
+}
+/* The phone dock is five equal destinations, with a physically separate orbit
+   button floating above the central Contact action (not a sixth dock slot). */
+.mobile-theme-float{display:none}
+@media(max-width:760px){
+  html.app-shell body{padding-bottom:calc(128px + env(safe-area-inset-bottom,0px))}
+  html.app-shell .mobile-tabs{
+    left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));
+    display:grid;grid-template-columns:repeat(5,minmax(0,1fr));
+    min-height:68px;gap:3px;padding:5px 6px;border-radius:22px
+  }
+  html.app-shell .mobile-tabs a{
+    min-width:0;min-height:54px;padding:5px 3px;border-radius:14px;
+    font-size:clamp(.64rem,2.5vw,.72rem);gap:4px
+  }
+  html.app-shell .mobile-tabs a svg{width:21px;height:21px}
+  html.app-shell .mobile-tabs .mobile-tabs__contact{
+    border-radius:16px;transform:translateY(-5px);
+    box-shadow:0 6px 15px rgba(0,0,0,.19)
+  }
+  .mobile-theme-float{
+    position:fixed;z-index:106;left:50%;bottom:calc(94px + env(safe-area-inset-bottom,0px));
+    width:66px;height:66px;display:grid;place-items:center;transform:translateX(-50%);
+    border-radius:50%;isolation:isolate;pointer-events:none;
+    filter:drop-shadow(0 8px 14px rgba(0,0,0,.18));
+  }
+  .mobile-theme-float::before,.mobile-theme-float::after{
+    content:"";position:absolute;inset:0;border-radius:50%;
+    pointer-events:none;
+    -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 5px),#000 calc(100% - 4px));
+    mask:radial-gradient(farthest-side,transparent calc(100% - 5px),#000 calc(100% - 4px));
+  }
+  .mobile-theme-float::before{
+    background:conic-gradient(from -12deg,transparent 0 11%,var(--hy-gold) 17% 39%,
+    transparent 45% 57%,var(--accent-strong) 65% 82%,transparent 88% 100%);
+    animation:mobile-theme-orbit 10s linear infinite;
+  }
+  .mobile-theme-float::after{
+    inset:4px;background:conic-gradient(from 180deg,transparent 0 31%,
+    var(--accent-strong) 42% 57%,transparent 65% 100%);
+    opacity:.55;animation:mobile-theme-orbit-reverse 14s linear infinite;
+  }
+  .mobile-theme-float__button{
+    pointer-events:auto;position:relative;z-index:1;display:grid;place-items:center;
+    width:51px;height:51px;padding:0;
+    border:1px solid var(--hy-gold-line);border-radius:50%;
+    color:var(--hy-gold);background:var(--app-tab-bg);box-shadow:inset 0 0 0 1px var(--border);
+    cursor:pointer;touch-action:manipulation;appearance:none;
+    transition:background .22s ease,color .22s ease,transform .23s cubic-bezier(.2,1.4,.3,1);
+  }
+  .mobile-theme-float__button:hover,.mobile-theme-float__button:focus-visible{
+    color:var(--accent-strong);background:var(--surface-elevated);transform:scale(1.07)
+  }
+  .mobile-theme-float__button:active{transform:scale(.94)}
+  .mobile-theme-float__button svg{
+    position:absolute;width:25px;height:25px;fill:none;stroke:currentColor;stroke-width:1.8;
+    stroke-linecap:round;stroke-linejoin:round;
+    transition:transform .3s ease,opacity .25s ease;
+  }
+  .mobile-theme-float__button .theme-sun,.mobile-theme-float__button .theme-moon{display:none}
+  html[data-theme="dark"] .mobile-theme-float__button .theme-sun{display:block}
+  html[data-theme="light"] .mobile-theme-float__button .theme-moon{display:block}
+  .mobile-theme-float__button.theme-changed svg{animation:theme-icon-pop .4s cubic-bezier(.18,1.7,.3,1)}
+  html.app-shell #site-header{display:none!important}
+}
+@media(max-width:349px){
+  html.app-shell .mobile-tabs{left:5px;right:5px;padding-inline:3px}
+  html.app-shell .mobile-tabs a{font-size:.6rem}
+}
+@keyframes mobile-theme-orbit{to{transform:rotate(360deg)}}
+@keyframes mobile-theme-orbit-reverse{to{transform:rotate(-360deg)}}
+@keyframes theme-icon-pop{0%{transform:rotate(-32deg) scale(.65)}65%{transform:rotate(12deg) scale(1.16)}100%{transform:rotate(0) scale(1)}}
+@media(prefers-reduced-motion:reduce){
+  .mobile-theme-float::before,.mobile-theme-float::after,.mobile-theme-float__button.theme-changed svg{animation:none!important}
+  .portfolio-rail__socials a,.mobile-theme-float__button{transition:none!important}
+}
+@media(forced-colors:active){
+  .mobile-theme-float__button,.portfolio-rail__theme{border:2px solid ButtonText}
+  .mobile-theme-float::before,.mobile-theme-float::after{display:none}
+}
