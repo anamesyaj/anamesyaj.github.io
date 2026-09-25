@@ -22,6 +22,7 @@
 <link rel="stylesheet" href="assets/portfolio-motion.css?v=motion-v1">
 <link rel="stylesheet" href="assets/app-navigation.css?v=app-nav-v1">
 <link rel="stylesheet" href="assets/nav-polish-v2.css?v=nav-v2">
+<link rel="stylesheet" href="assets/nav-compact-desktop-v3.css?v=nav-v3">
   <script>
     try { if (localStorage.getItem('mj-theme') === 'light') document.documentElement.dataset.theme = 'light'; } catch (e) {}
   </script>
@@ -54,34 +55,7 @@
 <nav class="portfolio-rail__nav" aria-label="Desktop sections"><a href="#top" class="is-current" aria-current="location"><span class="rail-index">01</span>Overview</a><a href="#projects"><span class="rail-index">02</span>Work</a><a href="#skills"><span class="rail-index">03</span>Capabilities</a><a href="#approach"><span class="rail-index">04</span>Approach</a><a href="#about"><span class="rail-index">05</span>About</a><a href="#experience"><span class="rail-index">06</span>Experience</a><a href="#contact"><span class="rail-index">07</span>Contact</a></nav>
 <div class="portfolio-rail__bottom"><a class="portfolio-rail__resume" href="assets/Mark_Jay_Lisay_Public_Resume.pdf" download="Mark_Jay_Lisay_Public_Resume.pdf">Download résumé <span aria-hidden="true">↓</span></a><p class="portfolio-rail__foot">Operational rigor. Human-controlled AI.</p></div>
 </aside>
-<!-- STICKY NAVBAR -->
-  <header id="site-header" class="site-header sticky top-0 z-50">
-    <div class="mx-auto flex h-[72px] max-w-6xl items-center justify-between gap-4 px-5 sm:px-7 lg:px-10"><span class="desktop-topline">MARK JAY / SELECTED WORK</span>
-      <a class="brand flex shrink-0 items-center gap-3" href="#top" aria-label="Mark Jay Lisay, return to top">
-        <span class="brand-mark" aria-hidden="true"><svg class="brand-mark__glyph" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" focusable="false" aria-hidden="true"><path class="brand-mark__m" d="M9.25 33.25v-18l9 10.75 9-10.75v18" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><path class="brand-mark__j" d="M38 15.25V30.2c0 5-3.25 8.05-7.65 8.05-2.7 0-4.75-.95-6.25-2.65" stroke="#a5b4fc" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><circle class="brand-mark__dot" cx="38" cy="9.8" r="2.2" fill="#a5b4fc"/></svg></span>
-        <span class="brand-wordmark"><strong>Mark Jay</strong><span class="brand-wordmark__last">Lisay</span></span>
-      </a>
-      <nav id="primary-nav" class="primary-nav" aria-label="Primary navigation">
-        <a class="nav-link is-current" href="#top">Home</a>
-        <a class="nav-link" href="#about">About</a>
-        <a class="nav-link" href="#skills">Skills</a>
-        <a class="nav-link" href="#projects">Work</a>
-        <a class="nav-link" href="#approach">Approach</a>
-        <a class="nav-link" href="#experience">Experience</a>
-        <a class="nav-link" href="#contact">Contact</a>
-      </nav>
-      <div class="flex items-center gap-2">
-        <button id="theme-toggle" class="icon-button" type="button" aria-label="Switch to light theme" aria-pressed="false" title="Toggle color theme">
-          <svg class="theme-sun" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
-          <svg class="theme-moon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"/></svg>
-        </button>
-        <a href="#contact" class="nav-contact hidden sm:inline-flex">Let's talk <span aria-hidden="true">↗</span></a>
-        <button id="menu-toggle" class="icon-button menu-toggle" type="button" aria-controls="primary-nav" aria-expanded="false" aria-label="Open navigation menu">
-          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-        </button>
-      </div>
-    </div>
-  </header>
+
 
   <main id="main">
     <p id="app-view-announcer" class="app-view-announcer" role="status" aria-live="polite"></p>
@@ -299,9 +273,9 @@
     <svg class="theme-moon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"/></svg>
   </button>
 </div>
-<script src="assets/site.js" defer></script>
+<script src="assets/site.js?v=contact-v3" defer></script>
   <script src="assets/theme-interaction.js?v=theme-audit-v2" defer></script>
-<script src="assets/app-navigation.js?v=app-nav-v2" defer></script>
+<script src="assets/app-navigation.js?v=app-nav-v3" defer></script>
 <script src="assets/portfolio-motion.js?v=motion-v2" defer></script>
 </body>
 </html>
