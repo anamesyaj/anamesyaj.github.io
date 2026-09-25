@@ -71,6 +71,8 @@
  }else visible=true;
  reduce.addEventListener?.("change",()=>{if(reduce.matches){manualPause=true;syncPause()}schedule()});
  syncPause();select(0,false);
+ /* Legacy scroll-spy only applies without the app router. The app router\n    owns exact active state for the persistent sidebar and mobile dock. */
+ if(!root.classList.contains("app-shell")){
  /* Real phone navigation and desktop profile rail share active section state. */
  const navigation=[...document.querySelectorAll(".mobile-tabs a[href^='#'],.portfolio-rail__nav a[href^='#']")];
  const sections=["top","challenge","about","results","skills","showcase","projects","approach","experience","contact"]
@@ -94,6 +96,7 @@
   sections.forEach(x=>active.observe(x));
  }
  syncNav((location.hash||"#top").slice(1));
+ }
  /* Scroll-in reveals never hide content: progressive enhancement only. */
  if(!reduce.matches&&"IntersectionObserver" in window){
   const show=new IntersectionObserver(entries=>{
