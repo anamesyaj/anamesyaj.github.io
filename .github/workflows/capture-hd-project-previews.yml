@@ -1,0 +1,51 @@
+name: Capture HD project previews
+
+on:
+  push:
+    paths:
+      - '.github/workflows/capture-hd-project-previews.yml'
+      - 'scripts/capture-hd-project-previews.cjs'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: hd-project-previews
+  cancel-in-progress: true
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout portfolio
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install capture dependencies
+        run: npm install --no-save --no-package-lock --ignore-scripts playwright@1.56.1 sharp@0.34.3
+
+      - name: Install headless browser
+        run: npx playwright install --with-deps chromium
+
+      - name: Capture large transparent project screenshots
+        run: node scripts/capture-hd-project-previews.cjs
+
+      - name: Commit HD previews to portfolio
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/projects/*-showcase-hd.webp
+          if git diff --cached --quiet; then
+            echo "No new HD images were generated."
+          else
+            git commit -m "Update full-resolution transparent project previews"
+            git push origin HEAD:main
+          fi
