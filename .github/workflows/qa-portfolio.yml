@@ -1,0 +1,41 @@
+name: Verify portfolio HD carousel
+on:
+  push:
+    paths:
+      - '.github/workflows/qa-portfolio.yml'
+      - 'scripts/qa-portfolio-carousel.cjs'
+      - 'index.html'
+      - 'assets/portfolio-motion.js'
+      - 'assets/carousel-hd-v4.css'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout website
+        uses: actions/checkout@v4
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install Playwright
+        run: npm install --no-save --no-package-lock --ignore-scripts playwright@1.56.1
+      - name: Install browser
+        run: npx playwright install --with-deps chromium
+      - name: JavaScript syntax
+        run: |
+          node --check assets/portfolio-motion.js
+          node --check assets/app-navigation.js
+          node --check assets/site.js
+      - name: Desktop and Android-sized carousel checks
+        run: node scripts/qa-portfolio-carousel.cjs
+      - name: Upload screenshots if tests fail
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: carousel-qa-failure
+          path: qa-screens/
+          if-no-files-found: ignore
