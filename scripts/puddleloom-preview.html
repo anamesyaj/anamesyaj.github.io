@@ -1,0 +1,50 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PuddleLoom Studio — visual preview</title>
+<style>
+:root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#f3f5f7;background:#10171f;font-synthesis:none}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden}body{background:#11181f;color:#f2f5f7;font-size:18px}
+body:before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(30,53,66,.3) 1px,transparent 1px),linear-gradient(90deg,rgba(30,53,66,.3) 1px,transparent 1px);background-size:74px 74px;opacity:.38;pointer-events:none}
+.topbar{height:113px;margin:6px 10px 0 14px;border:1px solid #364853;border-radius:22px;background:#19232c;display:flex;align-items:center;gap:27px;padding:0 26px;position:relative;z-index:5;box-shadow:0 10px 27px #07111791}
+.brand{display:flex;align-items:center;gap:13px;min-width:300px;font-size:21px;white-space:nowrap;letter-spacing:-.4px}
+.brand strong{font-weight:850}.logo{width:52px;height:52px;display:grid;place-items:center;border-radius:14px;color:white;font-size:40px;font-weight:900;line-height:1;background:linear-gradient(145deg,#a2e954 9%,#44d8ae 56%,#269ec2 100%);box-shadow:0 2px 13px #2de4bd44;letter-spacing:-6px;padding-right:10px}
+.vrule{height:43px;width:1px;background:#36434d}.breadcrumb{display:flex;align-items:center;gap:20px;white-space:nowrap;font-size:19px;color:#b0b5bf}.breadcrumb .home{font-size:14px;letter-spacing:.12em;font-weight:850;color:#93d6d9}.breadcrumb strong{font-weight:820;font-size:21px;color:#f5f4f8}.actions{display:flex;align-items:center;gap:17px;margin-left:auto}
+.theme{height:68px;width:68px;display:grid;place-items:center;border:1px solid #58b8ba;border-radius:16px;font-size:30px;color:#8adae0}
+.tools{min-width:173px;height:68px;display:flex;align-items:center;justify-content:space-evenly;border:1px solid #55646d;border-radius:16px;font-size:14px;font-weight:800;letter-spacing:.09em;color:#eff5fb}.tools b{color:#9ae4e5}
+.workspace{position:absolute;left:8px;top:144px;width:336px;height:calc(100% - 158px);border:1px solid #384954;border-radius:22px;background:#1b252e;padding:25px 16px;z-index:2}
+.kicker{color:#90d4db;font-size:13px;font-weight:820;letter-spacing:.11em;text-transform:uppercase}
+.side-title{font-size:23px;font-weight:780;letter-spacing:-.7px;margin:5px 4px 20px}
+.rule{height:1px;background:#354650;margin:0 0 25px}
+.sidebar-label{font-size:14px;color:#8d9ba7;letter-spacing:.11em;font-weight:850;margin:22px 6px 11px}
+.navitem{display:flex;align-items:center;gap:14px;border-radius:16px;min-height:75px;padding:11px 13px;font-size:17px;font-weight:750;margin:8px 0;color:#c5cbd2}
+.navitem.active{background:#16333a;border:1px solid #49b2c1;color:#f8ffff}
+.navicon{width:48px;height:48px;display:grid;place-items:center;border:1px solid #35444f;border-radius:13px;flex:none;color:#acb8c5;font-size:15px;font-weight:850}
+.active .navicon{background:linear-gradient(120deg,#3bafbf,#51bcd2);border:0;color:#0c2a37;font-size:24px}
+.chev{margin-left:auto;color:#a1b1bd;font-size:26px}
+.main{position:absolute;top:144px;left:392px;right:18px;bottom:16px;overflow:hidden;padding:11px 13px 0 24px;background:linear-gradient(180deg,#1a232c 0%,#1a222a 100%);border-left:1px solid #3a444b}
+.main-head{display:flex;justify-content:space-between;align-items:center;margin:0 0 19px}
+.main-head .kicker{color:#b4d785;font-size:15px}
+.main-head h1{font-size:26px;letter-spacing:-.7px;font-weight:800;margin:4px 0 0}
+.main-head p{font-size:15px;color:#a3acb7;margin-right:4px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.toolcard{height:152px;border:1px solid #5a6873;border-radius:20px;background:#202b36;display:flex;align-items:flex-start;gap:15px;padding:20px 17px 16px}
+.number{min-width:48px;height:47px;display:grid;place-items:center;background:#141c24;border-radius:14px;color:#b7df84;font-size:16px;font-weight:870}
+.copy{display:flex;flex-direction:column;min-height:100%}.tooltitle{font-size:20px;font-weight:840;letter-spacing:-.25px;color:#f4f5f8;line-height:1.2;margin:4px 0 15px}
+.sub{font-size:16px;font-weight:650;color:#a9b1bc}.open{font-size:15px;font-weight:850;margin-top:auto;color:#bae780}
+</style></head><body>
+<header class="topbar"><div class="brand"><div class="logo">P</div><strong>PuddleLoom</strong><span>Studio</span></div><div class="vrule"></div>
+<div class="breadcrumb"><span class="home">HOME</span><strong>Studio Dashboard</strong><span>Projects · tools · renders · storage</span></div>
+<div class="actions"><div class="theme">☼</div><div class="tools">☷ &nbsp; TOOLS <b>10</b></div></div></header>
+<aside class="workspace"><div class="kicker">Workspace</div><div class="side-title">Creator tools</div><div class="rule"></div><div class="sidebar-label">WORKSPACE</div>
+<div class="navitem active"><span class="navicon">⌂</span>Studio Home<span class="chev">›</span></div><div class="sidebar-label">VIDEO WORKFLOWS</div>
+<div class="navitem"><span class="navicon">01</span>Ambient LoFi<span class="chev">›</span></div>
+<div class="navitem"><span class="navicon">02</span>Narrated<span class="chev">›</span></div>
+<div class="navitem"><span class="navicon">03</span>Portrait → Wide<span class="chev">›</span></div></aside>
+<main class="main"><div class="main-head"><div><div class="kicker">Creator tools</div><h1>Open a workflow</h1></div><p>Direct access never requires a project.</p></div>
+<div class="grid">
+<div class="toolcard"><div class="number">01</div><div class="copy"><div class="tooltitle">Ambient LoFi</div><div class="sub">Long-form loop + playlist + rain</div><div class="open">OPEN →</div></div></div>
+<div class="toolcard"><div class="number">02</div><div class="copy"><div class="tooltitle">Narrated AutoEdit</div><div class="sub">Narration-led scene editor</div><div class="open">OPEN →</div></div></div>
+<div class="toolcard"><div class="number">03</div><div class="copy"><div class="tooltitle">Portrait → Wide</div><div class="sub">9:16 video to 16:9 canvas</div><div class="open">OPEN →</div></div></div>
+<div class="toolcard"><div class="number">04</div><div class="copy"><div class="tooltitle">Shorts + Reels</div><div class="sub">Short-form planning workspace</div><div class="open">OPEN →</div></div></div>
+<div class="toolcard"><div class="number">08</div><div class="copy"><div class="tooltitle">Auto Captions</div><div class="sub">Whisper captions + timeline editor</div><div class="open">OPEN →</div></div></div>
+<div class="toolcard"><div class="number">09</div><div class="copy"><div class="tooltitle">Facebook Branding</div><div class="sub">Logo / GIF overlay + quality-preserving export</div><div class="open">OPEN →</div></div></div>
+</div></main></body></html>
