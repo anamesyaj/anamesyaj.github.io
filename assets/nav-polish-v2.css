@@ -175,6 +175,12 @@
   .mobile-theme-float::before,.mobile-theme-float::after,.mobile-theme-float__button.theme-changed svg{animation:none!important}
   .portfolio-rail__socials a,.mobile-theme-float__button{transition:none!important}
 }
+/* Base theme stylesheet displays .theme-sun in light mode; these more-specific
+   rules keep each standalone switch to exactly ONE action icon. */
+html[data-theme="light"] .portfolio-rail__theme .theme-sun,
+html[data-theme="light"] .mobile-theme-float__button .theme-sun{display:none!important}
+html[data-theme="dark"] .portfolio-rail__theme .theme-moon,
+html[data-theme="dark"] .mobile-theme-float__button .theme-moon{display:none!important}
 @media(forced-colors:active){
   .mobile-theme-float__button,.portfolio-rail__theme{border:2px solid ButtonText}
   .mobile-theme-float::before,.mobile-theme-float::after{display:none}
