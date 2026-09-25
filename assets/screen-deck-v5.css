@@ -1,0 +1,357 @@
+/* Screen Deck v5 — gold-ops-inspired viewport pages.
+   One visible viewport per chapter; snap the main app scroller, never the browser
+   document. Dense supporting content remains accessible inside its own chapter. */
+html.screen-deck,html.screen-deck body{
+  width:100%;height:100%;height:100dvh;min-height:0!important;
+  overflow:hidden!important;overscroll-behavior:none;
+}
+html.screen-deck body{padding:0!important;margin:0!important}
+html.screen-deck #site-header{display:none!important}
+html.screen-deck .site-footer{display:none!important}
+html.screen-deck #main{
+  display:block;position:relative;
+  height:100vh!important;height:100dvh!important;
+  min-height:0!important;max-height:100dvh!important;
+  overflow-x:hidden!important;overflow-y:auto!important;
+  scroll-snap-type:y mandatory;scroll-padding:0!important;
+  overscroll-behavior-y:contain;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:thin;scrollbar-color:var(--border-strong) transparent;
+  contain:layout style;
+}
+html.screen-deck #main>section[data-app-view]:not([hidden]){
+  position:relative;display:flex!important;flex-direction:column;
+  justify-content:center;align-items:stretch;
+  flex:0 0 auto;width:100%;min-width:0;
+  height:100vh!important;height:100dvh!important;
+  min-height:100dvh!important;max-height:100dvh!important;
+  margin:0!important;padding:clamp(18px,3dvh,42px) 0!important;
+  scroll-snap-align:start!important;scroll-snap-stop:always;
+  scroll-margin:0!important;
+  overflow:hidden!important;
+  isolation:isolate;
+}
+html.screen-deck #main>section[data-app-view][hidden]{display:none!important}
+html.screen-deck #main>section[data-app-view]>.mx-auto{
+  position:relative;z-index:1;
+  width:min(100%,1360px);max-width:1360px;
+  min-width:0;min-height:0;max-height:100%;height:auto;
+  margin:0 auto;padding:0 clamp(23px,3.1vw,49px)!important;
+  overflow-y:auto;overflow-x:hidden;
+  overscroll-behavior-y:contain;scrollbar-width:thin;
+  scrollbar-color:var(--border-strong) transparent;
+  -webkit-overflow-scrolling:touch;
+}
+html.screen-deck #main>section[data-app-view]>.mx-auto:focus-visible{outline:2px solid var(--accent-strong);outline-offset:-4px}
+html.screen-deck .section-block{border-top:0!important}
+html.screen-deck .section-intro{
+  display:grid;grid-template-columns:minmax(0,1.15fr) minmax(230px,.85fr);
+  align-items:end;gap:clamp(15px,2.8vw,36px)
+}
+html.screen-deck .section-heading{
+  max-width:none!important;
+  font-size:clamp(1.85rem,3.15vw,2.95rem)!important;
+  line-height:1.085!important;letter-spacing:-.05em;
+}
+html.screen-deck .section-intro .mt-4,
+html.screen-deck .section-block h2.mt-4{margin-top:7px!important}
+html.screen-deck .section-kicker{font-size:.72rem}
+html.screen-deck .body-copy{font-size:clamp(.85rem,1.1vw,1rem);line-height:1.48}
+html.screen-deck .section-intro>p{max-width:49ch;margin:0}
+html.screen-deck section :is(.mt-10,.lg\:mt-12,.mt-9){margin-top:clamp(12px,2dvh,22px)}
+html.screen-deck .section-block .grid{row-gap:clamp(8px,1.6dvh,17px)}
+/* Hero: gold ops-style balanced split. The second pane is the compact bento
+   console; the redundant portrait stays hidden on desktop. */
+@media(min-width:1024px){
+  html.screen-deck #top>.mx-auto{
+    display:grid!important;
+    grid-template-columns:minmax(0,1.06fr) minmax(330px,.94fr)!important;
+    grid-auto-flow:row;align-items:center!important;
+    gap:clamp(16px,2.8vw,40px)!important;
+    max-width:1400px;
+    padding-block:0!important;
+  }
+  html.screen-deck #top .hero-visual{display:none!important}
+  html.screen-deck #top .home-bento{
+    display:grid!important;grid-column:2!important;grid-row:1!important;
+    width:100%!important;max-width:100%!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    align-self:center;gap:clamp(8px,1.2vw,13px)!important;
+    padding:0!important;margin:0!important;
+    overflow:visible!important
+  }
+  html.screen-deck #top .bento-tile--projects{grid-column:1/-1!important}
+  html.screen-deck #top .bento-tile{
+    min-height:clamp(120px,17dvh,164px)!important;
+    padding:clamp(12px,1.5vw,19px)!important;
+    border-radius:15px
+  }
+  html.screen-deck #top .bento-tile--projects{min-height:clamp(140px,20dvh,200px)!important}
+  html.screen-deck #top .bento-tile__title{font-size:clamp(.98rem,1.5vw,1.33rem)}
+  html.screen-deck #top .bento-tile__tag{font-size:.66rem}
+  html.screen-deck #top .bento-tile__description{font-size:.76rem}
+  html.screen-deck #top .bento-tile__media{height:clamp(39px,7dvh,73px)}
+  html.screen-deck #top .hero-heading{
+    font-size:clamp(2.4rem,4.1vw,4.2rem)!important;
+    line-height:1.04!important;max-width:14ch
+  }
+  html.screen-deck #top .body-lead{margin-top:clamp(12px,2dvh,21px)!important;font-size:clamp(.92rem,1.2vw,1.09rem)}
+  html.screen-deck #top .hero-proof{margin-top:clamp(18px,3dvh,34px)!important;padding-top:clamp(12px,2dvh,20px)!important}
+  html.screen-deck #top .button{min-height:43px}
+  html.screen-deck #top .mt-9{margin-top:clamp(18px,2.7dvh,28px)!important}
+}
+/* All editorial pages use the same typographic rhythm as a hero screen. */
+html.screen-deck #about>.mx-auto,html.screen-deck #contact>.mx-auto{
+  max-width:1320px;align-items:center;gap:clamp(24px,3vw,54px)
+}
+html.screen-deck #about>.mx-auto{grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr)}
+html.screen-deck #about .about-intro{font-size:clamp(1.2rem,2vw,1.65rem);line-height:1.45}
+html.screen-deck #about .about-callout{margin-top:clamp(16px,2dvh,25px)}
+html.screen-deck #about .subtle-pill{font-size:.75rem}
+html.screen-deck #results .results-grid{margin-top:clamp(14px,2dvh,23px)}
+html.screen-deck #results .result-tile{padding:clamp(14px,1.65vw,23px)}
+html.screen-deck #results .result-tile>strong{font-size:clamp(2rem,3.2vw,2.95rem)}
+html.screen-deck #results .impact-story{margin-top:clamp(13px,1.9dvh,22px);padding:clamp(16px,2.2vw,29px)}
+html.screen-deck #results .recognition-line{margin-top:12px}
+html.screen-deck #challenge .challenge-grid{margin-top:clamp(12px,2dvh,23px)}
+html.screen-deck #challenge .challenge-card{padding:clamp(14px,1.7vw,23px)}
+html.screen-deck #challenge .challenge-card h3{margin-top:clamp(9px,1dvh,15px);font-size:clamp(1rem,1.45vw,1.2rem)}
+html.screen-deck #challenge .challenge-card p{font-size:.85rem;line-height:1.46}
+html.screen-deck #challenge .visitor-explorer{margin-top:clamp(12px,2dvh,24px);padding:clamp(15px,1.7vw,22px)}
+html.screen-deck #challenge .visitor-tabs{margin-top:clamp(10px,1.5dvh,17px)}
+html.screen-deck #challenge .visitor-focus-panel{margin-top:clamp(9px,1.2dvh,15px)}
+html.screen-deck #skills .skill-card{padding:clamp(12px,1.5vw,20px)}
+html.screen-deck #skills .skill-card h3{font-size:clamp(.95rem,1.3vw,1.13rem);margin-top:8px}
+html.screen-deck #skills .skill-card p{font-size:.8rem;line-height:1.42;margin-top:8px}
+html.screen-deck #skills .skill-tags{gap:5px;margin-top:11px}
+html.screen-deck #skills .skill-tags span{font-size:.66rem;padding:5px 8px}
+html.screen-deck #projects .project-tools{margin-top:9px}
+html.screen-deck #projects #project-cases{margin-top:10px;gap:12px}
+html.screen-deck #projects .project-art{height:clamp(77px,10dvh,112px)!important}
+html.screen-deck #projects .project-content{padding:clamp(11px,1.3vw,17px)!important}
+html.screen-deck #projects .project-content>p{font-size:.78rem;line-height:1.45}
+html.screen-deck #projects .project-content h3{font-size:1.16rem;margin-top:7px}
+html.screen-deck #projects .project-metric{margin-top:10px}
+html.screen-deck #projects .project-stack{gap:4px}
+html.screen-deck #projects .project-links{margin-top:10px}
+html.screen-deck #projects .project-live-link{min-height:42px;font-size:.77rem}
+html.screen-deck #projects .case-expand{margin-top:9px}
+html.screen-deck #approach .method-grid{margin-top:clamp(13px,2dvh,22px)}
+html.screen-deck #approach .method-step{padding:clamp(12px,1.5vw,21px)}
+html.screen-deck #approach .method-step h3{font-size:clamp(.93rem,1.28vw,1.1rem);margin-top:12px}
+html.screen-deck #approach .method-step p{font-size:.81rem;line-height:1.43;margin-top:8px}
+html.screen-deck #approach .first90,html.screen-deck #approach .kpi-block{margin-top:clamp(15px,2.1dvh,25px)!important}
+html.screen-deck #experience .experience-timeline{margin-top:clamp(14px,2dvh,25px)}
+html.screen-deck #experience .timeline-entry{padding-bottom:clamp(10px,1.5dvh,20px);gap:20px}
+html.screen-deck #experience .timeline-entry+.timeline-entry{padding-top:clamp(9px,1.4dvh,18px)}
+html.screen-deck #experience .timeline-copy p{font-size:.84rem;line-height:1.45}
+html.screen-deck #experience .education-strip{margin-top:clamp(12px,2dvh,22px)}
+html.screen-deck #contact .contact-details{margin-top:clamp(18px,2dvh,25px)}
+html.screen-deck #contact .resume-panel{margin-top:clamp(15px,2dvh,24px)}
+html.screen-deck #contact .contact-form-panel{padding:clamp(17px,2vw,29px)}
+html.screen-deck #contact #contact-form{margin-top:clamp(12px,1.7dvh,19px)}
+html.screen-deck #contact #contact-form textarea{min-height:75px;max-height:20dvh;resize:vertical}
+html.screen-deck #contact .contact-form-panel .space-y-5>:not([hidden])~:not([hidden]){margin-top:clamp(10px,1.5dvh,17px)}
+/* HD carousel reduced to a feature-hero silhouette; zoom stays full HD. */
+html.screen-deck #showcase .orbit-showcase__head{gap:clamp(12px,2vw,24px)}
+html.screen-deck #showcase .orbit-showcase__inner{margin-top:clamp(7px,1.2dvh,16px)}
+html.screen-deck #showcase .orbit-stage{
+  --orbit-card-width:min(68vw,690px);
+  --side-shift:clamp(230px,34vw,440px);
+  height:clamp(350px,53dvh,494px);
+}
+html.screen-deck #showcase .orbit-card__visual{height:clamp(235px,32dvh,355px)}
+html.screen-deck #showcase .orbit-card__info{gap:8px}
+html.screen-deck #showcase .orbit-card__title{font-size:1.45rem}
+html.screen-deck #showcase .orbit-card__description{font-size:.77rem;margin-top:4px}
+html.screen-deck #showcase .orbit-controls{margin-top:0;padding:8px 0 0}
+html.screen-deck #showcase .orbit-showcase__hint{margin:5px auto 0;font-size:.69rem}
+/* Disclose supporting dense details in place, rather than shrinking copy into
+   unreadable 9px text. Summaries are the compact page and content remains present. */
+html.screen-deck .screen-deck-expander{
+  margin-top:13px;border:1px solid var(--border-strong);
+  border-radius:12px;background:var(--surface);overflow:hidden
+}
+html.screen-deck .screen-deck-expander>summary{
+  min-height:50px;display:flex;align-items:center;justify-content:space-between;
+  gap:14px;padding:11px 17px;cursor:pointer;list-style:none;
+  color:var(--text);font-size:.88rem;font-weight:820
+}
+html.screen-deck .screen-deck-expander>summary::-webkit-details-marker{display:none}
+html.screen-deck .screen-deck-expander>summary:after{content:"+";font-size:1.25rem;color:var(--hy-gold)}
+html.screen-deck .screen-deck-expander[open]>summary:after{content:"−"}
+html.screen-deck .screen-deck-expander>summary:focus-visible{outline:2px solid var(--accent-strong);outline-offset:-3px}
+html.screen-deck .screen-deck-expander>[data-screen-detail]{padding:0 14px 15px;margin:0!important;border:0;box-shadow:none}
+html.screen-deck .screen-deck-expander .mt-14{margin-top:0!important}
+html.screen-deck .screen-deck-expander .first90-grid,html.screen-deck .screen-deck-expander .kpi-grid{margin-top:12px}
+/* A compact floating chapter indicator, outside the scroller, aligned to the
+   app shell. It never conflicts with the separate center theme orbit. */
+.screen-switcher{
+  position:fixed;z-index:121;right:17px;top:50%;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  transform:translateY(-50%);padding:10px 7px;
+  border:1px solid var(--border-strong);border-radius:18px;
+  background:var(--surface-elevated);box-shadow:0 13px 38px var(--shadow);
+  backdrop-filter:blur(12px)
+}
+.screen-switcher[hidden]{display:none!important}
+.screen-switcher button{width:38px;height:38px;min-width:38px;min-height:38px;display:grid;place-items:center;border:1px solid var(--border);border-radius:11px;background:var(--surface);color:var(--text);cursor:pointer;font-size:1.1rem}
+.screen-switcher button:is(:hover,:focus-visible){border-color:var(--hy-gold);color:var(--hy-gold)}
+.screen-switcher button:disabled{opacity:.27;cursor:default}
+.screen-switcher output{font-size:.7rem;color:var(--muted);font-weight:900;font-variant-numeric:tabular-nums}
+.screen-switcher .screen-switcher__name{font-size:.63rem;color:var(--muted);writing-mode:vertical-rl;max-height:115px;overflow:hidden}
+html.screen-deck #main>section>.mx-auto:focus{outline:none}
+@media(min-width:761px) and (max-width:1150px){
+ html.screen-deck #main>section[data-app-view]{padding:12px 0!important}
+ html.screen-deck #main>section>.mx-auto{padding-inline:clamp(18px,2.5vw,30px)!important}
+ html.screen-deck #top>.mx-auto{display:grid!important;grid-template-columns:minmax(0,1fr)!important}
+ html.screen-deck #top .hero-visual{display:none!important}
+ html.screen-deck #top .home-bento{display:grid!important;grid-column:1!important;grid-row:auto!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:10px!important;overflow:visible!important;width:100%!important}
+ html.screen-deck #top .bento-tile{min-height:130px!important}
+ html.screen-deck #top .bento-tile--projects{grid-column:1!important;min-height:130px!important}
+ html.screen-deck #top .hero-heading{font-size:clamp(2.4rem,4vw,3.2rem)!important;max-width:24ch}
+ html.screen-deck #top .body-lead{max-width:720px}
+ html.screen-deck #top .hero-proof{max-width:720px}
+ html.screen-deck #showcase .orbit-stage{--orbit-card-width:min(68vw,550px);--side-shift:270px}
+}
+@media(max-height:760px) and (min-width:761px){
+ html.screen-deck #main>section[data-app-view]{padding:10px 0!important}
+ html.screen-deck #main>section>.mx-auto{max-height:calc(100dvh - 22px)}
+ html.screen-deck .section-heading{font-size:clamp(1.6rem,2.8vw,2.4rem)!important}
+ html.screen-deck #showcase .orbit-stage{height:clamp(295px,48dvh,390px)}
+ html.screen-deck #showcase .orbit-card__visual{height:clamp(205px,29dvh,290px)}
+ html.screen-deck #showcase .orbit-card__description{display:none}
+ html.screen-deck #top .bento-tile{min-height:104px!important}
+ html.screen-deck #top .bento-tile--projects{min-height:127px!important}
+ html.screen-deck #top .hero-heading{font-size:clamp(2.1rem,3.6vw,3.25rem)!important}
+}
+@media(max-width:760px){
+ html.screen-deck #main{width:100%!important;margin:0!important;scrollbar-width:none}
+ html.screen-deck #main::-webkit-scrollbar{display:none}
+ html.screen-deck #main>section[data-app-view]:not([hidden]){
+   height:100dvh!important;min-height:100dvh!important;max-height:100dvh!important;
+   padding:clamp(16px,3dvh,26px) 0 calc(104px + env(safe-area-inset-bottom,0px))!important;
+   justify-content:flex-start;scroll-snap-stop:always
+ }
+ html.screen-deck #main>section>.mx-auto{
+   width:100%;max-height:100%;margin:0!important;
+   padding:0 clamp(15px,4.3vw,22px)!important;
+   overflow-x:hidden;overflow-y:auto
+ }
+ html.screen-deck .section-intro{display:grid;grid-template-columns:1fr;gap:7px;align-items:start}
+ html.screen-deck .section-intro>p{font-size:.79rem;line-height:1.42;max-width:60ch}
+ html.screen-deck .section-heading{font-size:clamp(1.56rem,6vw,2.06rem)!important;line-height:1.1!important}
+ html.screen-deck .section-kicker{font-size:.64rem}
+ html.screen-deck .body-copy{font-size:.83rem;line-height:1.45}
+ html.screen-deck #top>.mx-auto{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:clamp(12px,2dvh,19px)!important;padding-top:0!important;padding-bottom:0!important}
+ html.screen-deck #top .hero-heading{font-size:clamp(2.05rem,8vw,3rem)!important;line-height:1.05!important;max-width:18ch}
+ html.screen-deck #top .eyebrow{font-size:.65rem;margin-bottom:clamp(10px,1.6dvh,16px)!important}
+ html.screen-deck #top .body-lead{font-size:.84rem;line-height:1.45;margin-top:clamp(9px,1.5dvh,15px)!important}
+ html.screen-deck #top .mt-9{margin-top:clamp(12px,2dvh,17px)!important}
+ html.screen-deck #top .hero-proof{margin-top:clamp(14px,2dvh,20px)!important;padding-top:12px!important}
+ html.screen-deck #top .hero-proof strong{font-size:clamp(1.42rem,5vw,1.9rem)}
+ html.screen-deck #top .hero-visual{display:none!important}
+ html.screen-deck #top .home-bento{
+   display:flex!important;grid-column:1!important;grid-row:auto!important;
+   align-self:auto;gap:10px!important;
+   width:calc(100% + 19px)!important;margin-right:-19px!important;
+   padding:2px 17px 8px 1px!important;
+   overflow-x:auto!important;overflow-y:hidden!important;
+   scrollbar-width:none;scroll-snap-type:x mandatory
+ }
+ html.screen-deck #top .bento-tile{flex:0 0 min(76vw,275px)!important;min-height:clamp(140px,19dvh,185px)!important;padding:14px!important}
+ html.screen-deck #top .bento-tile__title{font-size:1.08rem}
+ html.screen-deck #top .bento-tile__description{font-size:.72rem}
+ html.screen-deck #top .bento-tile__media{height:43px}
+ html.screen-deck #challenge .challenge-grid{
+   display:flex!important;flex-wrap:nowrap;gap:10px!important;
+   overflow-x:auto;scroll-snap-type:x mandatory;padding:3px 2px 10px;
+   scrollbar-width:none
+ }
+ html.screen-deck #challenge .challenge-card{flex:0 0 min(78vw,290px);scroll-snap-align:start;padding:14px}
+ html.screen-deck #challenge .visitor-explorer{margin-top:12px;padding:13px}
+ html.screen-deck #challenge .visitor-explorer-intro h3{font-size:1.16rem}
+ html.screen-deck #challenge .visitor-tabs{display:flex;overflow-x:auto;flex-wrap:nowrap;padding-bottom:6px}
+ html.screen-deck #challenge .visitor-tab{flex:0 0 auto;min-height:39px;white-space:nowrap;padding:7px 11px;font-size:.72rem}
+ html.screen-deck #challenge .visitor-focus-panel{margin-top:8px;gap:9px}
+ html.screen-deck #results .results-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important;margin-top:13px}
+ html.screen-deck #results .result-tile{padding:13px 10px}
+ html.screen-deck #results .result-tile>strong{font-size:clamp(1.9rem,8vw,2.5rem)}
+ html.screen-deck #results .result-tile h3{font-size:.82rem}
+ html.screen-deck #results .result-tile p{font-size:.72rem;line-height:1.42}
+ html.screen-deck #results .impact-story{grid-template-columns:1fr;margin-top:10px;padding:13px}
+ html.screen-deck #skills .grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important;margin-top:12px}
+ html.screen-deck #skills .skill-card{padding:10px;min-height:0}
+ html.screen-deck #skills .skill-icon{width:27px;height:27px;border-radius:8px;font-size:.65rem}
+ html.screen-deck #skills .skill-top{gap:4px}
+ html.screen-deck #skills .skill-kind{font-size:.57rem}
+ html.screen-deck #skills .skill-card h3{font-size:.94rem;margin-top:8px;line-height:1.2}
+ html.screen-deck #skills .skill-card p{font-size:.7rem;line-height:1.37;margin-top:7px}
+ html.screen-deck #skills .skill-tags{gap:4px;margin-top:8px}
+ html.screen-deck #skills .skill-tags span{font-size:.57rem;padding:4px 6px}
+ html.screen-deck #projects #project-cases{
+   display:flex!important;flex-wrap:nowrap;gap:12px!important;
+   overflow-x:auto;scroll-snap-type:x mandatory;
+   scroll-padding-left:2px;padding:3px 2px 11px;margin-top:9px!important;
+   scrollbar-width:thin
+ }
+ html.screen-deck #projects .project-card{
+   flex:0 0 min(83vw,350px)!important;max-width:min(83vw,350px);
+   min-height:0;max-height:100%;scroll-snap-align:start
+ }
+ html.screen-deck #projects .project-art{height:92px!important}
+ html.screen-deck #projects .project-content{padding:12px!important}
+ html.screen-deck #projects .case-expand[open]{overflow-y:auto}
+ html.screen-deck #approach .method-grid{
+   display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+   gap:8px!important;margin-top:13px
+ }
+ html.screen-deck #approach .method-step{padding:11px}
+ html.screen-deck #approach .method-step h3{font-size:.93rem;margin-top:9px}
+ html.screen-deck #approach .method-step p{font-size:.7rem;line-height:1.38;margin-top:6px}
+ html.screen-deck #approach .screen-deck-expander{margin-top:10px}
+ html.screen-deck #experience .experience-timeline{margin-top:13px}
+ html.screen-deck #experience .timeline-entry{grid-template-columns:1fr;gap:5px;padding-bottom:15px}
+ html.screen-deck #experience .timeline-entry+.timeline-entry{padding-top:12px}
+ html.screen-deck #experience .timeline-copy h3{font-size:1rem}
+ html.screen-deck #experience .timeline-copy p{font-size:.77rem}
+ html.screen-deck #contact>.mx-auto{grid-template-columns:1fr!important;gap:15px!important}
+ html.screen-deck #contact .contact-details{margin-top:10px}
+ html.screen-deck #contact .contact-details .mt-5{margin-top:8px!important}
+ html.screen-deck #contact .resume-panel{margin-top:9px;padding:12px}
+ html.screen-deck #contact .contact-form-panel{padding:14px}
+ html.screen-deck #contact .contact-form-panel h3{font-size:1.12rem}
+ html.screen-deck #contact #contact-form{margin-top:10px}
+ html.screen-deck #contact #contact-form input{min-height:43px}
+ html.screen-deck #contact #contact-form textarea{min-height:70px;height:80px;max-height:19dvh}
+ html.screen-deck #contact .contact-form-panel .space-y-5>:not([hidden])~:not([hidden]){margin-top:10px}
+ html.screen-deck #showcase .orbit-showcase__head{grid-template-columns:1fr;gap:5px}
+ html.screen-deck #showcase .orbit-showcase__head p{font-size:.78rem}
+ html.screen-deck #showcase .orbit-showcase__inner{margin-top:7px!important}
+ html.screen-deck #showcase .orbit-stage{
+   --orbit-card-width:min(91vw,410px);
+   --side-shift:clamp(140px,52vw,270px);
+   height:clamp(325px,56dvh,440px)
+ }
+ html.screen-deck #showcase .orbit-card__visual{height:clamp(188px,34dvh,260px)}
+ html.screen-deck #showcase .orbit-card__top{font-size:.57rem}
+ html.screen-deck #showcase .orbit-card__title{font-size:1.3rem}
+ html.screen-deck #showcase .orbit-card__description{font-size:.7rem;line-height:1.36}
+ html.screen-deck #showcase .orbit-card__footer{gap:9px}
+ html.screen-deck #showcase .orbit-controls{padding:8px 0 0}
+ html.screen-deck #showcase .orbit-showcase__hint{font-size:.62rem;line-height:1.28;margin:7px auto 0}
+ .screen-switcher{top:auto;right:12px;bottom:calc(171px + env(safe-area-inset-bottom,0px));transform:none;gap:3px;padding:5px;border-radius:13px}
+ .screen-switcher button{width:33px;height:33px;min-width:33px;min-height:33px;border-radius:9px}
+ .screen-switcher .screen-switcher__name{display:none}
+ .screen-switcher output{font-size:.64rem}
+}
+@media(max-width:374px){
+ html.screen-deck #skills .grid{grid-template-columns:1fr!important}
+ html.screen-deck #showcase .orbit-stage{height:335px}
+ html.screen-deck #showcase .orbit-card__visual{height:193px}
+ .screen-switcher{right:7px}
+}
+@media(prefers-reduced-motion:reduce){
+ html.screen-deck #main{scroll-behavior:auto!important}
+ .screen-switcher button{transition:none}
+}
