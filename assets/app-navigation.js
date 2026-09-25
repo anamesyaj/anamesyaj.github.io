@@ -19,7 +19,6 @@
   const dockLinks=[...document.querySelectorAll(".mobile-tabs a[data-app-tab]")];
   const railLinks=[...document.querySelectorAll(".portfolio-rail__nav a[href^='#']")];
   const topLinks=[...document.querySelectorAll("#primary-nav a[href^='#']")];
-  const allNav=[...dockLinks,...railLinks,...topLinks];
   const announcer=document.getElementById("app-view-announcer");
   let currentView="";
   let viewToken=0;
@@ -42,7 +41,13 @@
     })[targetId]||"home";
   }
 
-  function syncNavigation(view){
+  function syncNavigation(view,targetId){
+    // A view can contain multiple chapters. Highlight the actual desktop
+    // destination, not both About and Experience simply because they share a view.
+    const activeRailId=railLinks.some(link=>link.hash==="#"+targetId)
+      ? targetId : canonicalTarget[view];
+    const activeTopId=topLinks.some(link=>link.hash==="#"+targetId)
+      ? targetId : canonicalTarget[view];
     dockLinks.forEach(link=>{
       const active=link.dataset.appTab===view;
       link.classList.toggle("is-current",active);
@@ -50,13 +55,13 @@
       else link.removeAttribute("aria-current");
     });
     railLinks.forEach(link=>{
-      const active=resolveView(link.hash.slice(1))===view;
+      const active=link.hash==="#"+activeRailId;
       link.classList.toggle("is-current",active);
       if(active)link.setAttribute("aria-current","page");
       else link.removeAttribute("aria-current");
     });
     topLinks.forEach(link=>{
-      const active=resolveView(link.hash.slice(1))===view;
+      const active=link.hash==="#"+activeTopId;
       link.classList.toggle("is-current",active);
       if(active)link.setAttribute("aria-current","page");
       else link.removeAttribute("aria-current");
@@ -97,8 +102,8 @@
     currentView=view;
     root.dataset.appView=view;
     revealView(view);
-    syncNavigation(view);
     const resolvedTarget=targetId&&resolveView(targetId)===view?targetId:canonicalTarget[view];
+    syncNavigation(view,resolvedTarget);
     if(historyMode!=="none"){
       const hash="#"+resolvedTarget;
       if(historyMode==="replace")history.replaceState({view,target:resolvedTarget},"",hash);
@@ -130,25 +135,40 @@
   });
 
   const mobileTheme=document.getElementById("theme-toggle-mobile");
-  function syncMobileTheme(){
-    if(!mobileTheme)return;
+  const railTheme=document.getElementById("theme-toggle-desktop");
+  const headerTheme=document.getElementById("theme-toggle");
+  const themeControls=[mobileTheme,railTheme].filter(Boolean);
+  function syncThemeControls(){
     const light=root.dataset.theme==="light";
-    mobileTheme.setAttribute("aria-pressed",String(light));
-    mobileTheme.setAttribute("aria-label",light?"Switch to dark theme":"Switch to light theme");
-    mobileTheme.title=light?"Switch to dark theme":"Switch to light theme";
+    const instruction=light?"Switch to dark theme":"Switch to light theme";
+    themeControls.forEach(button=>{
+      button.setAttribute("aria-pressed",String(light));
+      button.setAttribute("aria-label",instruction);
+      button.title=instruction;
+    });
+    headerTheme?.setAttribute("aria-pressed",String(light));
+    headerTheme?.setAttribute("aria-label",instruction);
+    document.querySelector('meta[name="theme-color"]')
+      ?.setAttribute("content",light?"#f4f8f8":"#09121a");
   }
-  mobileTheme?.addEventListener("click",()=>{
+  function toggleAppearance(button){
     const next=root.dataset.theme==="light"?"dark":"light";
     root.dataset.theme=next;
     try{localStorage.setItem("mj-theme",next)}catch(_){}
-    document.querySelector('meta[name="theme-color"]')?.setAttribute("content",next==="light"?"#f4f8f8":"#09121a");
-    const desktop=document.getElementById("theme-toggle");
-    desktop?.setAttribute("aria-pressed",String(next==="light"));
-    desktop?.setAttribute("aria-label",next==="light"?"Switch to dark theme":"Switch to light theme");
-    syncMobileTheme();
+    if(button?.classList.contains("mobile-theme-float__button")){
+      button.classList.remove("theme-changed");
+      void button.offsetWidth;
+      button.classList.add("theme-changed");
+      button.addEventListener("animationend",()=>button.classList.remove("theme-changed"),{once:true});
+    }
+    syncThemeControls();
+  }
+  themeControls.forEach(button=>button.addEventListener("click",()=>toggleAppearance(button)));
+  headerTheme?.addEventListener("click",()=>requestAnimationFrame(syncThemeControls));
+  new MutationObserver(syncThemeControls).observe(root,{
+    attributes:true,attributeFilter:["data-theme"]
   });
-  document.getElementById("theme-toggle")?.addEventListener("click",()=>requestAnimationFrame(syncMobileTheme));
-  syncMobileTheme();
+  syncThemeControls();
 
   const initialId=(location.hash||"#top").slice(1);
   const initialView=resolveView(initialId);
