@@ -5,22 +5,29 @@ const { chromium } = require('playwright');
 const sharp = require('sharp');
 const fs = require('node:fs/promises');
 const path = require('node:path');
+const { pathToFileURL } = require('node:url');
 
 const projects = [
   { name: 'gold-ops-os', url: 'https://gold-ops-os.vercel.app/', accent: '#d3aa5b', mode: 'dark' },
   { name: 'aspirva', url: 'https://aspirva.online/', accent: '#4dc7ce', mode: 'light' },
-  { name: 'puddleloom-studio', url: 'https://puddle.loomstudio.workers.dev/', accent: '#6de0c1', mode: 'dark' },
+  { name: 'puddleloom-studio', url: 'https://puddle.loomstudio.workers.dev/', localPreview: 'scripts/puddleloom-preview.html', accent: '#6de0c1', mode: 'dark' },
 ];
 const outDir = path.join(process.cwd(), 'assets', 'projects');
 const W = 2720, H = 1510, x = 70, top = 175, contentW = 2580, contentH = 1205;
 const escapeXml = s => s.replace(/&/g,'&amp;').replace(/"/g,'&quot;');
 
 async function capture(page, project) {
-  const response = await page.goto(project.url, { waitUntil: 'domcontentloaded', timeout: 60000 });
+  // The live PuddleLoom deployment is behind Cloudflare Access. Never capture
+  // the login screen as a project screenshot: render the user's supplied
+  // Studio Dashboard reference faithfully as crisp HTML instead.
+  const source = project.localPreview
+    ? pathToFileURL(path.resolve(project.localPreview)).href
+    : project.url;
+  const response = await page.goto(source, { waitUntil: 'domcontentloaded', timeout: 60000 });
   if (!response || response.status() >= 400) {
-    throw new Error('Website unavailable: HTTP ' + (response?.status() ?? 'no response'));
+    throw new Error('Preview unavailable: HTTP ' + (response?.status() ?? 'no response'));
   }
-  await page.waitForTimeout(4800);
+  await page.waitForTimeout(project.localPreview ? 180 : 4800);
   await page.evaluate(async () => {
     document.documentElement.style.scrollBehavior = 'auto';
     window.scrollTo({top: 0, behavior: 'instant'});
@@ -58,7 +65,8 @@ async function compose(screenshot, project, filename) {
     .composite([{input: svg, left: 0, top: 0}, {input: screen, left: x, top}])
     .webp({quality: 91, alphaQuality: 100, effort: 5}).toFile(output);
   const metadata = await sharp(output).metadata();
-  console.log(project.name + ': ' + metadata.width + 'x' + metadata.height + ' ' + metadata.format + ' ' + (metadata.size/1024).toFixed(0) + 'KiB');
+  const stats = await fs.stat(output);
+  console.log(project.name + ': ' + metadata.width + 'x' + metadata.height + ' ' + metadata.format + ' ' + (stats.size/1024).toFixed(0) + 'KiB');
 }
 
 (async () => {
