@@ -1,0 +1,106 @@
+/* Repair: compact desktop-site viewport on phones; no duplicate top navigation.
+   The rail is the only desktop navigation from 761px upward. */
+#site-header{display:none!important}
+html.app-shell #site-header{display:none!important}
+@media(min-width:761px){
+  :root{--app-sidebar:clamp(205px,24vw,252px)}
+  html.app-shell{scroll-padding-top:15px}
+  html.app-shell body{padding-bottom:0}
+  .portfolio-rail{
+    position:fixed!important;display:flex!important;
+    left:0!important;top:0!important;bottom:0!important;
+    z-index:400!important;isolation:isolate;
+    width:var(--app-sidebar)!important;
+    height:100vh!important;height:100dvh!important;
+    max-height:100dvh;flex-direction:column;
+    overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch;
+    padding:17px 13px 18px!important;
+    border-right:1px solid var(--border);
+    background:var(--app-rail-bg);color:var(--app-rail-text);
+    pointer-events:auto!important;touch-action:pan-y;
+    overscroll-behavior:contain;box-shadow:6px 0 28px rgba(0,0,0,.08)
+  }
+  .portfolio-rail *{pointer-events:auto}
+  .portfolio-rail__avatar{
+    width:58px;height:58px;flex:none;
+    border:2px solid var(--app-avatar-border);border-radius:19px;object-fit:cover
+  }
+  .portfolio-rail__name{font-size:1.13rem;line-height:1.2;margin:11px 0 4px;color:var(--app-rail-text)}
+  .portfolio-rail__role{font-size:.74rem;line-height:1.42}
+  .portfolio-rail__socials{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px}
+  .portfolio-rail__socials a{
+    min-height:40px;min-width:40px;padding:7px 9px;font-size:.73rem;
+    display:inline-flex;align-items:center;justify-content:center;
+    border:1px solid var(--border-strong);border-radius:10px;
+    background:var(--surface);color:var(--app-rail-text)
+  }
+  .portfolio-rail__theme{
+    min-height:41px;margin-top:9px;padding:9px;
+    display:flex;align-items:center;justify-content:space-between;
+    border:1px solid var(--border);border-radius:11px;
+    background:var(--surface);color:var(--app-rail-text);
+    font-size:.79rem;cursor:pointer
+  }
+  .portfolio-rail__theme svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7}
+  .portfolio-rail__divider{flex:none;height:1px;margin:12px 0 9px;background:var(--border)}
+  .portfolio-rail__nav{position:relative;z-index:401;display:grid;gap:3px;flex:none}
+  .portfolio-rail__nav a{
+    position:relative;z-index:402;display:flex!important;align-items:center;
+    min-height:43px;width:100%;gap:10px;padding:9px 10px;
+    color:var(--muted);text-decoration:none;font-size:.81rem;font-weight:750;
+    border-radius:11px;border:1px solid transparent;
+    cursor:pointer;pointer-events:auto!important;
+    -webkit-tap-highlight-color:var(--accent-wash);touch-action:manipulation;
+  }
+  .portfolio-rail__nav a .rail-index{flex:none;width:18px;color:var(--hy-gold);font-size:.68rem}
+  .portfolio-rail__nav a:is(:hover,:focus-visible,.is-current,[aria-current="page"]){
+    color:var(--app-rail-text);background:var(--accent-wash);border-color:var(--border)
+  }
+  .portfolio-rail__bottom{display:grid;gap:7px;margin-top:auto;padding-top:12px}
+  .portfolio-rail__resume{
+    min-height:44px;display:flex;align-items:center;justify-content:space-between;
+    gap:6px;padding:10px 11px;background:var(--hy-gold);
+    color:#21190a;border-radius:11px;font-size:.78rem;font-weight:820;text-decoration:none
+  }
+  .portfolio-rail__foot{font-size:.66rem;line-height:1.4;color:var(--muted)}
+  html.app-shell main,html.app-shell .site-footer{
+    margin-left:var(--app-sidebar)!important;
+    width:calc(100% - var(--app-sidebar))!important;
+    min-width:0!important;
+  }
+  html.app-shell main>section[data-app-view]{scroll-margin-top:12px}
+  html.app-shell .mobile-tabs,html.app-shell .mobile-theme-float{display:none!important}
+  html.app-shell .section-block>.mx-auto{min-width:0;max-width:100%;padding-inline:clamp(17px,3vw,39px)}
+}
+@media(min-width:761px) and (max-width:1023px){
+  html.app-shell .hero>.mx-auto{
+    display:grid;grid-template-columns:minmax(0,1fr)!important;
+    width:100%;max-width:100%;gap:22px;
+    padding:clamp(28px,4vw,46px) clamp(17px,3vw,32px);
+  }
+  html.app-shell .hero-visual{display:none!important}
+  html.app-shell .home-bento{
+    grid-column:1!important;grid-row:auto!important;display:grid!important;
+    grid-template-columns:minmax(0,1fr)!important;width:100%;max-width:100%;
+    min-width:0;gap:11px;padding:0;overflow:visible
+  }
+  html.app-shell .bento-tile{grid-column:1!important;min-height:146px!important;padding:16px}
+  html.app-shell .bento-tile__title{font-size:1.14rem}
+}
+@media(min-width:901px) and (max-width:1023px){
+  html.app-shell .home-bento{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  html.app-shell .bento-tile--projects{grid-column:1/-1!important}
+}
+@media(min-width:1024px){
+  /* Existing wide desktop design remains, with a guaranteed tap target. */
+  .portfolio-rail__nav a{cursor:pointer;touch-action:manipulation;pointer-events:auto!important}
+}
+@media(max-width:760px){
+  /* Normal mobile browsing keeps its five-button dock and separate theme orbit. */
+  .portfolio-rail{display:none!important}
+  html.app-shell main,html.app-shell .site-footer{margin-left:0!important;width:100%}
+  html.app-shell .mobile-tabs{pointer-events:auto;z-index:405}
+  html.app-shell .mobile-tabs a{pointer-events:auto;touch-action:manipulation}
+  html.app-shell .mobile-theme-float{z-index:406}
+}
+@media(prefers-reduced-motion:reduce){.portfolio-rail__nav a{transition:none!important}}
