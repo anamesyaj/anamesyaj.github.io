@@ -1,0 +1,201 @@
+/* Portfolio app v2: Brewed Ops-inspired information architecture; original UI.
+   Fixed profile rail, actionable bento links, native-scroll mobile tabs.
+   Aspirva teal + Gold Ops warm gold, with NO canvas/scroll animation. */
+:root {
+  --app-sidebar:252px;
+  --app-radius:19px;
+  --app-focus:#e5bc6d;
+  --app-plate:rgba(255,255,255,.045);
+  --app-plate-border:rgba(229,188,109,.22);
+  --app-ink:#f5f8f8;
+  --app-tab-bg:rgba(11,24,33,.98);
+  --app-tab-ink:#aebfc5;
+  --app-tab-on:#fff;
+  --app-rail-bg:#0c1720;
+  --app-rail-text:#edf6f6;
+  --app-soft-glow:rgba(55,179,179,.10);
+  --app-avatar-border:rgba(229,188,109,.36);
+}
+html[data-theme="light"] {
+  --app-focus:#a8732e;
+  --app-plate:rgba(255,255,255,.94);
+  --app-plate-border:#cadadd;
+  --app-ink:#1b2c37;
+  --app-tab-bg:rgba(255,255,255,.98);
+  --app-tab-ink:#536872;
+  --app-tab-on:#164e58;
+  --app-rail-bg:#f3f9f9;
+  --app-rail-text:#1b303a;
+  --app-soft-glow:rgba(18,117,132,.075);
+  --app-avatar-border:rgba(17,117,132,.26);
+}
+html {scroll-padding-top:91px;}
+#project-gold-title,#project-aspirva-title,#project-studio-title {scroll-margin-top:105px;}
+.portfolio-rail,.mobile-tabs,.desktop-topline {display:none;}
+button,a,summary {touch-action:manipulation;}
+a:focus-visible,button:focus-visible,summary:focus-visible {outline:3px solid var(--accent-strong);outline-offset:3px;}
+/* Top chrome is always a real anchor/menu, never a decorative arrow. */
+.site-header {isolation:isolate;}
+.site-header > div {min-width:0;}
+.nav-link {min-height:44px;display:inline-flex;align-items:center;}
+.icon-button,.menu-toggle{min-width:44px;min-height:44px;display:inline-grid;place-items:center;}
+.nav-contact{min-height:44px;display:inline-flex;align-items:center;gap:7px;}
+/* Above the fold: do not duplicate the same three skinny mini cards. */
+.hero > .mx-auto {max-width:1250px;align-items:center;}
+.hero-heading {text-wrap:balance;max-width:15.5ch;}
+.hero-proof {background:transparent;}
+.hero-proof > div:first-child {padding-left:12px;}
+.hero-visual {min-width:0;}
+.portrait-card {border-radius:var(--app-radius);}
+.portrait-card-footer{gap:16px;min-height:62px;}
+.portrait-card-footer > div{min-width:0;}
+.portrait-story-link{
+  display:inline-flex;align-items:center;justify-content:center;flex:none;gap:8px;
+  min-width:119px;min-height:46px;padding:10px 12px;border-radius:11px;
+  border:1px solid var(--hy-gold-line);color:var(--hy-gold);background:var(--hy-gold-wash);
+  text-decoration:none;font-size:.84rem;font-weight:800;white-space:nowrap;
+}
+.portrait-story-link:hover{background:var(--surface-elevated);border-color:var(--hy-gold);}
+.portrait-story-link span{font-size:18px;line-height:1;}
+/* All three bento cards are links; the card shell itself has an action. */
+.home-bento {
+  width:100%;min-width:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;grid-column:1/-1;
+}
+.bento-tile{
+  position:relative;display:flex;flex-direction:column;min-width:0;min-height:192px;overflow:hidden;
+  padding:19px;border:1px solid var(--border);border-radius:var(--app-radius);
+  background:var(--surface);color:var(--text);text-decoration:none;
+  transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease;
+}
+.bento-tile:hover{transform:translateY(-3px);border-color:var(--hy-gold);box-shadow:0 16px 35px var(--shadow);}
+.bento-tile:focus-visible{outline:3px solid var(--accent-strong);outline-offset:3px;}
+.bento-tile__tag{display:block;color:var(--hy-gold);font-size:.73rem;line-height:1.45;font-weight:850;letter-spacing:.08em;}
+.bento-tile__title{display:block;max-width:23ch;margin:17px 0 8px;font-size:clamp(1.1rem,1.65vw,1.5rem);line-height:1.2;letter-spacing:-.035em;font-weight:800;}
+.bento-tile__description{display:block;max-width:35ch;color:var(--body);font-size:.88rem;line-height:1.48;}
+.bento-tile__go{display:inline-flex;align-items:center;gap:9px;margin-top:auto;padding-top:16px;color:var(--accent-strong);font-size:.85rem;font-weight:800;}
+.bento-tile__go span{font-size:1.22rem;line-height:1;}
+.bento-tile--projects{background:radial-gradient(circle at 81% 0%,var(--app-soft-glow),transparent 48%),var(--surface);border-color:var(--hy-gold-line);}
+.bento-tile__media{display:flex;align-items:center;gap:12px;margin-top:16px;min-height:46px;}
+.bento-tile__media img{
+  width:48px;height:48px;object-fit:contain;padding:7px;border:1px solid var(--border);
+  border-radius:12px;background:var(--surface-elevated);
+}
+.bento-tile__metric{margin-top:13px;color:var(--text);font-size:clamp(1.75rem,2.5vw,2.15rem);line-height:1.05;font-weight:850;font-variant-numeric:tabular-nums;}
+.bento-tile__metric small{font-size:.85rem;color:var(--muted);font-weight:600;}
+.bento-tile__avatar{display:block;align-self:flex-start;margin-top:13px;width:51px;height:51px;border-radius:17px;object-fit:cover;object-position:center;border:2px solid var(--app-avatar-border);}
+/* Project cards are informative surfaces; only the inner actual links lift. */
+.project-card,.challenge-card,.skill-card,.method-step {transition:border-color .18s ease;}
+.project-card:hover{transform:none;box-shadow:none;border-color:var(--border-strong);}
+.project-live-link {min-height:48px;min-width:164px;justify-content:space-between;align-items:center;padding:11px 14px;border-radius:10px;}
+.project-live-link:hover{background:var(--surface-elevated);border-color:var(--hy-gold);}
+.case-expand summary {min-height:49px;align-items:center;gap:12px;}
+.case-expand summary span{display:grid;place-items:center;flex:none;width:29px;height:29px;border:1px solid var(--border);border-radius:9px;}
+.case-expand[open] summary span{background:var(--accent-wash);}
+.education-strip-badge{display:inline-flex;align-items:center;justify-content:center;padding:8px 11px;border:1px solid var(--hy-gold-line);border-radius:8px;font-size:.78rem;letter-spacing:.055em;}
+/* Email fallback is intentionally an actual button, not a spurious outbound arrow. */
+.copy-email,.copy-message{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:44px;margin:12px 9px 0 0;padding:10px 13px;border:1px solid var(--border-strong);border-radius:10px;background:var(--surface-elevated);color:var(--text);font-size:.86rem;font-weight:750;cursor:pointer;text-decoration:none;}
+.copy-email:hover,.copy-message:hover{border-color:var(--accent-strong);background:var(--accent-wash);}
+.copy-email .copy-icon,.copy-message .copy-icon{font-size:1.1rem;color:var(--accent-strong);}
+.contact-form-panel{box-shadow:0 12px 32px var(--shadow);border-radius:var(--app-radius);}
+.form-status{min-height:34px;line-height:1.5;}
+/* Small phone: app-style nav inspired by Brewed Ops, but plain HTML anchors. */
+@media(max-width:760px){
+  html{scroll-padding-top:90px;}
+  body{padding-bottom:calc(91px + env(safe-area-inset-bottom,0px));}
+  .mobile-tabs{
+    position:fixed;z-index:99;left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom,0px));
+    display:grid;grid-template-columns:repeat(5,minmax(0,1fr));align-items:center;
+    min-height:65px;padding:5px 4px;border:1px solid var(--border-strong);border-radius:20px;
+    background:var(--app-tab-bg);box-shadow:0 14px 42px rgba(0,0,0,.20);
+  }
+  .mobile-tabs a{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+    min-width:0;min-height:54px;padding:4px 2px;border-radius:13px;color:var(--app-tab-ink);
+    font-size:.67rem;font-weight:750;line-height:1.15;text-align:center;text-decoration:none;
+  }
+  .mobile-tabs svg{width:21px;height:21px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+  .mobile-tabs a:hover,.mobile-tabs a.is-current,.mobile-tabs a[aria-current="location"]{color:var(--app-tab-on);background:var(--accent-wash);}
+  .mobile-tabs .mobile-tabs__contact{color:#17140d;background:var(--hy-gold);border-radius:14px;transform:translateY(-6px);box-shadow:0 8px 19px rgba(0,0,0,.12);}
+  .mobile-tabs .mobile-tabs__contact:hover,.mobile-tabs .mobile-tabs__contact.is-current{background:var(--hy-gold);color:#17140d;}
+  html[data-theme="light"] .mobile-tabs .mobile-tabs__contact{background:#bb8e4c;color:#16140e;}
+  .site-footer {padding-bottom:15px;}
+  .hero>.mx-auto{gap:22px;}
+  .hero-visual{max-width:350px;margin-inline:auto;}
+  .home-bento{
+    display:flex;gap:11px;width:calc(100% + 20px);max-width:none;
+    margin-right:-20px;padding:4px 20px 13px 1px;overflow-x:auto;
+    scroll-snap-type:x mandatory;scroll-padding-left:1px;overscroll-behavior-x:contain;
+    -webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:var(--border-strong) transparent;
+  }
+  .bento-tile{flex:0 0 min(79vw,288px);scroll-snap-align:start;min-height:213px;padding:18px;}
+  .bento-tile:hover{transform:none;box-shadow:none;}
+  .bento-tile:active{transform:scale(.992);border-color:var(--hy-gold);}
+  .bento-tile__title{font-size:1.2rem;}
+  .project-links{align-items:stretch;gap:8px;}
+  .project-live-link{min-width:0;width:100%;}
+  .project-link-note{display:block;width:100%;}
+}
+@media(min-width:761px) and (max-width:1359px){
+  .home-bento{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:0;}
+  .hero>.mx-auto{gap:clamp(20px,3vw,44px);}
+  .bento-tile{min-height:190px;}
+  .bento-tile__title{font-size:clamp(1.05rem,1.7vw,1.3rem);}
+}
+@media(min-width:1360px){
+  .portfolio-rail{
+    position:fixed;inset:0 auto 0 0;z-index:80;display:flex;flex-direction:column;
+    width:var(--app-sidebar);height:100dvh;overflow-y:auto;overscroll-behavior-y:contain;
+    padding:28px 21px 22px;border-right:1px solid var(--border);
+    background:var(--app-rail-bg);color:var(--app-rail-text);scrollbar-width:thin;
+  }
+  .portfolio-rail__avatar{width:76px;height:76px;object-fit:cover;object-position:center;border:2px solid var(--app-avatar-border);border-radius:23px;box-shadow:0 9px 23px var(--shadow);}
+  .portfolio-rail__name{margin:17px 0 5px;font-size:1.38rem;letter-spacing:-.035em;line-height:1.16;color:var(--app-rail-text);font-weight:820;}
+  .portfolio-rail__role{margin:0;color:var(--muted);font-size:.84rem;line-height:1.5;}
+  .portfolio-rail__socials{display:flex;gap:9px;margin-top:22px;}
+  .portfolio-rail__socials a{display:grid;place-items:center;min-width:44px;min-height:44px;padding:6px;border:1px solid var(--border-strong);border-radius:11px;color:var(--app-rail-text);text-decoration:none;font-size:.8rem;font-weight:750;}
+  .portfolio-rail__socials a:hover{border-color:var(--hy-gold);color:var(--hy-gold);}
+  .portfolio-rail__divider{height:1px;margin:23px 0 16px;background:var(--border);flex:none;}
+  .portfolio-rail__nav{display:grid;gap:4px;}
+  .portfolio-rail__nav a{
+    display:flex;align-items:center;gap:13px;min-height:46px;padding:10px 13px;
+    border-radius:11px;color:var(--muted);font-size:.9rem;font-weight:700;text-decoration:none;
+    border:1px solid transparent;
+  }
+  .portfolio-rail__nav a .rail-index{color:var(--hy-gold);font-size:.73rem;font-variant-numeric:tabular-nums;}
+  .portfolio-rail__nav a:hover,.portfolio-rail__nav a.is-current,.portfolio-rail__nav a[aria-current="location"]{color:var(--app-rail-text);background:var(--accent-wash);border-color:var(--border);}
+  .portfolio-rail__bottom{margin-top:auto;padding-top:21px;display:grid;gap:10px;}
+  .portfolio-rail__resume{display:flex;align-items:center;justify-content:space-between;gap:7px;min-height:46px;padding:12px 14px;background:var(--hy-gold);color:#1d1609;border-radius:11px;font-size:.85rem;font-weight:820;text-decoration:none;}
+  .portfolio-rail__resume:hover{filter:brightness(1.08);}
+  .portfolio-rail__foot{margin:0;color:var(--muted);font-size:.7rem;line-height:1.5;}
+  #site-header,main,.site-footer{margin-left:var(--app-sidebar);}
+  #site-header > div{max-width:none;padding-left:clamp(24px,3.4vw,50px);padding-right:clamp(24px,3.4vw,50px);}
+  #site-header .brand,#site-header #primary-nav,#site-header .menu-toggle{display:none!important;}
+  .desktop-topline{display:block;margin-right:auto;color:var(--muted);font-size:.74rem;font-weight:790;letter-spacing:.14em;}
+  .hero>.mx-auto{
+    width:100%;max-width:1550px;padding-inline:clamp(24px,3.4vw,50px);
+    grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:clamp(22px,2.5vw,42px);min-height:min(82svh,770px);
+  }
+  .hero-visual{display:none!important;}
+  .home-bento{grid-column:2;grid-row:1;grid-template-columns:repeat(2,minmax(0,1fr));align-self:center;}
+  .bento-tile--projects{grid-column:1/-1;min-height:212px;}
+  .bento-tile:not(.bento-tile--projects){min-height:178px;}
+  .section-block > .mx-auto{max-width:1470px;padding-inline:clamp(24px,3.4vw,50px);}
+  .section-heading{max-width:20ch;}
+}
+@media(min-width:1360px) and (max-height:760px){
+  .portfolio-rail{padding-block:19px;}
+  .portfolio-rail__avatar{width:60px;height:60px;border-radius:18px;}
+  .portfolio-rail__name{margin-top:12px;}
+  .portfolio-rail__divider{margin:13px 0 10px;}
+  .portfolio-rail__nav a{min-height:39px;}
+  .portfolio-rail__bottom{padding-top:12px;}
+}
+@media(prefers-reduced-motion:reduce){
+  .bento-tile,.project-card,.portfolio-rail__resume,.portrait-story-link{transition:none!important;}
+  .bento-tile:hover{transform:none!important;}
+  html{scroll-behavior:auto!important;}
+}
+@media(forced-colors:active){
+  .bento-tile,.portfolio-rail,.mobile-tabs,.portrait-story-link{border:1px solid CanvasText;}
+}
