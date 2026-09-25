@@ -84,5 +84,51 @@
     }
   });
 
+  // The form also works for visitors whose phone has no configured mail app.
+  // Copy the full prepared inquiry, rather than showing a non-working CTA.
+  const copyMessage = document.getElementById('copy-message');
+  const fallbackCopy = text => {
+    const input = document.createElement('textarea');
+    input.value = text;
+    input.setAttribute('readonly', '');
+    input.style.cssText = 'position:fixed;left:-9999px;opacity:0;';
+    document.body.appendChild(input);
+    input.select();
+    let worked = false;
+    try { worked = document.execCommand('copy'); } catch (_) {}
+    input.remove();
+    return worked;
+  };
+  copyMessage?.addEventListener('click', async () => {
+    const name = document.getElementById('contact-name')?.value.trim() || '';
+    const email = document.getElementById('contact-email')?.value.trim() || '';
+    const message = document.getElementById('contact-message')?.value.trim() || '';
+    if (!message) {
+      status.textContent = 'Write a message first, then tap Copy prepared message.';
+      document.getElementById('contact-message')?.focus();
+      return;
+    }
+    const prepared = [
+      name ? 'Name: ' + name : '',
+      email ? 'Email: ' + email : '',
+      '',
+      message
+    ].filter((line, i) => line || i > 1).join('\\n').trim();
+    let copied = false;
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(prepared);
+        copied = true;
+      }
+    } catch (_) {}
+    if (!copied) copied = fallbackCopy(prepared);
+    if (copied) {
+      copyMessage.textContent = 'Message copied ✓';
+      status.textContent = 'Message copied. Paste it into your email app and send it to ' + destination + '.';
+    } else {
+      status.textContent = 'Copy is blocked by your browser. Select your message above and paste it into your email app.';
+    }
+  });
+
   document.getElementById('year').textContent = new Date().getFullYear();
 })();
