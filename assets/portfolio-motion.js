@@ -24,6 +24,7 @@
   panels.forEach((panel,i)=>{
    const current=i===index;
    panel.classList.toggle("is-front",current);
+   panel.dataset.position=current?"current":i===(index+1)%panels.length?"next":"prev";
    panel.setAttribute("aria-hidden",String(!current));
    panel.querySelectorAll("a").forEach(link=>{link.tabIndex=current?0:-1});
   });
@@ -55,6 +56,7 @@
   if(Math.abs(dx)>=36)select(index+(dx<0?1:-1),true);
  }
  stage.addEventListener("pointerup",finishSwipe);
+ stage.addEventListener("click",e=>{const card=e.target.closest(".orbit-card");if(!card||e.target.closest("a,button"))return;const n=panels.indexOf(card);if(n>=0&&n!==index)select(n,true)});
  stage.addEventListener("pointercancel",()=>{pointerX=null;pointerId=null;stage.classList.remove("is-dragging")});
  showcase.addEventListener("keydown",e=>{
   if(e.altKey||e.ctrlKey||e.metaKey||/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName))return;
