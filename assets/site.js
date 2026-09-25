@@ -13,7 +13,7 @@
     const light = root.dataset.theme === 'light';
     themeToggle.setAttribute('aria-pressed', String(light));
     themeToggle.setAttribute('aria-label', light ? 'Switch to dark theme' : 'Switch to light theme');
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', light ? '#f8fafc' : '#0f172a');
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', light ? '#f4f8f8' : '#09121a');
   }
   updateThemeButton();
   themeToggle.addEventListener('click', () => {
