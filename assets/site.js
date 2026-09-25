@@ -113,7 +113,7 @@
       email ? 'Email: ' + email : '',
       '',
       message
-    ].filter((line, i) => line || i > 1).join('\\n').trim();
+    ].filter((line, i) => line || i > 1).join('\n').trim();
     let copied = false;
     try {
       if (navigator.clipboard?.writeText) {
