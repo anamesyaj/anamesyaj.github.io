@@ -18,6 +18,8 @@
   <link rel="stylesheet" href="assets/theme-audit.css?v=brand-v1">
   <link rel="stylesheet" href="assets/typography.css?v=type-v1">
   <link rel="stylesheet" href="assets/hybrid-ui.css?v=hybrid-v1">
+<link rel="stylesheet" href="assets/portfolio-app-v2.css?v=app-v2">
+<link rel="stylesheet" href="assets/portfolio-motion.css?v=motion-v1">
   <script>
     try { if (localStorage.getItem('mj-theme') === 'light') document.documentElement.dataset.theme = 'light'; } catch (e) {}
   </script>
@@ -37,9 +39,17 @@
 <body class="antialiased">
   <a href="#main" class="skip-link">Skip to content</a>
 
-  <!-- STICKY NAVBAR -->
+  <aside class="portfolio-rail" aria-label="Desktop profile and navigation">
+<img class="portfolio-rail__avatar" src="https://avatars.githubusercontent.com/u/305338593?v=4&amp;size=192" width="76" height="76" loading="lazy" alt="" onerror="this.src='assets/favicon.svg'">
+<h2 class="portfolio-rail__name">Mark Jay Lisay</h2><p class="portfolio-rail__role">AI Workflow &amp; Product Operations<br>Ilocos Norte, Philippines</p>
+<div class="portfolio-rail__socials"><a href="https://github.com/anamesyaj" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="https://linkedin.com/in/markjaylisay" target="_blank" rel="noopener noreferrer">in ↗</a><a href="mailto:markjay.lisay@gmail.com">Email ↗</a></div>
+<div class="portfolio-rail__divider" aria-hidden="true"></div>
+<nav class="portfolio-rail__nav" aria-label="Desktop sections"><a href="#top" class="is-current" aria-current="location"><span class="rail-index">01</span>Overview</a><a href="#projects"><span class="rail-index">02</span>Work</a><a href="#skills"><span class="rail-index">03</span>Capabilities</a><a href="#approach"><span class="rail-index">04</span>Approach</a><a href="#about"><span class="rail-index">05</span>About</a><a href="#experience"><span class="rail-index">06</span>Experience</a><a href="#contact"><span class="rail-index">07</span>Contact</a></nav>
+<div class="portfolio-rail__bottom"><a class="portfolio-rail__resume" href="assets/Mark_Jay_Lisay_Public_Resume.pdf" download="Mark_Jay_Lisay_Public_Resume.pdf">Download résumé <span aria-hidden="true">↓</span></a><p class="portfolio-rail__foot">Operational rigor. Human-controlled AI.</p></div>
+</aside>
+<!-- STICKY NAVBAR -->
   <header id="site-header" class="site-header sticky top-0 z-50">
-    <div class="mx-auto flex h-[72px] max-w-6xl items-center justify-between gap-4 px-5 sm:px-7 lg:px-10">
+    <div class="mx-auto flex h-[72px] max-w-6xl items-center justify-between gap-4 px-5 sm:px-7 lg:px-10"><span class="desktop-topline">MARK JAY / SELECTED WORK</span>
       <a class="brand flex shrink-0 items-center gap-3" href="#top" aria-label="Mark Jay Lisay, return to top">
         <span class="brand-mark" aria-hidden="true"><svg class="brand-mark__glyph" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" focusable="false" aria-hidden="true"><path class="brand-mark__m" d="M9.25 33.25v-18l9 10.75 9-10.75v18" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><path class="brand-mark__j" d="M38 15.25V30.2c0 5-3.25 8.05-7.65 8.05-2.7 0-4.75-.95-6.25-2.65" stroke="#a5b4fc" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><circle class="brand-mark__dot" cx="38" cy="9.8" r="2.2" fill="#a5b4fc"/></svg></span>
         <span class="brand-wordmark"><strong>Mark Jay</strong><span class="brand-wordmark__last">Lisay</span></span>
@@ -69,7 +79,7 @@
   <main id="main">
     <!-- HERO -->
     <section id="top" class="hero section-anchor relative isolate overflow-hidden">
-      <div class="hero-grid" aria-hidden="true"></div>
+      <div class="hero-grid" aria-hidden="true"></div><div class="hero-contour" aria-hidden="true"><span class="hero-contour__rings"></span></div>
       <div class="mx-auto grid max-w-6xl items-center gap-11 px-5 pb-20 pt-16 sm:px-7 sm:pb-24 sm:pt-20 lg:grid-cols-[1.15fr_.85fr] lg:gap-16 lg:px-10 lg:pb-28 lg:pt-28">
         <div class="relative z-10">
           <p class="eyebrow mb-6"><span class="eyebrow-dot" aria-hidden="true"></span> OPERATIONS · AI WORKFLOWS · QA & AUTOMATION</p>
@@ -93,21 +103,17 @@
               <div class="portrait-fallback" aria-hidden="true"><svg class="portrait-fallback__monogram" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" focusable="false" aria-hidden="true"><path class="brand-mark__m" d="M9.25 33.25v-18l9 10.75 9-10.75v18" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><path class="brand-mark__j" d="M38 15.25V30.2c0 5-3.25 8.05-7.65 8.05-2.7 0-4.75-.95-6.25-2.65" stroke="#a5b4fc" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><circle class="brand-mark__dot" cx="38" cy="9.8" r="2.2" fill="#a5b4fc"/></svg></div>
               <img src="https://avatars.githubusercontent.com/u/305338593?v=4&amp;size=512" alt="Mark Jay Lisay  -  GitHub profile photograph" width="360" height="360" fetchpriority="high" decoding="async" referrerpolicy="no-referrer" onerror="this.hidden=true">
             </div>
-            <div class="portrait-card-footer"><div><strong>Mark Jay Lisay</strong><span>Ilocos Norte, Philippines</span></div><span class="portrait-chevron" aria-hidden="true">↗</span></div>
+            <div class="portrait-card-footer"><div><strong>Mark Jay Lisay</strong><span>Ilocos Norte, Philippines</span></div><a class="portrait-story-link" href="#about">My story <span aria-hidden="true">↗</span></a></div>
           </div>
-          <div class="hybrid-project-rail__label">THREE SYSTEMS / ONE DELIVERY MINDSET</div>
-          <nav class="hybrid-project-rail" aria-label="Jump to featured projects">
-            <a href="#project-gold-title"><strong>Gold Ops OS ↗</strong><small>Governed workflows</small></a>
-            <a href="#project-aspirva-title"><strong>Aspirva ↗</strong><small>Career intelligence</small></a>
-            <a href="#project-studio-title"><strong>PuddleLoom ↗</strong><small>Creator production</small></a>
-          </nav>
+          
           <div class="portrait-side-note"><span class="mini-spark" aria-hidden="true">✳</span> Operational rigor. Human-controlled AI.</div>
         </div>
-      </div>
+<nav class="home-bento" aria-label="Explore the portfolio"><a class="bento-tile bento-tile--projects" href="#projects"><span class="bento-tile__tag">01 / REAL PROJECTS</span><span class='bento-tile__media' aria-hidden='true'><img src='assets/projects/gold-ops-os-logo.png' alt='' loading='lazy'><img src='assets/projects/aspirva-symbol.jpg' alt='' loading='lazy'><img src='assets/projects/puddleloom-mark.svg' alt='' loading='lazy'></span><span class="bento-tile__title">Explore the systems I build.</span><span class="bento-tile__description">Gold Ops OS · Aspirva · PuddleLoom Studio</span><span class="bento-tile__go">View selected work <span aria-hidden="true">↗</span></span></a><a class="bento-tile" href="#results"><span class="bento-tile__tag">02 / DOCUMENTED RESULTS</span><span class='bento-tile__metric'>97% <small>average quality audit</small></span><span class="bento-tile__title">Proof before promises.</span><span class="bento-tile__description">Operations results and a practical Excel VBA case.</span><span class="bento-tile__go">See documented results <span aria-hidden="true">↗</span></span></a><a class="bento-tile" href="#contact"><span class="bento-tile__tag">03 / LET'S COLLABORATE</span><span class="bento-tile__title">Have a workflow in mind?</span><span class="bento-tile__description">Automation, process improvement and evidence-led product delivery.</span><span class="bento-tile__go">Get in touch <span aria-hidden="true">↗</span></span></a></nav>      </div>
     </section>
 
 
-    <!-- THE HIRING MANAGER'S PROBLEM -->
+    <section id="showcase" class="section-anchor section-block orbit-showcase" aria-labelledby="showcase-title"><div class="mx-auto max-w-6xl px-5 sm:px-7 lg:px-10"><div class="orbit-showcase__head"><div><span class="section-kicker">INTERACTIVE / FEATURED SYSTEMS</span><h2 id="showcase-title" class="section-heading mt-4">Explore the work <span class="accent-text">in 3D.</span></h2></div><p class="body-copy">Drag or swipe to rotate between three real projects. Every front-facing card has a working website link.</p></div><div class="orbit-showcase__inner"><div id="orbit-stage" class="orbit-stage" tabindex="0" role="group" aria-roledescription="3D carousel" aria-label="Featured projects. Swipe or use the next and previous buttons."><div id="orbit-track" class="orbit-track"><article class="orbit-card is-front" data-title="Gold Ops OS" aria-hidden="false"><div class="orbit-card__top"><span class="orbit-card__serial">01 / GOVERNED OPS</span><span>PRIVATE ALPHA</span></div><div class="orbit-card__icon"><img src="assets/projects/gold-ops-os-logo.png" alt="Gold Ops OS logo" loading="lazy" width="65" height="65"></div><h3 class="orbit-card__title">Gold Ops OS</h3><p class="orbit-card__description">Human-authorized trading operations and explicit security gates.</p><div class="orbit-card__footer"><span class="orbit-card__metric">836/836<small>Vitest checkpoint</small></span><a class="orbit-card__action" href="https://gold-ops-os.vercel.app/" target="_blank" rel="noopener noreferrer">Visit site <span aria-hidden="true">↗</span></a></div></article><article class="orbit-card" data-title="Aspirva" aria-hidden="true"><div class="orbit-card__top"><span class="orbit-card__serial">02 / CAREER OS</span><span>PRE-RELEASE</span></div><div class="orbit-card__icon"><img src="assets/projects/aspirva-symbol.jpg" alt="Aspirva logo" loading="lazy" width="65" height="65"></div><h3 class="orbit-card__title">Aspirva</h3><p class="orbit-card__description">Local-first Windows career workflows for discovery and preparation.</p><div class="orbit-card__footer"><span class="orbit-card__metric">310<small>Passing test checkpoint</small></span><a class="orbit-card__action" href="https://aspirva.online/" target="_blank" rel="noopener noreferrer" tabindex="-1">Visit site <span aria-hidden="true">↗</span></a></div></article><article class="orbit-card" data-title="PuddleLoom Studio" aria-hidden="true"><div class="orbit-card__top"><span class="orbit-card__serial">03 / CREATOR TOOLS</span><span>IN DEVELOPMENT</span></div><div class="orbit-card__icon"><img src="assets/projects/puddleloom-mark.svg" alt="PuddleLoom Studio logo" loading="lazy" width="65" height="65"></div><h3 class="orbit-card__title">PuddleLoom Studio</h3><p class="orbit-card__description">Nine web tools for captions, editing, video formats and branding.</p><div class="orbit-card__footer"><span class="orbit-card__metric">9 tools<small>Web PWA development</small></span><a class="orbit-card__action" href="https://puddle.loomstudio.workers.dev/" target="_blank" rel="noopener noreferrer" tabindex="-1">Visit site <span aria-hidden="true">↗</span></a></div></article></div></div><div class="orbit-controls" aria-label="Carousel controls"><div class="orbit-controls__group"><button id="orbit-prev" type="button" aria-label="Previous project">←</button><button id="orbit-next" type="button" aria-label="Next project">→</button></div><div class="orbit-controls__state"><strong id="orbit-current">Gold Ops OS</strong><output id="orbit-count">1 / 3</output><span>Drag · Swipe · Arrow keys</span></div><button id="orbit-pause" class="orbit-controls__pause" type="button" aria-label="Pause automatic carousel" aria-pressed="false"><span class="orbit-pause-label">Pause</span><span aria-hidden="true">Ⅱ</span></button></div></div><p class="orbit-showcase__hint mt-4">Development checkpoints and release status are shown as documented; a public website does not imply general availability.</p></div></section>
+<!-- THE HIRING MANAGER'S PROBLEM -->
     <section id="challenge" class="section-anchor section-block challenge-section">
       <div class="mx-auto max-w-6xl px-5 sm:px-7 lg:px-10">
         <div class="section-intro reveal"><div><span class="section-kicker">THE PROBLEM</span><h2 class="section-heading mt-4">The work is complex.<br><span class="accent-text">The system should not be.</span></h2></div><p class="body-copy">For operations, automation and product teams that need to deliver more without sacrificing quality or control.</p></div>
@@ -246,7 +252,7 @@
           <li class="timeline-entry reveal"><div class="timeline-meta"><span class="timeline-period">OCT  -  DEC 2022</span><span class="timeline-company">ACCENTURE</span></div><div class="timeline-copy"><h3>Appeals Analyst</h3><p>Processed more than 50 healthcare appeals per eight-hour shift, resolving incomplete information and maintaining case documentation.</p></div></li>
           <li class="timeline-entry reveal"><div class="timeline-meta"><span class="timeline-period">AUG  -  OCT 2022</span><span class="timeline-company">ACCENTURE</span></div><div class="timeline-copy"><h3>Transaction Processor</h3><p>Verified health-plan enrollments and updated member records for accuracy and completeness.</p></div></li>
         </ol>
-        <div class="education-strip reveal mt-7"><div><span class="section-kicker">EDUCATION</span><strong>BSBA, Marketing Management · Cum Laude</strong><span>Mariano Marcos State University · 2022</span></div><div class="education-strip-badge" aria-hidden="true">MMSU <span>↗</span></div></div>
+        <div class="education-strip reveal mt-7"><div><span class="section-kicker">EDUCATION</span><strong>BSBA, Marketing Management · Cum Laude</strong><span>Mariano Marcos State University · 2022</span></div><div class="education-strip-badge" aria-hidden="true">MMSU</div></div>
       </div>
     </section>
 
@@ -264,14 +270,16 @@
             <button class="button button-primary w-full sm:w-auto" type="submit">Open email app <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button>
             <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
           </form>
-          <button id="copy-email" class="copy-email mt-4" type="button">No email app? Copy my address <span aria-hidden="true">↗</span></button>
+          <button id="copy-email" class="copy-email mt-4" type="button">Copy email address <span aria-hidden="true">⧉</span></button><button id="copy-message" class="copy-message" type="button">Copy prepared message <span aria-hidden="true">⧉</span></button>
         </div>
       </div>
     </section>
   </main>
 
   <footer class="site-footer"><div class="mx-auto flex max-w-6xl flex-col items-start justify-between gap-3 px-5 py-7 sm:flex-row sm:items-center sm:px-7 lg:px-10"><span>© <span id="year">2026</span> Mark Jay Lisay</span><span>Built with intention. Tested with evidence.</span><a href="#top" aria-label="Back to top">Back to top ↑</a></div></footer>
-  <script src="assets/site.js" defer></script>
+  <nav class="mobile-tabs" aria-label="Mobile portfolio navigation"><a href="#top" class="is-current" aria-current="location"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10 12 3l9 7v10H3z M9 20v-7h6v7"/></svg><span>Home</span></a><a href="#projects"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v15H3z M9 5V3h6v2"/></svg><span>Work</span></a><a href="#contact" class="mobile-tabs__contact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 5h20v14H2z m1 2 9 7 9-7"/></svg><span>Contact</span></a><a href="#skills"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 9 5-9 5-9-5 9-5z M3 12l9 5 9-5"/></svg><span>Skills</span></a><a href="#about"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z M4 21v-3c0-8 16-8 16 0v3z"/></svg><span>About</span></a></nav>
+<script src="assets/site.js" defer></script>
   <script src="assets/theme-interaction.js?v=theme-audit-v2" defer></script>
+<script src="assets/portfolio-motion.js?v=motion-v1" defer></script>
 </body>
 </html>
