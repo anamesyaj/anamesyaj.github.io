@@ -25,7 +25,7 @@
 
   const canonicalTarget={
     home:"top",
-    work:"projects",
+    work:"showcase",
     contact:"contact",
     skills:"skills",
     about:"about"
