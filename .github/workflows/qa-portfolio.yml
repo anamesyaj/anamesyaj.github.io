@@ -5,6 +5,9 @@ on:
       - '.github/workflows/qa-portfolio.yml'
       - 'scripts/qa-portfolio-carousel.cjs'
       - 'scripts/qa-screen-deck.cjs'
+      - 'scripts/qa-continuous-deck.cjs'
+      - 'assets/continuous-deck-v6.js'
+      - 'assets/continuous-deck-v6.css'
       - 'assets/screen-deck-v5.js'
       - 'assets/screen-deck-v5.css'
       - 'assets/app-navigation.js'
@@ -35,11 +38,12 @@ jobs:
           node --check assets/app-navigation.js
           node --check assets/site.js
           node --check assets/screen-deck-v5.js
-          node --check scripts/qa-screen-deck.cjs
+          node --check scripts/qa-continuous-deck.cjs
+          node --check assets/continuous-deck-v6.js
       - name: Desktop and Android-sized carousel checks
         run: node scripts/qa-portfolio-carousel.cjs
       - name: Full-screen snap and multi-device app checks
-        run: node scripts/qa-screen-deck.cjs
+        run: node scripts/qa-continuous-deck.cjs
       - name: Upload screenshots if tests fail
         if: failure()
         uses: actions/upload-artifact@v4
