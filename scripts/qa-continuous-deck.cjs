@@ -35,6 +35,7 @@ async function inspect(browser,device){
       windowY:scrollY
     };
   });
+  console.log('CONTINUOUS LAYOUT',device.name,JSON.stringify({rootSnap:layout.rootSnap,rootHeight:layout.rootHeight,mainOverflow:layout.mainOverflow,docScroll:layout.docScroll,windowY:layout.windowY,sectionHeights:layout.heights.map(x=>({id:x.id,h:x.height,panel:x.panelHeight,content:x.panelScroll}))}));
   assert.deepEqual(layout.ids,order,device.name+' all ten sections in logical reading order');
   assert.deepEqual(layout.hidden,[],device.name+' no view hidden or aria-hidden');
   assert.ok(layout.rootSnap.includes('proximity'),device.name+' native proximity scroll snapping');
