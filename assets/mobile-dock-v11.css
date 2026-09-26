@@ -2,6 +2,10 @@
    The circle is centered over Contact but has visible air between controls.
    Dark teal/white contrast fixes light-theme Contact and Appearance labels. */
 @media(max-width:760px){
+  /* Reserve room so the separate orbit never covers the last line of an app page. */
+  html.screen-deck.continuous-deck.mobile-app{
+    --mobile-app-page-bottom:calc(156px + env(safe-area-inset-bottom,0px));
+  }
   /* The entire Contact destination stays a distinct, high-contrast tap target. */
   html.mobile-app[data-theme="light"] .mobile-tabs>a.mobile-tabs__contact,
   html.mobile-app[data-theme="light"] .mobile-tabs>a.mobile-tabs__contact:is(.is-current,:hover,:focus-visible,[aria-current="page"]){
