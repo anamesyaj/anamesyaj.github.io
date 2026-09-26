@@ -9,9 +9,7 @@ const viewports=[
  {name:"wide desktop",width:1680,height:1000},
  {name:"desktop",width:1440,height:900},
  {name:"small desktop",width:1024,height:768},
- {name:"tablet",width:768,height:1024},
- {name:"Android",width:390,height:844},
- {name:"small Android",width:320,height:568}
+ {name:"tablet",width:768,height:1024}
 ];
 const order=["top","showcase","skills","about","results","experience","contact"];
 (async()=>{

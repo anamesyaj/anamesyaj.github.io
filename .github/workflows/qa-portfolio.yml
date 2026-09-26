@@ -8,6 +8,9 @@ on:
       - 'scripts/qa-continuous-deck.cjs'
       - 'scripts/qa-work-fit.cjs'
       - 'scripts/qa-presentation-fit.cjs'
+      - 'scripts/qa-mobile-app-v10.cjs'
+      - 'assets/mobile-app-v10.js'
+      - 'assets/mobile-app-v10.css'
       - 'assets/presentation-fit-v8.css'
       - 'assets/presentation-fit-v8.js'
       - 'assets/resume-focus-v9.css'
@@ -43,6 +46,8 @@ jobs:
         run: |
           node --check assets/portfolio-motion.js
           node --check assets/app-navigation.js
+          node --check assets/mobile-app-v10.js
+          node --check scripts/qa-mobile-app-v10.cjs
           node --check assets/site.js
           node --check assets/screen-deck-v5.js
           node --check scripts/qa-continuous-deck.cjs
@@ -51,8 +56,10 @@ jobs:
           node --check assets/presentation-fit-v8.js
       - name: Desktop and Android-sized carousel checks
         run: node scripts/qa-portfolio-carousel.cjs
-      - name: Full-screen snap and multi-device app checks
+      - name: Preserve desktop continuous-scroll layout
         run: node scripts/qa-continuous-deck.cjs
+      - name: Android-style mobile tabs, browser history and theme cap
+        run: node scripts/qa-mobile-app-v10.cjs
       - name: Resume-focused layout and readable projects across viewports
         run: node scripts/qa-presentation-fit.cjs
       - name: Measure viewport fit on eight screen sizes

@@ -93,6 +93,11 @@ async function run(browser,device){
   await select("home");
   // The Home shortcut to documented Results must open About and expand
   // Results rather than scroll the visitor down a hidden desktop document.
+  const homeExtras=page.locator('#top .fit-home-more');
+  if(await homeExtras.count()){
+    const resultLink=page.locator('#top a[href="#results"]');
+    if(!await resultLink.isVisible()) await homeExtras.locator('summary').click();
+  }
   await page.locator('#top a[href="#results"]').click();
   await page.waitForFunction(()=>{
    const d=document.querySelector('.mobile-app__more[data-subsection="results"]');

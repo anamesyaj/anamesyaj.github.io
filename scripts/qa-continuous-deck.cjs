@@ -8,9 +8,7 @@ const fs=require('node:fs/promises');
 const url=pathToFileURL(path.join(process.cwd(),'index.html')).href;
 const devices=[
  {name:'desktop',width:1440,height:900,mobile:false},
- {name:'compact-desktop',width:900,height:740,mobile:false},
- {name:'android',width:390,height:844,mobile:true},
- {name:'small-android',width:320,height:568,mobile:true}
+ {name:'compact-desktop',width:900,height:740,mobile:false}
 ];
 const order=['top','showcase','skills','about','results','experience','contact'];
 const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
