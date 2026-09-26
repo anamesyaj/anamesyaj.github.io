@@ -31,8 +31,11 @@ const source=pathToFileURL(path.join(process.cwd(),'index.html')).href+'#showcas
     const linkBox=await linkedIn.boundingBox();
     const railBox=await desktop.locator('.portfolio-rail').boundingBox();
     assert.ok(linkBox&&railBox&&linkBox.x>=railBox.x&&linkBox.x+linkBox.width<=railBox.x+railBox.width+1,'LinkedIn link fits sidebar');
+    await desktop.evaluate(()=>{document.documentElement.dataset.theme='light'});
+    // Theme changes animate CSS background for ~200ms. Measure settled
+    // contrast rather than an intermediate mixed-color transition frame.
+    await desktop.waitForTimeout(380);
     const colors=await desktop.evaluate(()=>{
-      document.documentElement.dataset.theme='light';
       const computed=selector=>{
         const s=getComputedStyle(document.querySelector(selector));
         return {text:s.color,bg:s.backgroundColor};
