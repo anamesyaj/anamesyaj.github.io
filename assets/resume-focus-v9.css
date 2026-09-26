@@ -233,3 +233,12 @@ html.screen-deck.continuous-deck #results .impact-story{
     box-sizing:border-box;padding-right:88px!important;
   }
 }
+
+/* Keep the numbers' units visible even when inherited visibility from an
+   entrance/reveal state affects nested spans on the mobile hero. Omitting
+   /mo and % changes the meaning of the documented résumé metrics. */
+html.screen-deck.continuous-deck #top .hero-proof .stat-suffix{
+  visibility:visible!important;
+  opacity:1!important;
+  display:inline!important;
+}
