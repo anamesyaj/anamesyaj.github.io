@@ -77,6 +77,11 @@ async function run(browser,device){
   const contactPage=page.locator(".mobile-app__page[data-mobile-view=contact]");
   const bottomSpacing=await contactPage.evaluate(el=>parseFloat(getComputedStyle(el).paddingBottom));
   assert.ok(bottomSpacing>=60,device.label+" page has internal clearance to scroll its last CTA above the dock");
+  const formDisclosure=page.locator("#contact .fit-contact-more");
+  if(await formDisclosure.count()){
+    const open=await formDisclosure.evaluate(el=>el.open);
+    if(!open)await formDisclosure.locator("summary").click();
+  }
   await page.locator("#copy-message").scrollIntoViewIfNeeded();
   assert.ok(await page.locator("#copy-message").isVisible(),device.label+" last Contact CTA can be reached");
   assert.equal(errors.length,0,device.label+" no uncaught page errors: "+errors.join(" | "));
