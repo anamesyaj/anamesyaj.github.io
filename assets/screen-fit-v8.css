@@ -1,0 +1,309 @@
+/* Adaptive hero screens v8.
+   Modelled on the Gold Ops vertical landing: one viewport minimum per chapter,
+   proximity snapping, semantic responsive columns, and content that can extend
+   into another screen instead of being clipped or reduced to tiny text. */
+html.screen-deck.continuous-deck.fit-deck{
+  scroll-snap-type:y proximity!important;
+  scroll-padding-top:0!important;
+  height:auto!important;overflow-y:auto!important;
+}
+html.screen-deck.continuous-deck.fit-deck #main{
+  overflow:visible!important;height:auto!important;max-height:none!important;
+}
+html.screen-deck.continuous-deck.fit-deck #main>section[data-app-view],
+html.screen-deck.continuous-deck.fit-deck #main>section[data-app-view]:not([hidden]){
+  display:flex!important;flex-direction:column;align-items:stretch;
+  justify-content:flex-start!important;
+  min-height:0!important;height:auto!important;max-height:none!important;
+  padding:0!important;margin:0!important;overflow:visible!important;
+  scroll-snap-align:none!important;scroll-snap-stop:normal!important;
+}
+html.screen-deck.continuous-deck.fit-deck #main>section[data-app-view]>.mx-auto.fit-screen{
+  box-sizing:border-box!important;position:relative;z-index:1;
+  display:flex;flex-direction:column;align-items:stretch;justify-content:center;
+  flex:0 0 auto;width:min(100%,1390px)!important;
+  height:100dvh!important;min-height:100dvh!important;max-height:none!important;
+  margin:0 auto!important;overflow:visible!important;
+  padding:clamp(20px,3dvh,42px) clamp(20px,3vw,42px)!important;
+  scroll-snap-align:start!important;
+  scroll-snap-stop:normal!important;scroll-margin:0!important;
+  zoom:1!important;
+}
+html.screen-deck.continuous-deck.fit-deck #main>section[data-app-view]>.mx-auto.fit-screen--tall{
+  height:auto!important;min-height:100dvh!important;
+  padding-block:clamp(25px,4dvh,50px)!important;
+  scroll-snap-align:start!important;
+}
+html.screen-deck.continuous-deck.fit-deck #main>section[data-app-view]>.mx-auto.fit-screen--continuation{
+  border-top:1px solid var(--border);
+  max-width:1390px!important;
+}
+html.screen-deck.continuous-deck.fit-deck #main>section[data-app-view]>.mx-auto.fit-screen--continuation:has(.fit-fragment){
+  justify-content:center!important;
+}
+html.screen-deck.continuous-deck.fit-deck #main>section[data-app-view]>.mx-auto.fit-screen>*{
+  min-width:0;max-width:100%;
+}
+.fit-screen__continued{
+  display:flex!important;align-items:center;justify-content:space-between;
+  gap:15px;flex:none;max-width:100%;
+  margin:0 0 clamp(11px,2dvh,22px)!important;
+  color:var(--muted);font-size:.71rem;letter-spacing:.12em;
+  text-transform:uppercase;font-weight:850;line-height:1.4;
+}
+.fit-screen__continued::after{
+  content:"CONTINUED";color:var(--hy-gold);font-weight:850;
+}
+.fit-screen__more{
+  display:flex!important;flex-wrap:wrap;gap:8px;
+  max-width:690px;padding:15px;margin:clamp(14px,2dvh,26px) 0 0!important;
+  border:1px solid var(--border-strong);border-radius:16px;
+  background:var(--surface);align-self:stretch;
+}
+.fit-screen__more a{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:42px;max-width:100%;padding:9px 13px;border:1px solid var(--border-strong);
+  border-radius:12px;text-decoration:none;color:var(--text);
+  font-size:.79rem;font-weight:750;white-space:normal;text-align:center;
+}
+.fit-screen__more a:hover,.fit-screen__more a:focus-visible{
+  background:var(--accent-wash);border-color:var(--accent-strong);
+}
+.fit-screen__more p{width:100%;margin:0 0 6px;color:var(--muted);font-size:.75rem}
+/* Fragmented source grids preserve their cards and tap targets as actual DOM;
+   column count adapts to how many cards fit in each viewport. */
+html.screen-deck.continuous-deck.fit-deck .fit-fragment{
+  display:grid!important;grid-auto-flow:row!important;
+  grid-template-columns:repeat(var(--fit-cols,1),minmax(0,1fr))!important;
+  grid-template-rows:none!important;
+  align-items:stretch!important;
+  gap:clamp(8px,1.1vw,16px)!important;
+  min-width:0!important;width:100%!important;
+  max-width:100%!important;margin:0!important;
+  padding:0!important;overflow:visible!important;
+  scroll-snap-type:none!important;transform:none!important;
+}
+html.screen-deck.continuous-deck.fit-deck .fit-fragment.fit-fragment--project-cases{
+  gap:clamp(10px,1.15vw,18px)!important;
+}
+html.screen-deck.continuous-deck.fit-deck #projects .fit-fragment--project-cases .project-card{
+  width:100%!important;min-width:0!important;
+  max-width:100%!important;max-height:none!important;
+  height:auto!important;min-height:0!important;flex:auto!important;
+}
+html.screen-deck.continuous-deck.fit-deck #projects .project-art{
+  height:clamp(89px,11dvh,118px)!important;
+  min-height:89px!important;padding:32px 12px 8px!important;
+  flex:0 0 auto!important;
+}
+html.screen-deck.continuous-deck.fit-deck #projects .project-art img{
+  max-height:58px!important;max-width:80%!important;
+}
+html.screen-deck.continuous-deck.fit-deck #projects .project-art-aspirva img{
+  max-width:65px!important;max-height:57px!important;
+}
+html.screen-deck.continuous-deck.fit-deck #projects .project-art .studio-logo{
+  max-height:56px!important;max-width:85%!important;
+}
+html.screen-deck.continuous-deck.fit-deck #projects .project-content{
+  padding:clamp(10px,1vw,17px)!important;gap:0;
+}
+html.screen-deck.continuous-deck.fit-deck #projects .project-content h3{
+  margin-top:6px!important;font-size:clamp(1.07rem,1.4vw,1.4rem)!important;
+}
+html.screen-deck.continuous-deck.fit-deck #projects .project-content>p{
+  margin-top:7px!important;font-size:clamp(.75rem,.85vw,.86rem)!important;
+  line-height:1.4!important;
+}
+html.screen-deck.continuous-deck.fit-deck #projects .project-metric{
+  margin-top:clamp(8px,1dvh,12px)!important;padding:8px 10px!important;
+}
+html.screen-deck.continuous-deck.fit-deck #projects .project-metric strong{
+  font-size:clamp(1.06rem,1.3vw,1.4rem)!important;
+}
+html.screen-deck.continuous-deck.fit-deck #projects .project-metric span{
+  font-size:clamp(.68rem,.72vw,.79rem)!important;line-height:1.36;
+}
+html.screen-deck.continuous-deck.fit-deck #projects .project-stack{
+  margin-top:9px!important;gap:5px;
+}
+html.screen-deck.continuous-deck.fit-deck #projects .project-stack span{
+  padding:4px 7px!important;font-size:.64rem!important;
+}
+html.screen-deck.continuous-deck.fit-deck #projects .project-links{
+  margin-top:9px!important;gap:7px;
+}
+html.screen-deck.continuous-deck.fit-deck #projects .project-live-link{
+  min-height:42px;padding:8px 10px;font-size:.73rem;
+}
+html.screen-deck.continuous-deck.fit-deck #projects .case-expand{
+  margin-top:9px!important;max-height:none!important;
+}
+html.screen-deck.continuous-deck.fit-deck #projects .case-expand summary{
+  min-height:43px;padding:9px 10px!important;font-size:.76rem;
+}
+html.screen-deck.continuous-deck.fit-deck #projects .project-disclaimer{
+  margin-top:13px!important;font-size:.76rem;line-height:1.45;
+}
+/* Dense content follows Gold Ops: details are available as proper expandable
+   panels and can grow naturally if the reader chooses to open them. */
+html.screen-deck.continuous-deck.fit-deck #approach .screen-deck-expander{
+  margin-top:clamp(10px,1.6dvh,18px)!important;
+}
+html.screen-deck.continuous-deck.fit-deck #approach .screen-deck-expander summary{
+  min-height:45px!important;
+}
+html.screen-deck.continuous-deck.fit-deck #approach .screen-deck-expander[open]{
+  max-height:none!important;overflow:visible!important;
+}
+html.screen-deck.continuous-deck.fit-deck #main>section>.mx-auto.fit-screen .mt-10,
+html.screen-deck.continuous-deck.fit-deck #main>section>.mx-auto.fit-screen .mt-14,
+html.screen-deck.continuous-deck.fit-deck #main>section>.mx-auto.fit-screen .mt-9{
+  margin-top:clamp(9px,1.5dvh,16px)!important;
+}
+html.screen-deck.continuous-deck.fit-deck #main>section>.mx-auto.fit-screen .section-intro{
+  align-items:center;gap:clamp(9px,2vw,20px)!important;
+}
+html.screen-deck.continuous-deck.fit-deck #main>section>.mx-auto.fit-screen .section-heading{
+  font-size:clamp(1.7rem,2.6vw,2.55rem)!important;line-height:1.1!important;
+}
+html.screen-deck.continuous-deck.fit-deck #main>section>.mx-auto.fit-screen .section-intro .body-copy{
+  font-size:clamp(.78rem,1vw,.9rem);line-height:1.42;
+}
+/* A little extra breathing room for long panels and no forced clipping. */
+html.screen-deck.continuous-deck.fit-deck #main>section>.mx-auto.fit-screen--tall{
+  overflow:visible!important;
+}
+@media(min-width:761px) and (max-width:1100px){
+ html.screen-deck.continuous-deck.fit-deck #top>.mx-auto.fit-screen{
+   grid-template-columns:1fr!important;
+ }
+ html.screen-deck.continuous-deck.fit-deck #top>.mx-auto.fit-screen .home-bento{
+   grid-column:1!important;grid-row:auto!important;
+ }
+ html.screen-deck.continuous-deck.fit-deck #about>.mx-auto.fit-screen{
+   grid-template-columns:1fr!important;
+ }
+}
+@media(min-width:1024px){
+ html.screen-deck.continuous-deck.fit-deck #top>.mx-auto.fit-screen:has(.home-bento){
+   display:grid!important;
+   grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr)!important;
+   align-items:center!important;
+   gap:clamp(16px,2.5vw,32px)!important;
+ }
+ html.screen-deck.continuous-deck.fit-deck #top>.mx-auto.fit-screen:not(:has(.home-bento)){
+   display:flex!important;align-items:flex-start;justify-content:center;
+ }
+}
+html.screen-deck.continuous-deck.fit-deck #top>.mx-auto.fit-screen--continuation .home-bento{
+  grid-column:1/-1!important;grid-row:auto!important;
+  max-width:100%!important;
+}
+html.screen-deck.continuous-deck.fit-deck #about>.mx-auto.fit-screen--continuation{
+  grid-template-columns:1fr!important;
+}
+html.screen-deck.continuous-deck.fit-deck #contact>.mx-auto.fit-screen--continuation{
+  grid-template-columns:1fr!important;
+}
+html.screen-deck.continuous-deck.fit-deck #contact>.mx-auto.fit-screen:not(:has(.contact-form-panel)){
+  grid-template-columns:1fr!important;
+}
+/* Viewport-aware media: preserve carousel previews, but do not let the
+   oversized decorative stage consume the whole small-phone screen. */
+@media(max-width:760px){
+ html.screen-deck.continuous-deck.fit-deck #main>section[data-app-view]>.mx-auto.fit-screen{
+   height:100dvh!important;min-height:100dvh!important;
+   width:100%!important;
+   padding:clamp(13px,2.5dvh,24px) clamp(14px,4vw,23px)
+     calc(106px + env(safe-area-inset-bottom,0px))!important;
+ }
+ html.screen-deck.continuous-deck.fit-deck #main>section[data-app-view]>.mx-auto.fit-screen--tall{
+   height:auto!important;min-height:100dvh!important;
+   padding-top:19px!important;
+ }
+ html.screen-deck.continuous-deck.fit-deck #main>section>.mx-auto.fit-screen .section-heading{
+   font-size:clamp(1.55rem,6vw,2.05rem)!important;
+ }
+ html.screen-deck.continuous-deck.fit-deck #main>section>.mx-auto.fit-screen .section-intro{
+   grid-template-columns:1fr!important;gap:5px!important;
+ }
+ html.screen-deck.continuous-deck.fit-deck #main>section>.mx-auto.fit-screen .section-intro .body-copy{
+   font-size:.76rem;line-height:1.37;
+ }
+ html.screen-deck.continuous-deck.fit-deck #main>section>.mx-auto.fit-screen .fit-fragment{
+   gap:clamp(8px,1dvh,12px)!important;
+ }
+ html.screen-deck.continuous-deck.fit-deck #top .home-bento.fit-fragment{
+   display:grid!important;
+   grid-template-columns:repeat(var(--fit-cols,1),minmax(0,1fr))!important;
+ }
+ html.screen-deck.continuous-deck.fit-deck #challenge .challenge-grid.fit-fragment{
+   display:grid!important;overflow:visible!important;
+   grid-template-columns:repeat(var(--fit-cols,1),minmax(0,1fr))!important;
+ }
+ html.screen-deck.continuous-deck.fit-deck #projects .fit-fragment--project-cases .project-card{
+   flex:initial!important;max-width:none!important;
+   scroll-snap-align:none!important;
+ }
+ html.screen-deck.continuous-deck.fit-deck #projects .project-art{
+   height:104px!important;min-height:104px!important;
+ }
+ html.screen-deck.continuous-deck.fit-deck #projects .project-art-corner{
+   top:9px;left:12px;right:12px;font-size:.59rem;
+ }
+ html.screen-deck.continuous-deck.fit-deck #projects .project-content{
+   padding:12px!important;
+ }
+ html.screen-deck.continuous-deck.fit-deck #projects .project-content>p{
+   font-size:.79rem!important;line-height:1.42!important;
+ }
+ html.screen-deck.continuous-deck.fit-deck #skills .fit-fragment--skills .skill-card{
+   min-height:0!important;padding:12px!important;
+ }
+ html.screen-deck.continuous-deck.fit-deck #showcase .orbit-showcase__inner{
+   margin-top:5px!important;
+ }
+ html.screen-deck.continuous-deck.fit-deck #showcase .orbit-stage{
+   height:clamp(235px,42dvh,340px)!important;
+   --orbit-card-width:min(90vw,395px);
+ }
+ html.screen-deck.continuous-deck.fit-deck #showcase .orbit-card__visual{
+   height:clamp(145px,27dvh,245px)!important;
+ }
+ html.screen-deck.continuous-deck.fit-deck #showcase .orbit-card__info{gap:5px}
+ html.screen-deck.continuous-deck.fit-deck #showcase .orbit-card__description{
+   font-size:.68rem;line-height:1.3;
+ }
+ html.screen-deck.continuous-deck.fit-deck #showcase .orbit-controls{
+   padding-top:4px!important;gap:6px;
+ }
+ .fit-screen__continued{font-size:.64rem;margin-bottom:10px!important}
+ .fit-screen__more a{min-height:43px}
+}
+@media(max-height:650px) and (max-width:760px){
+ html.screen-deck.continuous-deck.fit-deck #showcase .orbit-stage{
+   height:clamp(200px,39dvh,247px)!important;
+ }
+ html.screen-deck.continuous-deck.fit-deck #showcase .orbit-card__visual{
+   height:clamp(112px,24dvh,160px)!important;
+ }
+ html.screen-deck.continuous-deck.fit-deck #showcase .orbit-showcase__head>p{
+   display:none!important;
+ }
+ html.screen-deck.continuous-deck.fit-deck #showcase .orbit-showcase__hint{
+   font-size:.61rem;line-height:1.23;
+ }
+ html.screen-deck.continuous-deck.fit-deck #showcase .orbit-card__description{
+   display:none!important;
+ }
+ html.screen-deck.continuous-deck.fit-deck #showcase .orbit-card__zoom-hint{
+   font-size:.6rem;padding:5px 7px;
+ }
+}
+/* The mobile floating theme and five tabs stay outside the snapping content. */
+@media(prefers-reduced-motion:reduce){
+ html.screen-deck.continuous-deck.fit-deck{
+   scroll-behavior:auto!important;
+ }
+}
