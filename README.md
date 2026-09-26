@@ -8,7 +8,7 @@ Desktop (761px and up) uses a persistent fixed profile rail and seven résumé-f
 
 The Work carousel has exactly three full-resolution 2720×1510 WebP showcase assets (Gold Ops OS, Aspirva, Studio), with accessible image zoom, swipe/keyboard controls and reduced-motion support. An adjacent evidence disclosure also documents the fourth résumé project, PuddleLoom Growth OS, without introducing a duplicate project gallery. The Skills details and Experience chapter retain further résumé information behind accessible disclosures as needed.
 
-The uploaded two-page public résumé is the factual source for employment, credentials and dated test checkpoints. The active-development Studio web PWA preview is separate from the résumé-described FFmpeg/TypeScript local workflow; the PWA preview was recreated from a supplied screenshot, not captured from a private authenticated dashboard.
+The uploaded two-page public résumé is the factual source for employment, credentials and dated test checkpoints. The résumé's R3 Growth OS AI activation gate is a historical snapshot: the separate Growth OS repository documents later C2 production acceptance dated 2026-09-03. The site states both milestones without implying unrestricted YouTube write access. The active-development Studio web PWA preview is separate from the résumé-described FFmpeg/TypeScript local workflow; the PWA preview was recreated from a supplied screenshot, not captured from a private authenticated dashboard.
 
 ## Run locally
 
