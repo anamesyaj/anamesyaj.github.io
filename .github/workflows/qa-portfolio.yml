@@ -12,6 +12,8 @@ on:
       - 'assets/mobile-app-v10.js'
       - 'assets/mobile-app-v10.css'
       - 'assets/mobile-dock-v11.css'
+      - 'assets/mobile-dock-overlay-v12.css'
+      - 'scripts/qa-mobile-dock-overlay-v12.cjs'
       - 'assets/presentation-fit-v8.css'
       - 'assets/presentation-fit-v8.js'
       - 'assets/resume-focus-v9.css'
@@ -49,6 +51,7 @@ jobs:
           node --check assets/app-navigation.js
           node --check assets/mobile-app-v10.js
           node --check scripts/qa-mobile-app-v10.cjs
+          node --check scripts/qa-mobile-dock-overlay-v12.cjs
           node --check assets/site.js
           node --check assets/screen-deck-v5.js
           node --check scripts/qa-continuous-deck.cjs
@@ -61,6 +64,8 @@ jobs:
         run: node scripts/qa-continuous-deck.cjs
       - name: Android-style mobile tabs, browser history and theme cap
         run: node scripts/qa-mobile-app-v10.cjs
+      - name: Floating theme orbit attached to Contact without extra page space
+        run: node scripts/qa-mobile-dock-overlay-v12.cjs
       - name: Resume-focused layout and readable projects across viewports
         run: node scripts/qa-presentation-fit.cjs
       - name: Measure viewport fit on eight screen sizes
