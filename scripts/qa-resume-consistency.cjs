@@ -49,9 +49,8 @@ const included=(text,terms,label)=>terms.forEach(term=>assert.ok(text.includes(t
     await page.locator("#showcase .resume-project-evidence summary").click();
     const evidence=page.locator("#showcase .resume-project-evidence");
     const text=await evidence.innerText();
-    included(text,["PuddleLoom Growth OS","257/257","Turso","Azure Container Apps","Gemini","OpenRouter","836/836","782","62 files","310","MSIX","FFmpeg/TypeScript"],d.name+" work evidence");
-    await page.locator("#growth-os-evidence-title").scrollIntoViewIfNeeded();
-    assert.ok(await page.locator("#growth-os-evidence-title").isVisible(),"fourth résumé project is visible when disclosure opens");
+    included(text,["836/836","782","62 files","310","MSIX","FFmpeg/TypeScript"],d.name+" work evidence");
+    assert.equal(await page.locator("#growth-os-evidence-title").count(),0,"Growth OS omitted from public portfolio");
     await route("skills");
     await page.locator("#skills .resume-skills-more summary").click();
     const skills=await page.locator("#skills .resume-skills-more").innerText();
@@ -62,9 +61,19 @@ const included=(text,terms,label)=>terms.forEach(term=>assert.ok(text.includes(t
       await extra.locator("summary").click();
     }else await route("experience");
     const exp=await page.locator("#experience").innerText();
-    included(exp,["Health Operations New Associate","30–100","3,000","Peddlr","accounts payable/receivable","GoHighLevel Basic Training","Jul 2026","Martin Dellwing","Jan 2022"],d.name+" experience");
-    await page.locator(".education-cert").scrollIntoViewIfNeeded();
-    assert.ok(await page.locator(".education-cert").isVisible(),"training certificate reachable");
+    included(exp,["Health Operations New Associate","30–100","3,000","Peddlr","accounts payable/receivable","Jan 2022"],d.name+" experience");
+    const certificate=page.locator(".certificate-proof--"+(d.mobile?"mobile":"desktop"));
+    if(d.mobile){await extra.locator("summary").click();assert.equal(await extra.evaluate(el=>el.open),false,"About disclosure reclosed before independent certificate check");}
+    await certificate.scrollIntoViewIfNeeded();
+    assert.ok(await certificate.isVisible(),d.name+" credential card visible");
+    const certificateImage=certificate.locator("img");
+    await certificateImage.scrollIntoViewIfNeeded();
+    const asset=await certificateImage.evaluate(el=>({complete:el.complete,naturalWidth:el.naturalWidth,naturalHeight:el.naturalHeight,fit:getComputedStyle(el).objectFit,w:el.getBoundingClientRect().width,h:el.getBoundingClientRect().height}));
+    assert.ok(asset.complete&&asset.naturalWidth===340&&asset.naturalHeight===427,d.name+" actual certificate raster loaded: "+JSON.stringify(asset));
+    assert.equal(asset.fit,"contain",d.name+" certificate never crops");
+    assert.ok(Math.abs(asset.h/asset.w-427/340)<.02,d.name+" certificate full-page aspect maintained");
+    assert.equal(await certificate.locator(".certificate-proof__exact-link").getAttribute("href"),"https://my-certificates.com/certificates/6a51c63281683ab6396a9e45",d.name+" full exact credential link");
+    assert.ok((await certificate.innerText()).includes("Martin Dellwing"),d.name+" certificate issuer details readable");
     if(d.mobile){
       assert.equal(await page.evaluate(()=>window.scrollY),0,d.name+" body remains locked");
       await route("contact");
@@ -83,7 +92,7 @@ const included=(text,terms,label)=>terms.forEach(term=>assert.ok(text.includes(t
     const geometry=await page.evaluate(()=>({overflow:document.documentElement.scrollWidth-innerWidth,docY:scrollY}));
     assert.ok(geometry.overflow<=7,d.name+" no horizontal overflow "+JSON.stringify(geometry));
     assert.equal(errors.length,0,d.name+" uncaught JS exceptions: "+errors.join(" | "));
-    console.log("RESUME CONTENT + RESPONSIVE PASS "+JSON.stringify({screen:d.name,overflow:geometry.overflow,projects:3,growthOS:true,skills:true,cert:true,contactTested:d.mobile}));
+    console.log("RESUME CONTENT + RESPONSIVE PASS "+JSON.stringify({screen:d.name,overflow:geometry.overflow,projects:3,growthOS:false,skills:true,certificateImage:true,contactTested:d.mobile}));
    }catch(e){console.error("RESUME AUDIT FAIL "+d.name,e.stack||e);throw e}
    finally{await ctx.close()}
   }

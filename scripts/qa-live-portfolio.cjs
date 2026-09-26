@@ -13,17 +13,16 @@ const base="https://anamesyaj.github.io/";
   const errors=[];
   page.on("pageerror",e=>errors.push("desktop: "+e.message));
   let deployed=false,lastError="";
-  /* Pages and source QA start in parallel. Poll until the new C2 wording has
-     reached the public CDN; a success here verifies the actual deployment. */
+  /* Poll until the certificate release reaches the public GitHub Pages CDN. */
   for(let attempt=0;attempt<18;attempt++){
    try{
     const result=await page.goto(base+"?audit="+Date.now()+"-"+attempt+"#top",{waitUntil:"domcontentloaded",timeout:16000});
     const state=await page.evaluate(()=>({
-      growth:Boolean(document.querySelector(".resume-project-evidence__secondary")),
-      c2:document.documentElement.outerHTML.includes("C2 production acceptance on 2026-09-03"),
-      cert:document.documentElement.outerHTML.includes("GoHighLevel Basic Training")
+      noGrowth:!document.documentElement.outerHTML.includes("PuddleLoom Growth OS"),
+      image:Boolean(document.querySelector(".certificate-proof--desktop img[src='assets/ghl-certificate-preview.webp']")),
+      cert:document.documentElement.outerHTML.includes("my-certificates.com/certificates/6a51c63281683ab6396a9e45")
     }));
-    if(result&&result.status()===200&&state.growth&&state.c2&&state.cert){deployed=true;break}
+    if(result&&result.status()===200&&state.noGrowth&&state.image&&state.cert){deployed=true;break}
     lastError="Public HTML is not at the audited version yet: "+JSON.stringify(state)+"; status="+result?.status();
    }catch(e){lastError=String(e)}
    await page.waitForTimeout(4500);
@@ -46,11 +45,22 @@ const base="https://anamesyaj.github.io/";
   await page.screenshot({path:"qa-screens/live-desktop-1440-dark.png"});
   await page.locator('.portfolio-rail__nav a[href="#showcase"]').click();
   await page.locator("#showcase .resume-project-evidence summary").click();
-  assert.ok(await page.locator("#growth-os-evidence-title").isVisible(),"production Growth OS detail accessible");
+  assert.ok(await page.locator("#showcase .resume-project-evidence__grid article").count()===3,"production evidence shows only three selected projects");
   const evidenceRect=await page.locator("#showcase .resume-project-evidence").boundingBox();
   if(switcherRect&&evidenceRect)assert.ok(evidenceRect.x+evidenceRect.width<=switcherRect.x-4,"desktop pager may not overlay Work evidence");
-  await page.locator("#growth-os-evidence-title").scrollIntoViewIfNeeded();
+  await page.locator("#showcase .resume-project-evidence__grid article").last().scrollIntoViewIfNeeded();
   await page.screenshot({path:"qa-screens/live-desktop-project-evidence.png"});
+  await page.locator('.portfolio-rail__nav a[href="#experience"]').click();
+  const desktopCert=page.locator(".certificate-proof--desktop");
+  await desktopCert.scrollIntoViewIfNeeded();
+  const dc=await desktopCert.locator("img").evaluate(img=>({loaded:img.complete&&img.naturalWidth===340&&img.naturalHeight===427,w:img.getBoundingClientRect().width,h:img.getBoundingClientRect().height}));
+  assert.ok(dc.loaded&&Math.abs(dc.h/dc.w-427/340)<.02,"production desktop certificate is loaded and uncropped");
+  await page.screenshot({path:"qa-screens/live-desktop-certificate.png",fullPage:false});
+  const imageRequest=await desktop.request.get(base+"assets/ghl-certificate-preview.webp",{timeout:20000});
+  assert.ok(imageRequest.ok(),"production certificate image response "+imageRequest.status());
+  const imageBytes=await imageRequest.body();
+  assert.equal(imageBytes.length,9534,"published certificate binary must match inspected source");
+  assert.equal(imageBytes.toString("ascii",0,4),"RIFF","published asset has WebP RIFF signature");
   const resume=await desktop.request.get(base+"assets/Mark_Jay_Lisay_Public_Resume.pdf",{timeout:20000});
   assert.ok(resume.ok(),"production resume download HTTP status "+resume.status());
   const pdf=await resume.body();
@@ -77,15 +87,27 @@ const base="https://anamesyaj.github.io/";
   await phone.locator('.mobile-tabs a[data-app-tab="work"]').tap();
   await phone.waitForFunction(()=>document.documentElement.dataset.appView==="work",{timeout:6000});
   await phone.locator("#showcase .resume-project-evidence summary").tap();
-  assert.ok(await phone.locator("#growth-os-evidence-title").isVisible(),"production mobile fourth project reachable");
+  assert.equal(await phone.locator("#showcase .resume-project-evidence__grid article").count(),3,"production mobile three selected evidence cards");
   await phone.locator('.mobile-tabs a[data-app-tab="about"]').tap();
   await phone.waitForFunction(()=>document.documentElement.dataset.appView==="about",{timeout:6000});
-  await phone.locator('.mobile-app__more[data-subsection="experience"] summary').tap();
-  const cert=phone.locator(".education-cert");
+  const cert=phone.locator(".certificate-proof--mobile");
   await cert.scrollIntoViewIfNeeded();
-  assert.ok(await cert.isVisible(),"production mobile training certificate reachable");
+  const image=cert.locator("img");
+  const mobileCert=await image.evaluate(img=>({complete:img.complete,nw:img.naturalWidth,nh:img.naturalHeight,w:img.getBoundingClientRect().width,h:img.getBoundingClientRect().height}));
+  assert.ok(mobileCert.complete&&mobileCert.nw===340&&mobileCert.nh===427,"production mobile certificate image loaded");
+  assert.ok(Math.abs(mobileCert.h/mobileCert.w-427/340)<.02,"production mobile full document not cropped");
+  assert.equal(await cert.locator(".certificate-proof__exact-link").getAttribute("href"),"https://my-certificates.com/certificates/6a51c63281683ab6396a9e45");
+  const mobileLink=cert.locator(".certificate-proof__exact-link");
+  await mobileLink.scrollIntoViewIfNeeded();
+  const visible=await mobileLink.evaluate(el=>{const r=el.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2,top=document.elementFromPoint(x,y);return top===el||el.contains(top)});
+  assert.ok(visible,"mobile exact certificate link tappable above dock");
+  await phone.screenshot({path:"qa-screens/live-mobile-390-certificate-dark.png"});
   await phone.locator("#theme-toggle-mobile").tap();
   assert.equal(await phone.locator("html").getAttribute("data-theme"),"light","production mobile appearance works");
+  await cert.scrollIntoViewIfNeeded();
+  const light=await cert.evaluate(el=>({background:getComputedStyle(el).backgroundColor,color:getComputedStyle(el).color}));
+  assert.notEqual(light.background,light.color,"certificate text is not same as card background in light mode");
+  await phone.screenshot({path:"qa-screens/live-mobile-390-certificate-light.png"});
   await phone.locator('.mobile-tabs a[data-app-tab="contact"]').tap();
   await phone.waitForFunction(()=>document.documentElement.dataset.appView==="contact",{timeout:6000});
   const form=phone.locator("#contact .fit-contact-more");
