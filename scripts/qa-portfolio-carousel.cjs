@@ -66,7 +66,11 @@ const source=pathToFileURL(path.join(process.cwd(),'index.html')).href+'#showcas
     await desktop.locator('#orbit-preview-close').click();
     await desktop.locator('#orbit-next').click();
     assert.equal(await desktop.locator('.orbit-card.is-front').getAttribute('data-title'),'Aspirva','next selects Aspirva');
+    // The CSS coverflow animates for .76s. Wait for the front card to settle
+    // before performing hit-testing on a transformed 3D button.
+    await desktop.waitForTimeout(850);
     await desktop.locator('.orbit-card.is-front [data-zoom-preview]').click();
+    await desktop.waitForFunction(()=>document.getElementById('orbit-preview-dialog').open,{timeout:3000});
     assert.ok((await desktop.locator('#orbit-preview-title').textContent()).includes('Aspirva'),'Aspirva preview title');
     await desktop.locator('#orbit-preview-close').click();
     await desktop.locator('#orbit-next').click();
