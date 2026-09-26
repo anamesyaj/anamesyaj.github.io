@@ -128,8 +128,8 @@ async function run(browser,device){
   });
   const contactCentre=geometry.contact.x+geometry.contact.w/2;
   const arcCentre=geometry.arc.x+geometry.arc.w/2;
-  assert.ok(Math.abs(contactCentre-arcCentre)<=3,device.name+": detached theme orbit centered over Contact: "+JSON.stringify(geometry));
-  assert.ok(geometry.gap>=10&&geometry.gap<=29,device.name+": orbit and Contact must have a visible gap: "+JSON.stringify(geometry));
+  assert.ok(Math.abs(contactCentre-arcCentre)<=3,device.name+": attached appearance orbit centered over Contact: "+JSON.stringify(geometry));
+  assert.ok(geometry.gap>=-5&&geometry.gap<=5,device.name+": attached appearance orbit must touch Contact without reserving a gap: "+JSON.stringify(geometry));
   assert.ok(geometry.arc.w>=47&&geometry.arc.w<=52&&geometry.arc.h>=47&&geometry.arc.h<=52,device.name+": 50px full-circle orbit, not an attached semicircle");
   assert.ok(geometry.button.w>=44&&geometry.button.h>=44,device.name+": >=44px accessible theme target");
   assert.notEqual(geometry.bottomRadius,"0px",device.name+": orbit has a curved bottom");
@@ -141,7 +141,7 @@ async function run(browser,device){
   const prior=await page.evaluate(()=>document.documentElement.dataset.theme);
   await page.locator("#theme-toggle-mobile").click();
   const next=await page.evaluate(()=>document.documentElement.dataset.theme);
-  assert.notEqual(next,prior,device.name+": separate orbit toggles light/dark");
+  assert.notEqual(next,prior,device.name+": attached orbit toggles light/dark");
   await page.waitForTimeout(330);
   const contrast=await page.evaluate(()=>{
     const lum=value=>{
@@ -170,7 +170,7 @@ async function run(browser,device){
   assert.equal(await page.evaluate(()=>document.documentElement.dataset.appView),"contact",device.name+": theme does not navigate");
   await page.locator("#theme-toggle-mobile").click();
   assert.equal(await page.evaluate(()=>document.documentElement.dataset.theme),prior,device.name+": theme toggles back");
-  // Contact tile remains independently tappable below the separate orbit.
+  // Contact tile remains independently tappable beneath the attached orbit.
   await select("work");
   await select("contact");
   assert.equal(await page.evaluate(()=>window.__mobileInstance),session);
