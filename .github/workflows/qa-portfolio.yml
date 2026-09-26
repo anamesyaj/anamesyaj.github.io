@@ -11,6 +11,7 @@ on:
       - 'scripts/qa-mobile-app-v10.cjs'
       - 'assets/mobile-app-v10.js'
       - 'assets/mobile-app-v10.css'
+      - 'assets/mobile-dock-v11.css'
       - 'assets/presentation-fit-v8.css'
       - 'assets/presentation-fit-v8.js'
       - 'assets/resume-focus-v9.css'
