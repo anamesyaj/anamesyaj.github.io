@@ -119,7 +119,7 @@
     }
 
     const current=++navCounter;
-    const resetToTop=moving||initial||!targeted||targeted.id===({home:"top",work:"showcase",contact:"contact",skills:"skills",about:"about"})[chosen];
+    const resetToTop=!targeted||targeted.id===({home:"top",work:"showcase",contact:"contact",skills:"skills",about:"about"})[chosen];
     requestAnimationFrame(()=>{
       if(current!==navCounter)return;
       // For canonical tab taps, open the page from the top. An explicit
