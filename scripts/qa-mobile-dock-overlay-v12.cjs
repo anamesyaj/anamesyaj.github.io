@@ -43,7 +43,7 @@ async function run(browser,device){
     orbPosition:getComputedStyle(orb).position,
     parentOK:orb.parentElement===nav,
     buttonParent:button.parentElement===orb,
-    gridColumns:getComputedStyle(nav).gridTemplateColumns.trim().split(/\\s+/).length,
+    gridColumns:getComputedStyle(nav).gridTemplateColumns.trim().split(" ").filter(Boolean).length,
     pageBottom:getComputedStyle(document.documentElement).getPropertyValue("--mobile-app-page-bottom").trim(),
     rootOverflow:document.documentElement.scrollHeight-innerHeight,
     bodyOverflow:document.body.scrollHeight-innerHeight,
