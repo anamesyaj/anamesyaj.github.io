@@ -63,7 +63,7 @@ const included=(text,terms,label)=>terms.forEach(term=>assert.ok(text.includes(t
     const exp=await page.locator("#experience").innerText();
     included(exp,["Health Operations New Associate","30–100","3,000","Peddlr","accounts payable/receivable","Jan 2022"],d.name+" experience");
     const certificate=page.locator(".certificate-proof--"+(d.mobile?"mobile":"desktop"));
-    if(d.mobile){await extra.locator("summary").click();assert.equal(await extra.evaluate(el=>el.open),false,"About disclosure reclosed before independent certificate check");}
+    if(d.mobile){const aboutExtra=page.locator('.mobile-app__more[data-subsection="experience"]');await aboutExtra.locator("summary").click();assert.equal(await aboutExtra.evaluate(el=>el.open),false,"About disclosure reclosed before independent certificate check");}
     await certificate.scrollIntoViewIfNeeded();
     assert.ok(await certificate.isVisible(),d.name+" credential card visible");
     const certificateImage=certificate.locator("img");
