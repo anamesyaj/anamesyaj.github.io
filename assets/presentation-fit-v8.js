@@ -153,8 +153,13 @@
    formPanel.after(contactDetail);
    function syncContact(){
      if(phone.matches){
+       // Put the message affordance directly below the contact introduction,
+       // above the resume/social blocks and clear of the floating theme orb.
+       const lead=contact.querySelector(".mx-auto > .reveal .body-copy");
+       if(lead)lead.after(contactDetail);
        content.append(formPanel);
      }else{
+       formAnchor.before(contactDetail);
        formAnchor.after(formPanel);
        contactDetail.open=false;
      }
