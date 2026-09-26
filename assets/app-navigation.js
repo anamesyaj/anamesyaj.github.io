@@ -32,7 +32,8 @@
   };
 
   function resolveView(targetId){
-    return viewForId.get(targetId)||({
+    const section=document.getElementById(targetId)?.closest("section[data-app-view]");
+    return viewForId.get(targetId)||section?.dataset.appView||({
       top:"home",challenge:"home",
       showcase:"work",projects:"work",
       skills:"skills",approach:"skills",
@@ -69,15 +70,12 @@
   }
 
   function revealView(view){
+    // Continuous navigation: never hide other chapters when a tab is pressed.
+    // The visitor can naturally wheel from the first screen through the last.
     sections.forEach(section=>{
-      const visible=section.dataset.appView===view;
-      section.hidden=!visible;
-      section.setAttribute("aria-hidden",String(!visible));
-      if(visible){
-        section.classList.remove("app-view-enter");
-        void section.offsetWidth;
-        section.classList.add("app-view-enter");
-      }
+      section.hidden=false;
+      section.setAttribute("aria-hidden","false");
+      section.classList.remove("app-view-enter");
     });
   }
 
@@ -110,7 +108,7 @@
       else history.pushState({view,target:resolvedTarget},"",hash);
     }
     if(announcer)announcer.textContent=(view.charAt(0).toUpperCase()+view.slice(1))+" view";
-    if(focus)focusTarget(resolvedTarget,changed?"auto":"smooth");
+    if(focus&&!root.classList.contains("continuous-deck"))focusTarget(resolvedTarget,changed?"auto":"smooth");
     viewToken++;
     window.dispatchEvent(new CustomEvent("portfolioappviewchange",{detail:{view,target:resolvedTarget,token:viewToken}}));
   }
