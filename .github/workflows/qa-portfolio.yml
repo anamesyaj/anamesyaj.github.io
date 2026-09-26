@@ -6,6 +6,8 @@ on:
       - 'scripts/qa-portfolio-carousel.cjs'
       - 'scripts/qa-screen-deck.cjs'
       - 'scripts/qa-continuous-deck.cjs'
+      - 'scripts/qa-work-fit.cjs'
+      - 'assets/work-card-fit-v7.css'
       - 'assets/continuous-deck-v6.js'
       - 'assets/continuous-deck-v6.css'
       - 'assets/screen-deck-v5.js'
@@ -40,10 +42,13 @@ jobs:
           node --check assets/screen-deck-v5.js
           node --check scripts/qa-continuous-deck.cjs
           node --check assets/continuous-deck-v6.js
+          node --check scripts/qa-work-fit.cjs
       - name: Desktop and Android-sized carousel checks
         run: node scripts/qa-portfolio-carousel.cjs
       - name: Full-screen snap and multi-device app checks
         run: node scripts/qa-continuous-deck.cjs
+      - name: Work card alignment and responsive layout at eight screen sizes
+        run: node scripts/qa-work-fit.cjs
       - name: Upload screenshots if tests fail
         if: failure()
         uses: actions/upload-artifact@v4
