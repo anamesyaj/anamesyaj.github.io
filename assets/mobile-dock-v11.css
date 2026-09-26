@@ -1,0 +1,159 @@
+/* Mobile dock v11 — separate, smaller rotating blue/yellow theme orbit.
+   The circle is centered over Contact but has visible air between controls.
+   Dark teal/white contrast fixes light-theme Contact and Appearance labels. */
+@media(max-width:760px){
+  /* The entire Contact destination stays a distinct, high-contrast tap target. */
+  html.mobile-app[data-theme="light"] .mobile-tabs>a.mobile-tabs__contact,
+  html.mobile-app[data-theme="light"] .mobile-tabs>a.mobile-tabs__contact:is(.is-current,:hover,:focus-visible,[aria-current="page"]){
+    background:#0b5260!important;
+    border:1px solid #0b5260!important;
+    color:#ffffff!important;
+    box-shadow:0 5px 14px rgba(8,50,62,.20)!important;
+  }
+  html.mobile-app[data-theme="dark"] .mobile-tabs>a.mobile-tabs__contact,
+  html.mobile-app[data-theme="dark"] .mobile-tabs>a.mobile-tabs__contact:is(.is-current,:hover,:focus-visible,[aria-current="page"]){
+    background:#f3c86d!important;
+    border:1px solid #e8b954!important;
+    color:#1d1a14!important;
+  }
+  html.mobile-app .mobile-tabs>a.mobile-tabs__contact svg,
+  html.mobile-app .mobile-tabs>a.mobile-tabs__contact span{
+    color:inherit!important;
+    stroke:currentColor!important;
+    opacity:1!important;
+  }
+
+  /* The old half-cap is replaced by a true 50px floating orbit with a
+     14–18px visual gap above the Contact tile. Remain inside the dock's
+     positioning context for reliable centering on 320–760px phones. */
+  html.mobile-app .mobile-tabs>.mobile-theme-float{
+    position:absolute!important;
+    left:50%!important;right:auto!important;
+    top:-67px!important;bottom:auto!important;
+    width:50px!important;height:50px!important;
+    margin:0!important;padding:0!important;
+    transform:translateX(-50%)!important;
+    border:0!important;border-radius:50%!important;
+    background:transparent!important;
+    box-shadow:none!important;filter:none!important;
+    display:grid!important;place-items:center;
+    isolation:isolate;overflow:visible!important;
+    pointer-events:none!important;z-index:8!important;
+  }
+  html.mobile-app .mobile-tabs>.mobile-theme-float::before,
+  html.mobile-app .mobile-tabs>.mobile-theme-float::after{
+    content:"";position:absolute;
+    inset:0;border:0!important;border-radius:50%!important;
+    pointer-events:none!important;
+    display:block!important;
+    opacity:1!important;
+    box-shadow:none!important;
+  }
+  html.mobile-app .mobile-tabs>.mobile-theme-float::before{
+    background:conic-gradient(
+      from -20deg,
+      #289eea 0deg 106deg,
+      transparent 106deg 133deg,
+      #f3bd45 133deg 252deg,
+      transparent 252deg 278deg,
+      #289eea 278deg 335deg,
+      transparent 335deg 360deg
+    )!important;
+    -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 4px),#000 calc(100% - 3px))!important;
+    mask:radial-gradient(farthest-side,transparent calc(100% - 4px),#000 calc(100% - 3px))!important;
+    animation:portfolio-blue-gold-orbit 7s linear infinite!important;
+  }
+  html.mobile-app .mobile-tabs>.mobile-theme-float::after{
+    inset:5px!important;
+    background:conic-gradient(from 38deg,transparent 0deg 110deg,
+      #50bafa 110deg 157deg,transparent 157deg 267deg,
+      #ffd56d 267deg 313deg,transparent 313deg 360deg)!important;
+    -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 calc(100% - 1px))!important;
+    mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 calc(100% - 1px))!important;
+    opacity:.8!important;
+    animation:portfolio-blue-gold-counterorbit 12s linear infinite!important;
+  }
+  html.mobile-app .mobile-tabs>.mobile-theme-float>.mobile-theme-float__button{
+    position:relative!important;inset:auto!important;
+    z-index:2!important;
+    display:grid!important;place-items:center!important;
+    width:44px!important;height:44px!important;
+    min-width:44px!important;min-height:44px!important;
+    margin:0!important;padding:0!important;
+    border-radius:50%!important;border:1px solid #405e6b!important;
+    box-shadow:0 4px 13px rgba(0,0,0,.22)!important;
+    transform:none!important;
+    appearance:none;background:#152632!important;color:#ffdc80!important;
+    pointer-events:auto!important;touch-action:manipulation!important;
+    cursor:pointer!important;
+    -webkit-tap-highlight-color:transparent;
+    transition:background .23s ease,color .23s ease,box-shadow .23s ease!important;
+  }
+  html.mobile-app[data-theme="light"] .mobile-tabs>.mobile-theme-float>.mobile-theme-float__button{
+    background:#ffffff!important;
+    color:#123d49!important;
+    border:1px solid #6a929c!important;
+    box-shadow:0 4px 14px rgba(20,77,90,.16)!important;
+  }
+  html.mobile-app .mobile-tabs>.mobile-theme-float>.mobile-theme-float__button:is(:hover,:focus-visible){
+    outline:2px solid #289eea!important;outline-offset:4px!important;
+  }
+  html.mobile-app .mobile-tabs>.mobile-theme-float>.mobile-theme-float__button svg{
+    display:none;
+    position:absolute!important;
+    top:50%!important;left:50%!important;
+    width:23px!important;height:23px!important;
+    transform:translate(-50%,-50%)!important;
+    stroke:currentColor!important;stroke-width:1.9!important;
+    fill:none!important;opacity:1!important;
+  }
+  /* In dark mode show a sun (switch to light); in light mode show a
+     dark-teal moon (switch to dark). The global icon rules are overridden. */
+  html.mobile-app[data-theme="dark"] .mobile-theme-float__button .theme-sun{
+    display:block!important;
+  }
+  html.mobile-app[data-theme="dark"] .mobile-theme-float__button .theme-moon,
+  html.mobile-app[data-theme="light"] .mobile-theme-float__button .theme-sun{
+    display:none!important;
+  }
+  html.mobile-app[data-theme="light"] .mobile-theme-float__button .theme-moon{
+    display:block!important;
+  }
+  html.mobile-app .mobile-theme-float__button.theme-changed svg{
+    animation:portfolio-theme-pop .38s cubic-bezier(.22,1.7,.42,1) both!important;
+  }
+}
+@keyframes portfolio-blue-gold-orbit{to{transform:rotate(360deg)}}
+@keyframes portfolio-blue-gold-counterorbit{to{transform:rotate(-360deg)}}
+@keyframes portfolio-theme-pop{
+  0%{opacity:.65;scale:.8}66%{opacity:1;scale:1.12}100%{opacity:1;scale:1}
+}
+/* Keep the sidebar's appearance switch and every Contact CTA readable too. */
+html[data-theme="light"] .portfolio-rail__theme{
+  background:#fff!important;color:#123d49!important;
+  border-color:#7d9da6!important;
+}
+html[data-theme="light"] .portfolio-rail__theme:is(:hover,:focus-visible){
+  color:#0b5260!important;background:#e6f4f6!important;
+  border-color:#247d90!important;
+}
+html[data-theme="light"] .portfolio-rail__theme svg{
+  stroke:currentColor!important;opacity:1;
+}
+@media(prefers-reduced-motion:reduce){
+  html.mobile-app .mobile-tabs>.mobile-theme-float::before,
+  html.mobile-app .mobile-tabs>.mobile-theme-float::after,
+  html.mobile-app .mobile-theme-float__button.theme-changed svg{
+    animation:none!important;
+  }
+}
+@media(forced-colors:active){
+  html.mobile-app .mobile-tabs>.mobile-theme-float::before,
+  html.mobile-app .mobile-tabs>.mobile-theme-float::after{display:none!important}
+  html.mobile-app .mobile-tabs>.mobile-theme-float>.mobile-theme-float__button{
+    border:2px solid ButtonText!important;forced-color-adjust:auto!important;
+  }
+  html.mobile-app .mobile-tabs>a.mobile-tabs__contact{
+    border:2px solid ButtonText!important;forced-color-adjust:auto!important
+  }
+}
