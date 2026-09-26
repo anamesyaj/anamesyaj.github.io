@@ -1,0 +1,68 @@
+/* v12 / The appearance orbit crowns Contact; it does NOT reserve its own page.
+   The dock and orbit are a single fixed overlay above the app content. */
+@media (max-width:760px){
+  html.mobile-app,
+  html.screen-deck.continuous-deck.mobile-app {
+    /* Just the 68px dock + its 10px viewport offset + a little clearance.
+       v11 reserved 156px for the orbit, making an unwanted empty strip. */
+    --mobile-app-page-bottom:calc(82px + env(safe-area-inset-bottom,0px))!important;
+  }
+  html.mobile-app .mobile-tabs {
+    position:fixed!important;
+    z-index:610!important;
+    isolation:isolate;
+    overflow:visible!important;
+  }
+  /* Absolutely positioned INSIDE the fixed dock, so it is not another
+     page row, grid column, or independently positioned viewport overlay. */
+  html.mobile-app .mobile-tabs>.mobile-theme-float{
+    position:absolute!important;
+    left:50%!important;right:auto!important;
+    top:-47px!important;bottom:auto!important;
+    width:50px!important;height:50px!important;
+    margin:0!important;padding:0!important;
+    transform:translateX(-50%)!important;
+    display:grid!important;place-items:center!important;
+    z-index:12!important;overflow:visible!important;
+    background:transparent!important;
+    pointer-events:none!important;
+    filter:none!important;
+  }
+  html.mobile-app .mobile-tabs>.mobile-theme-float>.mobile-theme-float__button{
+    position:relative!important;
+    width:44px!important;height:44px!important;
+    min-width:44px!important;min-height:44px!important;
+    pointer-events:auto!important;
+    touch-action:manipulation!important;
+  }
+  /* The bottom of the 50px orbit is 3px INSIDE the dock; its arc
+     visibly touches the slightly raised Contact tile rather than hovering
+     with the prior 17px disconnected gap. */
+  html.mobile-app .mobile-tabs>.mobile-tabs__contact{
+    position:relative;z-index:3!important;
+    overflow:visible;
+  }
+  /* The app page continues behind the overlaid orbit. Padding here is
+     INSIDE the scrollable page, so the last text can always scroll clear
+     of the dock, without an additional blank strip outside the page. */
+  html.mobile-app #main>.mobile-app__page,
+  html.screen-deck.continuous-deck.mobile-app #main>.mobile-app__page{
+    padding-bottom:65px!important;
+    scroll-padding-bottom:65px;
+  }
+}
+/* Preserve the earlier small-viewport placement fix only for desktop
+   continuous scroll, not for the attached mobile app theme orbit. */
+@media(max-width:760px) and (max-height:680px){
+  html.screen-deck.continuous-deck.mobile-app .mobile-tabs>.mobile-theme-float{
+    left:50%!important;right:auto!important;
+    top:-47px!important;bottom:auto!important;
+    transform:translateX(-50%)!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  html.mobile-app .mobile-tabs>.mobile-theme-float::before,
+  html.mobile-app .mobile-tabs>.mobile-theme-float::after{
+    animation:none!important;
+  }
+}
