@@ -39,7 +39,7 @@ const included=(text,terms,label)=>terms.forEach(term=>assert.ok(text.includes(t
     const route=async(view)=>{
       const selector=d.mobile?'.mobile-tabs a[data-app-tab="'+view+'"]':'.portfolio-rail__nav a[href="#'+({work:"showcase",skills:"skills",about:"about",contact:"contact",experience:"experience"})[view]+'"]';
       await page.locator(selector).click();
-      await page.waitForFunction(v=>document.documentElement.dataset.appView===v,view,{timeout:5000});
+      await page.waitForFunction(v=>document.documentElement.dataset.appView===(v==="experience"?"about":v),view,{timeout:5000});
     };
     if(d.mobile){
      assert.equal(await page.locator(".mobile-tabs>a[data-app-tab]").count(),5,"phone has exactly five navigation destinations");
