@@ -7,6 +7,7 @@ on:
       - 'scripts/qa-screen-deck.cjs'
       - 'scripts/qa-continuous-deck.cjs'
       - 'scripts/qa-work-fit.cjs'
+      - 'scripts/diag-screen-fit.cjs'
       - 'assets/work-card-fit-v7.css'
       - 'assets/continuous-deck-v6.js'
       - 'assets/continuous-deck-v6.css'
@@ -49,6 +50,8 @@ jobs:
         run: node scripts/qa-continuous-deck.cjs
       - name: Work card alignment and responsive layout at eight screen sizes
         run: node scripts/qa-work-fit.cjs
+      - name: Measure viewport fit on eight screen sizes
+        run: node scripts/diag-screen-fit.cjs
       - name: Upload screenshots if tests fail
         if: failure()
         uses: actions/upload-artifact@v4
