@@ -376,3 +376,14 @@ html.screen-deck.continuous-deck.presentation-fit #projects .fit-project-more .f
   grid-column:auto!important;grid-row:auto!important
  }
 }
+
+/* Short-height phones: a central floating orb can cover the exact tap target
+   of the content disclosures. Park it at the right edge above the dock only
+   when the usable screen is short; normal phones retain the requested centered
+   orbit above Contact. */
+@media(max-width:760px) and (max-height:680px){
+  html.screen-deck.continuous-deck .mobile-theme-float{
+    left:auto!important;right:clamp(9px,3vw,17px)!important;
+    transform:none!important;
+  }
+}
