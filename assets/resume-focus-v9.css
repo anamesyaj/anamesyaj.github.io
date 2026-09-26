@@ -224,3 +224,15 @@ html.screen-deck.continuous-deck #results .impact-story{
   .resume-project-evidence__secondary{grid-template-columns:minmax(0,1fr)}
   .resume-skills-more__grid{grid-template-columns:minmax(0,1fr)}
 }
+
+/* Fixed page switcher: reserve its own visual gutter so it never covers
+   hero cards or long project evidence. Compact desktop uses the persistent
+   sidebar alone instead of overlaying a second navigation control. */
+@media(min-width:1200px){
+  html.screen-deck.continuous-deck:not(.mobile-app) #main{
+    box-sizing:border-box;padding-right:88px!important;
+  }
+}
+@media(min-width:761px) and (max-width:1199px){
+  html.screen-deck.continuous-deck .screen-switcher{display:none!important}
+}
