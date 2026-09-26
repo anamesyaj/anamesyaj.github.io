@@ -36,7 +36,7 @@
  let current=sections[0],scrollFrame=0,programmaticUntil=0;
  function titleFor(section){
    const heading=section.querySelector(".hero-heading,.section-heading");
-   const t=heading?.textContent?.replace(/\\s+/g," ").trim();
+   const t=heading?.textContent?.replace(/\s+/g," ").trim();
    return t||section.id.charAt(0).toUpperCase()+section.id.slice(1);
  }
  function updateNav(section){
