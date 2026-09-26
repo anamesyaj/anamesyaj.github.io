@@ -48,7 +48,7 @@ async function run(browser,device){
   assert.equal(state.rootOverflow,"hidden",device.name+": root document must not scroll");
   assert.equal(state.mainOverflow,"hidden",device.name+": main must not scroll between tabs");
   assert.ok(state.mainHeight<device.height-75,device.name+": main leaves room for the bottom dock");
-  assert.ok(state.themeIsInsideDock,device.name+": theme cap must attach inside the dock");
+  assert.ok(state.themeIsInsideDock,device.name+": separate orbit stays centered using dock coordinates");
   assert.equal(state.desktopRail,"none",device.name+": desktop sidebar hidden on phone");
   const session=await page.evaluate(()=>{window.__mobileInstance="existing-document";return window.__mobileInstance});
   async function select(view){
@@ -112,30 +112,65 @@ async function run(browser,device){
   assert.ok(await page.locator("#contact-form").isVisible(),device.name+": message form can be expanded");
   const geometry=await page.evaluate(()=>{
     const contact=document.querySelector(".mobile-tabs__contact").getBoundingClientRect();
-    const arc=document.querySelector(".mobile-tabs>.mobile-theme-float").getBoundingClientRect();
+    const arcEl=document.querySelector(".mobile-tabs>.mobile-theme-float");
+    const arc=arcEl.getBoundingClientRect();
     const button=document.getElementById("theme-toggle-mobile").getBoundingClientRect();
-    const style=getComputedStyle(document.querySelector(".mobile-tabs>.mobile-theme-float"));
+    const outer=getComputedStyle(arcEl);
+    const ring=getComputedStyle(arcEl,"::before");
     return{
       contact:{x:contact.x,y:contact.y,w:contact.width,h:contact.height},
       arc:{x:arc.x,y:arc.y,w:arc.width,h:arc.height},
       button:{w:button.width,h:button.height},
-      radiusTop:style.borderTopLeftRadius,radiusBottom:style.borderBottomLeftRadius
+      gap:contact.y-(arc.y+arc.height),
+      bottomRadius:outer.borderBottomLeftRadius,
+      gradient:ring.backgroundImage,animation:ring.animationName
     };
   });
   const contactCentre=geometry.contact.x+geometry.contact.w/2;
   const arcCentre=geometry.arc.x+geometry.arc.w/2;
-  assert.ok(Math.abs(contactCentre-arcCentre)<=3,device.name+": half circle directly centred over email tile: "+JSON.stringify(geometry));
-  assert.ok(Math.abs(geometry.arc.y+geometry.arc.h-geometry.contact.y)<=5,device.name+": semicircle must touch top of email tile: "+JSON.stringify(geometry));
-  assert.ok(geometry.arc.h<=34&&geometry.arc.h>=27,device.name+": theme cap must have HALF circle height, not an old 66px orb");
-  assert.equal(geometry.radiusBottom,"0px",device.name+": semicircle bottom is straight");
+  assert.ok(Math.abs(contactCentre-arcCentre)<=3,device.name+": detached theme orbit centered over Contact: "+JSON.stringify(geometry));
+  assert.ok(geometry.gap>=10&&geometry.gap<=29,device.name+": orbit and Contact must have a visible gap: "+JSON.stringify(geometry));
+  assert.ok(geometry.arc.w>=47&&geometry.arc.w<=52&&geometry.arc.h>=47&&geometry.arc.h<=52,device.name+": 50px full-circle orbit, not an attached semicircle");
+  assert.ok(geometry.button.w>=44&&geometry.button.h>=44,device.name+": >=44px accessible theme target");
+  assert.notEqual(geometry.bottomRadius,"0px",device.name+": orbit has a curved bottom");
+  assert.ok(geometry.gradient.includes("conic-gradient"),device.name+": blue/gold orbital gradient exists");
+  assert.ok(geometry.gradient.includes("rgb(40, 158, 234)")&&geometry.gradient.includes("rgb(243, 189, 69)"),device.name+": both blue and yellow arcs exist");
+  assert.equal(geometry.animation,"none",device.name+": reduced-motion preference respected");
+  assert.equal(await page.locator('.orbit-card[data-title="PuddleLoom Studio"] .orbit-card__action[href="https://puddleloom-studio.loomstudio.workers.dev/"]').count(),1,device.name+": correct public PuddleLoom Studio URL");
+  await page.evaluate(()=>{document.documentElement.dataset.theme="dark"});
   const prior=await page.evaluate(()=>document.documentElement.dataset.theme);
   await page.locator("#theme-toggle-mobile").click();
   const next=await page.evaluate(()=>document.documentElement.dataset.theme);
-  assert.notEqual(next,prior,device.name+": semicircle button toggles light/dark");
+  assert.notEqual(next,prior,device.name+": separate orbit toggles light/dark");
+  await page.waitForTimeout(330);
+  const contrast=await page.evaluate(()=>{
+    const lum=value=>{
+      const channel=(value.match(/[0-9.]+/g)||[]).slice(0,3).map(Number);
+      const linear=channel.map(c=>{c/=255;return c<=.04045?c/12.92:Math.pow((c+.055)/1.055,2.4)});
+      return linear[0]*.2126+linear[1]*.7152+linear[2]*.0722;
+    };
+    const ratio=element=>{
+      const s=getComputedStyle(element),a=lum(s.color),b=lum(s.backgroundColor);
+      return{ratio:(Math.max(a,b)+.05)/(Math.min(a,b)+.05),color:s.color,background:s.backgroundColor};
+    };
+    const theme=document.getElementById("theme-toggle-mobile");
+    return{
+      contact:ratio(document.querySelector(".mobile-tabs__contact")),
+      theme:ratio(theme),
+      instruction:theme.getAttribute("aria-label"),
+      moon:getComputedStyle(theme.querySelector(".theme-moon")).display,
+      sun:getComputedStyle(theme.querySelector(".theme-sun")).display
+    };
+  });
+  assert.ok(contrast.contact.ratio>=4.5,device.name+": light-mode Contact text must meet 4.5:1: "+JSON.stringify(contrast));
+  assert.ok(contrast.theme.ratio>=4.5,device.name+": light-mode theme control must meet 4.5:1: "+JSON.stringify(contrast));
+  assert.equal(contrast.instruction,"Switch to dark theme",device.name+": theme accessible name");
+  assert.equal(contrast.moon,"block",device.name+": dark moon visible against white button");
+  assert.equal(contrast.sun,"none",device.name+": hidden sun in light theme");
   assert.equal(await page.evaluate(()=>document.documentElement.dataset.appView),"contact",device.name+": theme does not navigate");
   await page.locator("#theme-toggle-mobile").click();
   assert.equal(await page.evaluate(()=>document.documentElement.dataset.theme),prior,device.name+": theme toggles back");
-  // Contact tile remains independently tappable despite the attached cap.
+  // Contact tile remains independently tappable below the separate orbit.
   await select("work");
   await select("contact");
   assert.equal(await page.evaluate(()=>window.__mobileInstance),session);
@@ -158,7 +193,24 @@ async function run(browser,device){
 }
 (async()=>{
  const browser=await chromium.launch({headless:true,args:["--no-sandbox","--disable-dev-shm-usage"]});
- try{for(const device of devices)await run(browser,device);console.log("ALL ANDROID-STYLE PHONE TESTS PASSED");}
+ try{
+  for(const device of devices)await run(browser,device);
+  const ctx=await browser.newContext({viewport:{width:390,height:844},deviceScaleFactor:2,isMobile:true,hasTouch:true,reducedMotion:"no-preference"});
+  const page=await ctx.newPage();
+  try{
+    await page.goto(site+"#contact",{waitUntil:"load",timeout:30000});
+    await page.waitForFunction(()=>document.documentElement.classList.contains("mobile-app"),{timeout:7000});
+    const animated=await page.locator(".mobile-tabs>.mobile-theme-float").evaluate(el=>{
+      const a=getComputedStyle(el,"::before"),b=getComputedStyle(el,"::after");
+      return{forward:a.animationName,reverse:b.animationName,background:a.backgroundImage};
+    });
+    assert.equal(animated.forward,"portfolio-blue-gold-orbit","blue-and-gold ring must rotate when motion is allowed");
+    assert.equal(animated.reverse,"portfolio-blue-gold-counterorbit","inner arc must counterrotate");
+    assert.ok(animated.background.includes("conic-gradient"),"animated ring must retain its colored gradient");
+    console.log("BLUE/YELLOW ORBIT ROTATION PASS "+JSON.stringify(animated));
+  }finally{await ctx.close()}
+  console.log("ALL ANDROID-STYLE PHONE TESTS PASSED");
+ }
  catch(_){process.exitCode=1}
  finally{await browser.close()}
 })();
