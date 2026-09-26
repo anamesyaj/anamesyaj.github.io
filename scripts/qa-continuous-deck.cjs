@@ -73,6 +73,7 @@ async function inspect(browser,device){
   const toContact=device.mobile?'.mobile-tabs a[data-app-tab="contact"]':'.portfolio-rail__nav a[href="#contact"]';
   await page.locator(toContact).click();
   await page.waitForFunction(()=>document.documentElement.dataset.appSection==='contact',{timeout:5000});
+  if(device.mobile){await page.locator('.fit-contact-more summary').click();}
   assert.ok(await page.locator('#contact-form').isVisible(),device.name+' contact form available');
   assert.equal((await switcher.locator('output').textContent()).trim(),'10 / 10');
   const contactScroll=await page.evaluate(()=>scrollY);
