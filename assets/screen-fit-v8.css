@@ -301,6 +301,66 @@ html.screen-deck.continuous-deck.fit-deck #contact>.mx-auto.fit-screen:not(:has(
    font-size:.6rem;padding:5px 7px;
  }
 }
+/* Override old ID-targeted grid rules as well as the generic class rules.
+   Fragments must fill the available width instead of retaining a phantom third
+   column when only one or two cards are assigned to a screen. */
+html.screen-deck.continuous-deck.fit-deck #projects #project-cases.fit-fragment,
+html.screen-deck.continuous-deck.fit-deck #projects .fit-fragment--project-cases,
+html.screen-deck.continuous-deck.fit-deck #results .results-grid.fit-fragment,
+html.screen-deck.continuous-deck.fit-deck #skills .grid.fit-fragment,
+html.screen-deck.continuous-deck.fit-deck #challenge .challenge-grid.fit-fragment,
+html.screen-deck.continuous-deck.fit-deck #approach .method-grid.fit-fragment,
+html.screen-deck.continuous-deck.fit-deck #experience .experience-timeline.fit-fragment,
+html.screen-deck.continuous-deck.fit-deck #top .home-bento.fit-fragment{
+  display:grid!important;
+  grid-template-columns:repeat(var(--fit-cols,1),minmax(0,1fr))!important;
+  grid-template-rows:auto!important;
+  grid-auto-flow:row!important;
+  gap:clamp(8px,1.25vw,17px)!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  margin:0!important;padding:0!important;overflow:visible!important;
+}
+html.screen-deck.continuous-deck.fit-deck #projects .fit-fragment--project-cases:has(>.project-card:only-child){
+  width:min(100%,720px)!important;
+  margin-inline:auto!important;
+}
+html.screen-deck.continuous-deck.fit-deck #about>.mx-auto.fit-screen:not(.fit-screen--continuation):has(.about-heading-panel):has(.about-intro),
+html.screen-deck.continuous-deck.fit-deck #contact>.mx-auto.fit-screen:not(.fit-screen--continuation):has(.contact-form-panel):has(.contact-details){
+  display:grid!important;
+  grid-template-columns:minmax(0,.77fr) minmax(0,1.23fr)!important;
+  align-items:center!important;
+  column-gap:clamp(16px,3vw,49px)!important;
+}
+html.screen-deck.continuous-deck.fit-deck #contact>.mx-auto.fit-screen:not(.fit-screen--continuation):has(.contact-form-panel):has(.contact-details){
+  grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)!important;
+}
+html.screen-deck.continuous-deck.fit-deck #main>section>.mx-auto.fit-screen:has(details[open]){
+  height:auto!important;min-height:100dvh!important;overflow:visible!important;
+  padding-block:clamp(25px,4dvh,50px)!important;
+}
+@media(max-width:1100px){
+ html.screen-deck.continuous-deck.fit-deck #about>.mx-auto.fit-screen:not(.fit-screen--continuation),
+ html.screen-deck.continuous-deck.fit-deck #contact>.mx-auto.fit-screen:not(.fit-screen--continuation){
+   grid-template-columns:1fr!important;
+ }
+}
+@media(max-width:760px){
+ html.screen-deck.continuous-deck.fit-deck #projects #project-cases.fit-fragment,
+ html.screen-deck.continuous-deck.fit-deck #projects .fit-fragment--project-cases,
+ html.screen-deck.continuous-deck.fit-deck #results .results-grid.fit-fragment,
+ html.screen-deck.continuous-deck.fit-deck #skills .grid.fit-fragment,
+ html.screen-deck.continuous-deck.fit-deck #challenge .challenge-grid.fit-fragment,
+ html.screen-deck.continuous-deck.fit-deck #approach .method-grid.fit-fragment,
+ html.screen-deck.continuous-deck.fit-deck #experience .experience-timeline.fit-fragment{
+   grid-template-columns:repeat(var(--fit-cols,1),minmax(0,1fr))!important;
+ }
+ html.screen-deck.continuous-deck.fit-deck #projects .fit-fragment--project-cases:has(>.project-card:only-child){
+   width:100%!important;
+ }
+}
+
 /* The mobile floating theme and five tabs stay outside the snapping content. */
 @media(prefers-reduced-motion:reduce){
  html.screen-deck.continuous-deck.fit-deck{
