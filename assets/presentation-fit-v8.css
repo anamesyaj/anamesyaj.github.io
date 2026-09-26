@@ -303,3 +303,50 @@ html.screen-deck.continuous-deck #contact .fit-details .contact-form-panel{
 @media(prefers-reduced-motion:reduce){
  .fit-project-tabs button,.fit-details>summary{transition:none}
 }
+
+/* Presentation v8 finishing rules: keep one project and two skills in a
+   readable overview, with remaining evidence in explicit disclosures. */
+html.screen-deck.continuous-deck.presentation-fit #projects.fit-projects-ready .project-tools{display:none!important}
+html.screen-deck.continuous-deck.presentation-fit #skills>.mx-auto>.grid{
+ display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+ max-width:920px;margin-inline:auto;gap:clamp(9px,1.4vw,16px)!important
+}
+html.screen-deck.continuous-deck.presentation-fit #skills .fit-skills-more{
+ max-width:920px;margin-inline:auto
+}
+html.screen-deck.continuous-deck.presentation-fit #experience .fit-experience-more{
+ margin-top:10px
+}
+@media(min-width:761px){
+ .fit-contact-more{display:none!important}
+}
+@media(max-width:760px){
+ html.screen-deck.continuous-deck.presentation-fit #skills>.mx-auto>.grid{
+   grid-template-columns:repeat(2,minmax(0,1fr))!important
+ }
+ html.screen-deck.continuous-deck.presentation-fit #contact>.mx-auto{
+   display:grid!important;grid-template-columns:minmax(0,1fr)!important
+ }
+ html.screen-deck.continuous-deck.presentation-fit #contact .fit-contact-more{
+   width:100%;min-width:0;margin-top:9px!important
+ }
+ html.screen-deck.continuous-deck.presentation-fit #contact .fit-contact-more .contact-form-panel{
+   width:100%!important;padding:8px 0!important
+ }
+ html.screen-deck.continuous-deck.presentation-fit .fit-home-more .home-bento{
+   display:grid!important;
+   grid-template-columns:minmax(0,1fr)!important;
+   width:100%!important;overflow:visible!important
+ }
+ html.screen-deck.continuous-deck.presentation-fit .fit-home-more .bento-tile{
+   min-height:124px!important;grid-column:1!important
+ }
+ html.screen-deck.continuous-deck.presentation-fit #projects .fit-project-tabs{
+   flex-wrap:nowrap!important
+ }
+}
+@media(max-width:430px) and (max-height:660px){
+ html.screen-deck.continuous-deck.presentation-fit #top .home-bento{
+  display:grid!important
+ }
+}
