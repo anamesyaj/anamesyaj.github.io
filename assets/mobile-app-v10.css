@@ -1,0 +1,329 @@
+/* Mobile App v10 — phone-only navigation. Desktop's continuous document
+   remains unchanged. Only one of the five tab pages is mounted visibly;
+   long details scroll INSIDE that tab, never into another tab. */
+@media (max-width:760px){
+  html.mobile-app,
+  html.screen-deck.continuous-deck.mobile-app{
+    --mobile-app-dock-bottom:calc(10px + env(safe-area-inset-bottom,0px));
+    --mobile-app-dock-height:68px;
+    --mobile-app-page-bottom:calc(112px + env(safe-area-inset-bottom,0px));
+    width:100%;height:100dvh!important;min-height:0!important;
+    overflow:hidden!important;
+    scroll-snap-type:none!important;
+    overscroll-behavior:none!important;
+    scroll-behavior:auto!important;
+  }
+  html.mobile-app body,
+  html.screen-deck.continuous-deck.mobile-app body{
+    height:100dvh!important;min-height:0!important;
+    width:100%;padding:0!important;margin:0!important;
+    overflow:hidden!important;
+    overscroll-behavior:none!important;
+  }
+  html.mobile-app #site-header,
+  html.mobile-app .site-footer,
+  html.mobile-app .screen-switcher,
+  html.mobile-app .portfolio-rail{
+    display:none!important
+  }
+  html.mobile-app #main,
+  html.screen-deck.continuous-deck.mobile-app #main{
+    position:fixed!important;inset:0 0 var(--mobile-app-page-bottom) 0!important;
+    display:block!important;
+    width:100%!important;height:auto!important;
+    min-height:0!important;max-height:none!important;
+    margin:0!important;padding:0!important;
+    overflow:hidden!important;
+    contain:layout!important;
+    overscroll-behavior:none!important;
+    scroll-snap-type:none!important;
+    isolation:isolate;
+  }
+  html.mobile-app #main>.mobile-app__page{
+    position:absolute;inset:0;
+    width:100%;height:100%;min-height:0;max-height:100%;
+    padding:10px 0 14px;margin:0;
+    overflow-x:hidden;overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+    overscroll-behavior-y:contain;overscroll-behavior-x:none;
+    scroll-behavior:auto;
+    scrollbar-width:none;
+    touch-action:pan-y;
+    background:transparent;
+    contain:layout style;
+  }
+  html.mobile-app #main>.mobile-app__page::-webkit-scrollbar{display:none}
+  html.mobile-app #main>.mobile-app__page[hidden]{display:none!important}
+  html.mobile-app #main>.mobile-app__page:not([hidden]){
+    display:block!important;
+    animation:mobile-app-enter .18s ease-out both;
+  }
+  /* The old chapter style locked every section to a full screen. Pages now
+     contain their own sections and grow naturally within ONE app view. */
+  html.mobile-app #main .mobile-app__page>section[data-app-view],
+  html.screen-deck.continuous-deck.mobile-app #main .mobile-app__page>section[data-app-view]{
+    display:block!important;position:relative;
+    min-height:0!important;height:auto!important;max-height:none!important;
+    width:100%;margin:0!important;
+    padding:clamp(12px,2.3dvh,22px) 0 18px!important;
+    overflow:visible!important;
+    scroll-snap-align:none!important;scroll-margin:0!important;
+    isolation:isolate;
+  }
+  html.mobile-app #main .mobile-app__page>section[data-app-view][hidden],
+  html.mobile-app #main .mobile-app__more section[data-app-view][hidden]{
+    display:none!important;
+  }
+  html.mobile-app #main .mobile-app__page>section[data-app-view]>.mx-auto,
+  html.screen-deck.continuous-deck.mobile-app #main .mobile-app__page>section[data-app-view]>.mx-auto,
+  html.mobile-app #main .mobile-app__more section[data-app-view]>.mx-auto{
+    display:block;position:relative;
+    width:100%!important;max-width:100%!important;
+    height:auto!important;min-height:0!important;max-height:none!important;
+    margin:0!important;
+    padding:0 clamp(15px,4.4vw,24px)!important;
+    overflow:visible!important;
+    zoom:1!important;
+  }
+  html.mobile-app #main .mobile-app__page>section#top>.mx-auto{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr)!important;
+    gap:clamp(12px,2dvh,21px)!important;
+  }
+  html.mobile-app #main #top .hero-visual{display:none!important}
+  html.mobile-app #main .mobile-app__page .section-intro{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr)!important;
+    align-items:start;gap:6px;
+  }
+  html.mobile-app #main .mobile-app__page .section-heading{
+    font-size:clamp(1.58rem,6.3vw,2.1rem)!important;
+    line-height:1.12!important;
+  }
+  html.mobile-app #main .mobile-app__page .section-intro>p{
+    font-size:clamp(.77rem,3.1vw,.9rem)!important;
+    line-height:1.45!important;
+  }
+  /* Showcase stays large, swipeable and zoomable. Very short phones scroll
+     only this Work panel, keeping the bottom navigation fixed. */
+  html.mobile-app #main #showcase .orbit-showcase__inner{margin-top:10px!important}
+  html.mobile-app #main #showcase .orbit-stage{
+    --orbit-card-width:min(90vw,405px);
+    --side-shift:clamp(120px,51vw,245px);
+    height:clamp(344px,51dvh,433px)!important;
+    overflow:visible!important;
+  }
+  html.mobile-app #main #showcase .orbit-card__visual{
+    height:clamp(185px,30dvh,254px)!important;
+  }
+  html.mobile-app #main #showcase .orbit-card__description{
+    display:block!important;
+    font-size:clamp(.73rem,3vw,.82rem)!important;
+    line-height:1.4;
+  }
+  html.mobile-app #main #showcase .orbit-controls{margin-top:3px!important}
+  html.mobile-app #main #showcase .orbit-showcase__hint{margin-top:7px}
+  html.mobile-app #main .mobile-app__page .grid,
+  html.mobile-app #main .mobile-app__page .method-grid,
+  html.mobile-app #main .mobile-app__page .results-grid{
+    max-width:100%;min-width:0;
+  }
+  html.mobile-app #main #skills .grid{
+    display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+    gap:10px!important;margin-top:15px!important;
+  }
+  html.mobile-app #main #skills .skill-card{
+    width:100%;min-width:0;min-height:0;height:auto!important;
+    max-height:none!important;padding:clamp(13px,3.5vw,17px)!important;
+    overflow:visible!important;
+  }
+  html.mobile-app #main #skills .skill-card p{
+    font-size:clamp(.78rem,3vw,.92rem)!important;line-height:1.46!important
+  }
+  html.mobile-app #main #about>.mx-auto{
+    display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+    gap:clamp(15px,2.5dvh,24px)!important;
+  }
+  html.mobile-app #main #about .about-heading-panel{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) clamp(99px,28vw,142px)!important;
+    align-items:center;gap:11px;
+  }
+  html.mobile-app #main #about .about-portrait{width:100%}
+  html.mobile-app #main #about .about-intro{
+    font-size:clamp(1.05rem,3.9vw,1.27rem)!important;
+    line-height:1.43;
+  }
+  html.mobile-app #main .mobile-app__more{
+    display:block;width:calc(100% - clamp(30px,8.8vw,48px));
+    max-width:590px;
+    margin:12px auto!important;
+    border:1px solid var(--border-strong);
+    border-radius:14px;
+    background:var(--surface);
+    overflow:visible;
+  }
+  html.mobile-app #main .mobile-app__more>summary{
+    display:flex;align-items:center;justify-content:space-between;
+    gap:12px;min-height:51px;padding:13px 15px;
+    cursor:pointer;list-style:none;
+    color:var(--text);font-weight:800;font-size:.9rem;
+    line-height:1.33;
+  }
+  html.mobile-app #main .mobile-app__more>summary::-webkit-details-marker{display:none}
+  html.mobile-app #main .mobile-app__more>summary::after{
+    content:"+";font-size:1.35rem;line-height:1;color:var(--hy-gold);
+  }
+  html.mobile-app #main .mobile-app__more[open]>summary::after{content:"−"}
+  html.mobile-app #main .mobile-app__more>summary:focus-visible{
+    outline:2px solid var(--accent-strong);outline-offset:-3px;border-radius:13px
+  }
+  html.mobile-app #main .mobile-app__more>section{
+    height:auto!important;min-height:0!important;
+    padding:5px 0 20px!important;
+    margin:0!important;overflow:visible!important;
+  }
+  html.mobile-app #main .mobile-app__more .section-heading{
+    font-size:clamp(1.38rem,5.6vw,1.85rem)!important
+  }
+  html.mobile-app #main .mobile-app__more .results-grid{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:8px!important;
+  }
+  html.mobile-app #main .mobile-app__more .results-grid .result-tile{
+    padding:clamp(12px,3vw,16px)!important;
+    min-width:0;
+  }
+  html.mobile-app #main .mobile-app__more .experience-timeline,
+  html.mobile-app #main .mobile-app__more .impact-story{
+    max-height:none!important;overflow:visible!important;
+  }
+  html.mobile-app #main #contact>.mx-auto{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr)!important;
+    gap:16px!important;
+  }
+  html.mobile-app #main #contact .contact-details{margin-top:11px}
+  html.mobile-app #main #contact .resume-panel{margin-top:11px}
+  html.mobile-app #main #contact .fit-contact-more{margin-top:13px}
+  html.mobile-app #main .fit-details[open]{
+    max-height:none!important;overflow:visible!important
+  }
+  /* The five-action dock is the ONLY way to switch mobile pages. */
+  html.mobile-app .mobile-tabs{
+    position:fixed!important;
+    left:10px!important;right:10px!important;
+    bottom:var(--mobile-app-dock-bottom)!important;
+    display:grid!important;
+    grid-template-columns:repeat(5,minmax(0,1fr))!important;
+    align-items:center;
+    width:auto;height:var(--mobile-app-dock-height)!important;
+    min-height:var(--mobile-app-dock-height)!important;
+    padding:5px 6px!important;gap:3px!important;
+    overflow:visible!important;
+    isolation:isolate;z-index:510!important;
+    border-radius:20px;
+  }
+  html.mobile-app .mobile-tabs>a{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    align-self:center;
+    height:54px!important;min-height:54px!important;
+    min-width:0;max-width:100%;
+    padding:5px 2px!important;margin:0;
+    gap:3px;line-height:1.15;
+    font-size:clamp(.6rem,2.6vw,.72rem);
+    border-radius:13px;
+    touch-action:manipulation;
+    -webkit-tap-highlight-color:transparent;
+  }
+  html.mobile-app .mobile-tabs>a svg{width:20px;height:20px}
+  html.mobile-app .mobile-tabs>.mobile-tabs__contact{
+    position:relative;
+    transform:translateY(-5px)!important;
+    background:var(--hy-gold);
+    color:#20170b!important;
+    z-index:1;
+    border-radius:14px;
+    box-shadow:0 5px 12px rgba(0,0,0,.16);
+  }
+  /* Attached half-circle, not a separate round floating orb. */
+  html.mobile-app .mobile-tabs>.mobile-theme-float{
+    position:absolute!important;
+    left:50%!important;right:auto!important;
+    top:-31px!important;bottom:auto!important;
+    display:block!important;
+    width:clamp(49px,16vw,63px)!important;
+    height:32px!important;
+    padding:0;margin:0;
+    transform:translateX(-50%)!important;
+    border-radius:999px 999px 0 0!important;
+    background:var(--hy-gold)!important;
+    pointer-events:auto!important;
+    z-index:4!important;
+    isolation:isolate;
+    filter:drop-shadow(0 -3px 7px rgba(0,0,0,.10));
+  }
+  html.mobile-app .mobile-tabs>.mobile-theme-float::before{
+    content:"";position:absolute;inset:-2px -2px 0;
+    border:2px solid transparent;
+    border-top-color:var(--accent-strong);
+    border-left-color:var(--hy-gold-line);
+    border-right-color:var(--hy-gold-line);
+    border-bottom:0;
+    border-radius:999px 999px 0 0;
+    background:none!important;
+    -webkit-mask:none!important;mask:none!important;
+    animation:mobile-half-arc-glow 3.2s ease-in-out infinite!important;
+    pointer-events:none;
+  }
+  html.mobile-app .mobile-tabs>.mobile-theme-float::after{display:none!important}
+  html.mobile-app .mobile-tabs>.mobile-theme-float>.mobile-theme-float__button{
+    position:absolute;inset:0;
+    display:grid;place-items:center;
+    width:100%!important;height:100%!important;
+    min-width:0;min-height:0;
+    margin:0;padding:2px 0 0;
+    border:0!important;
+    border-radius:999px 999px 0 0!important;
+    background:var(--hy-gold)!important;
+    color:#20170b!important;
+    box-shadow:none!important;
+    transform:none!important;
+    outline-offset:3px;pointer-events:auto;
+    touch-action:manipulation;
+  }
+  html.mobile-app .mobile-theme-float__button svg{
+    position:absolute!important;
+    top:6px;left:50%;transform:translateX(-50%);
+    width:19px!important;height:19px!important;
+    stroke:#20170b!important;stroke-width:1.9;
+  }
+  html.mobile-app .mobile-theme-float__button.theme-changed svg{
+    animation:mobile-half-theme-pop .35s ease-out both;
+  }
+  html.mobile-app .mobile-theme-float__button:focus-visible{
+    outline:2px solid var(--accent-strong)!important;
+  }
+  html.mobile-app #main .mobile-app__page [hidden]{display:none!important}
+}
+@media (max-width:349px){
+  html.mobile-app .mobile-tabs{left:5px!important;right:5px!important;padding-inline:3px!important}
+  html.mobile-app .mobile-tabs>a{font-size:.6rem;gap:2px}
+  html.mobile-app .mobile-tabs>.mobile-theme-float{width:49px!important}
+}
+@keyframes mobile-app-enter{from{opacity:.93;transform:translateY(3px)}to{opacity:1;transform:none}}
+@keyframes mobile-half-arc-glow{0%,100%{opacity:.48;filter:drop-shadow(0 0 0 transparent)}50%{opacity:1;filter:drop-shadow(0 0 4px var(--accent-strong))}}
+@keyframes mobile-half-theme-pop{0%{opacity:.5;scale:.74}70%{opacity:1;scale:1.13}100%{opacity:1;scale:1}}
+@media (prefers-reduced-motion:reduce){
+  html.mobile-app #main>.mobile-app__page:not([hidden]),
+  html.mobile-app .mobile-tabs>.mobile-theme-float::before,
+  html.mobile-app .mobile-theme-float__button.theme-changed svg{
+    animation:none!important;
+  }
+}
+@media (max-width:760px){
+  html.mobile-app-boot #main{visibility:hidden!important}
+  html.mobile-app-boot .mobile-tabs,
+  html.mobile-app-boot .mobile-theme-float{visibility:hidden!important}
+}
