@@ -162,6 +162,66 @@
    syncContact();
    phone.addEventListener?.("change",syncContact);
  }
+ // A small phone cannot display the complete dashboard, three quick links
+ // and the dock at legible sizes. Preserve all links in a native disclosure.
+ const smallHome=matchMedia("(max-width:430px) and (max-height:660px)");
+ const homeNav=document.querySelector("#top .home-bento");
+ if(homeNav){
+   const marker=document.createComment("Home quick links original position");
+   homeNav.before(marker);
+   const d=document.createElement("details");
+   d.className="fit-details fit-home-more";
+   const sum=document.createElement("summary");
+   sum.textContent="Explore projects, results and contact";
+   const content=document.createElement("div");
+   content.className="fit-details__content";
+   d.append(sum,content);
+   marker.after(d);
+   function syncHome(){
+     if(smallHome.matches)content.append(homeNav);
+     else {marker.after(homeNav);d.open=false;}
+     d.hidden=!smallHome.matches;
+   }
+   syncHome();
+   smallHome.addEventListener?.("change",syncHome);
+ }
+ // Important: the compact phone project card keeps all its metrics and
+ // technology details available rather than hiding information with CSS.
+ if(projectCards.length===3){
+   const smallProject=matchMedia("(max-width:760px)");
+   const groups=projectCards.map(card=>{
+     const metric=card.querySelector(".project-metric");
+     const stack=card.querySelector(".project-stack");
+     if(!metric||!stack)return null;
+     const markerMetric=document.createComment("Metric original position");
+     const markerStack=document.createComment("Stack original position");
+     metric.before(markerMetric);stack.before(markerStack);
+     const d=document.createElement("details");
+     d.className="fit-details fit-project-more";
+     const sum=document.createElement("summary");
+     sum.textContent="Tests, technology and delivery evidence";
+     const content=document.createElement("div");
+     content.className="fit-details__content";
+     d.append(sum,content);
+     markerStack.after(d);
+     return {metric,stack,markerMetric,markerStack,d,content};
+   }).filter(Boolean);
+   function syncProjectDetails(){
+     groups.forEach(g=>{
+       if(smallProject.matches){
+         g.content.append(g.metric,g.stack);
+         g.d.hidden=false;
+       }else{
+         g.markerMetric.after(g.metric);
+         g.markerStack.after(g.stack);
+         g.d.open=false;
+         g.d.hidden=true;
+       }
+     });
+   }
+   syncProjectDetails();
+   smallProject.addEventListener?.("change",syncProjectDetails);
+ }
  // Lower content density on phones and short viewports while retaining a
  // readable minimum font size and the full content behind details.
  const compact=matchMedia("(max-height:760px)");
