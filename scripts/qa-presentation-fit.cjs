@@ -1,74 +1,85 @@
+/* Résumé-first portfolio regression: no duplicate project gallery, visible
+   skills/work history and functional direct navigation on desktop + Android. */
 const {chromium}=require("playwright");
 const {pathToFileURL}=require("node:url");
 const path=require("node:path");
 const assert=require("node:assert/strict");
-const url=pathToFileURL(path.resolve("index.html")).href;
-const devices=[
- {name:"wide-desktop",w:1680,h:1000},{name:"desktop",w:1440,h:900},
- {name:"compact-desktop",w:1024,h:768},{name:"tablet",w:768,h:1024},
- {name:"mobile",w:390,h:844},{name:"small-mobile",w:320,h:568}
+const origin=pathToFileURL(path.resolve("index.html")).href;
+const viewports=[
+ {name:"wide desktop",width:1680,height:1000},
+ {name:"desktop",width:1440,height:900},
+ {name:"small desktop",width:1024,height:768},
+ {name:"tablet",width:768,height:1024},
+ {name:"Android",width:390,height:844},
+ {name:"small Android",width:320,height:568}
 ];
+const order=["top","showcase","skills","about","results","experience","contact"];
 (async()=>{
  const browser=await chromium.launch({headless:true,args:["--no-sandbox","--disable-dev-shm-usage"]});
  try{
-  for(const d of devices){
-   const context=await browser.newContext({viewport:{width:d.w,height:d.h},isMobile:d.w<=760,hasTouch:d.w<=760,reducedMotion:"reduce"});
-   const page=await context.newPage();
-   const errors=[];
+  for(const d of viewports){
+   const ctx=await browser.newContext({viewport:{width:d.width,height:d.height},deviceScaleFactor:d.width<=760?2:1,isMobile:d.width<=760,hasTouch:d.width<=760,reducedMotion:"reduce"});
+   const page=await ctx.newPage();const errors=[];
    page.on("pageerror",e=>errors.push(e.message));
    try{
-    await page.goto(url+"#projects",{waitUntil:"load",timeout:30000});
-    await page.waitForFunction(()=>document.documentElement.classList.contains("presentation-fit"),{timeout:6000});
-    await page.waitForTimeout(250);
-    const before=await page.evaluate(()=>{
-      const section=document.querySelector("#projects"),cards=[...section.querySelectorAll(".project-card")];
-      const rendered=cards.filter(card=>getComputedStyle(card).display!=="none");
-      const art=rendered[0].querySelector(".project-art").getBoundingClientRect();
-      const title=rendered[0].querySelector("h3").getBoundingClientRect();
-      const visible=section.querySelector(".mx-auto").getBoundingClientRect();
-      const height=section.getBoundingClientRect().height;
-      return {tabs:section.querySelectorAll('[role="tab"]').length,shown:rendered.length,active:rendered[0].querySelector("h3").textContent,
-      artBottom:art.bottom,titleTop:title.top,sectionHeight:height,viewport:innerHeight,
-      scrollWidth:document.documentElement.scrollWidth,innerWidth,sectionPanel:visible.height,
-      maxSectionWidth:section.scrollWidth,renderedCardWidth:rendered[0].getBoundingClientRect().width,
-      extra:document.querySelectorAll(".fit-details").length};
+    await page.goto(origin+"#top",{waitUntil:"load",timeout:30000});
+    await page.waitForFunction(()=>document.documentElement.classList.contains("presentation-fit"),{timeout:6500});
+    const state=await page.evaluate(()=>{
+      const main=document.getElementById("main");
+      const ids=[...main.querySelectorAll(":scope>section[data-app-view]")].map(s=>s.id);
+      const idsInDom=new Set([...document.querySelectorAll("[id]")].map(e=>e.id));
+      return {
+        ids,
+        dead:[...document.querySelectorAll('a[href^="#"]')].map(a=>a.hash.slice(1)).filter(id=>id&&!idsInDom.has(id)),
+        hidden:[...main.querySelectorAll(":scope>section[data-app-view]")].filter(s=>s.hidden).map(s=>s.id),
+        duplicateProjects:Boolean(document.querySelector("#projects,#project-cases,.fit-project-tabs")),
+        oversizedLogos:document.querySelectorAll("#top .home-bento img").length,
+        carousel:document.querySelectorAll(".orbit-card").length,
+        skills:document.querySelectorAll("#skills .skill-card").length,
+        roles:document.querySelectorAll("#experience .timeline-entry").length,
+        disabledResume:!document.querySelector('a[href$="Mark_Jay_Lisay_Public_Resume.pdf"]'),
+        instructions:/Drag · Swipe · Arrow keys|how (?:this|the) website works|Explore by your priority|illustrative onboarding plan/i.test(main.innerText),
+        width:document.documentElement.scrollWidth,viewport:innerWidth,
+        bodyText:main.innerText.length
+      };
     });
-    assert.equal(before.tabs,3,d.name+" project tabs");
-    assert.equal(before.shown,1,d.name+" one featured project at a time");
-    assert.ok(before.titleTop>=before.artBottom+4,d.name+" visual must not overlay title");
-    assert.ok(before.scrollWidth<=before.innerWidth+6,d.name+" no horizontal clipping");
-    assert.ok(before.extra>=4,d.name+" long evidence stays accessible");
-    await page.locator('[role="tab"]',{hasText:"Aspirva"}).click();
-    assert.ok(await page.locator('.project-card[data-fit-active="true"] h3').getByText("Aspirva").isVisible(),d.name+" Aspirva selectable");
-    await page.locator('[role="tab"]',{hasText:"PuddleLoom"}).click();
-    assert.ok(await page.locator('.project-card[data-fit-active="true"] h3').getByText("PuddleLoom Studio").isVisible(),d.name+" PuddleLoom selectable");
-    assert.ok(await page.locator('.fit-skills-more summary').isVisible(),d.name+" skills accessible");
-    await page.locator('.fit-skills-more summary').click();
-    assert.equal(await page.locator('.fit-skills-more .skill-card').count(),4,d.name+" all remaining skills");
-    const all=await page.locator('main>section[data-app-view]').count();
-    assert.equal(all,10,d.name+" all sections available");
-    if(d.w<=760){
-      await page.locator('.fit-project-more summary').last().click();
-      assert.ok(await page.locator('.project-card[data-fit-active="true"] .fit-project-more .project-stack').isVisible(),d.name+" full technical evidence visible");
-      await page.locator('.mobile-tabs a[data-app-tab="contact"]').click();
-      assert.ok(await page.locator('.fit-contact-more summary').isVisible(),d.name+" phone contact CTA");
-      await page.locator('.fit-contact-more summary').click();
-      assert.ok(await page.locator('#contact-form').isVisible(),d.name+" phone contact form accessible");
-      if(d.w<=430&&d.h<=660){
-       await page.locator('.mobile-tabs a[data-app-tab="home"]').click();
-       assert.ok(await page.locator('.fit-home-more summary').isVisible(),d.name+" home quick links accessible");
-       await page.locator('.fit-home-more summary').click();
-       assert.equal(await page.locator('.fit-home-more .bento-tile').count(),3,d.name+" no hidden home link lost");
+    assert.deepEqual(state.ids,order,d.name+" correct résumé chapter order");
+    assert.deepEqual(state.dead,[],d.name+" no dead internal links");
+    assert.deepEqual(state.hidden,[],d.name+" all résumé sections scrollable");
+    assert.equal(state.duplicateProjects,false,d.name+" no redundant project-card gallery");
+    assert.equal(state.oversizedLogos,0,d.name+" home project logos removed");
+    assert.equal(state.carousel,3,d.name+" exactly three project previews");
+    assert.equal(state.skills,6,d.name+" all six skill areas accessible");
+    assert.ok(state.roles>=4,d.name+" every employment entry preserved");
+    assert.equal(state.disabledResume,false,d.name+" résumé download retained");
+    assert.equal(state.instructions,false,d.name+" no technical website instructions");
+    assert.ok(state.width<=state.viewport+7,d.name+" no horizontal page overflow");
+    assert.ok(await page.locator("#skills .skill-card").last().isVisible(),d.name+" last skill visible without an accordion");
+    assert.ok(await page.locator("#experience .timeline-entry").last().isVisible(),d.name+" previous employment visible without an accordion");
+    const dock=d.width<=760;
+    const work=dock?'.mobile-tabs a[data-app-tab="work"]':'.portfolio-rail__nav a[href="#showcase"]';
+    await page.locator(work).click();
+    await page.waitForFunction(()=>document.documentElement.dataset.appSection==="showcase",{timeout:5000});
+    assert.ok(await page.locator("#orbit-stage").isVisible(),d.name+" work tab opens project carousel");
+    const about=dock?'.mobile-tabs a[data-app-tab="about"]':'.portfolio-rail__nav a[href="#about"]';
+    await page.locator(about).click();
+    await page.waitForFunction(()=>document.documentElement.dataset.appSection==="about",{timeout:5000});
+    assert.ok(await page.locator(".about-portrait img").isVisible(),d.name+" personal photo retained");
+    if(dock){
+      assert.ok(await page.locator(".mobile-theme-float__button").isVisible(),d.name+" floating theme retained");
+      if(d.width<=430&&d.height<=660){
+        await page.locator('.mobile-tabs a[data-app-tab="home"]').click();
+        await page.locator(".fit-home-more summary").click();
+        assert.equal(await page.locator(".fit-home-more .bento-tile").count(),3,d.name+" résumé highlights remain accessible");
       }
-    } else {
-      await page.locator('.portfolio-rail__nav a[href="#contact"]').click();
-      assert.ok(await page.locator('#contact-form').isVisible(),d.name+" desktop form visible");
+    }else{
+      assert.ok(await page.locator(".portfolio-rail").isVisible(),d.name+" persistent sidebar retained");
     }
-    assert.equal(errors.length,0,d.name+" no uncaught errors "+errors.join(" | "));
-    console.log("PRESENTATION PASS "+JSON.stringify({device:d.name,viewport:d.w+"x"+d.h,sectionHeight:Math.round(before.sectionHeight),singleProject:true,allContentAccessible:true}));
-   }finally{await context.close();}
+    assert.equal(errors.length,0,d.name+" no JS errors: "+errors.join(" | "));
+    console.log("RESUME FOCUS PASS "+JSON.stringify({viewport:d.name,sections:state.ids.length,skills:state.skills,roles:state.roles,carousel:state.carousel}));
+   }finally{await ctx.close()}
   }
-  console.log("PRESENTATION FIT QA PASSED");
- }catch(e){console.error("PRESENTATION FIT QA FAILED",e.stack||e);process.exitCode=1}
+  console.log("RESUME FOCUS QA PASSED");
+ }catch(e){console.error("RESUME FOCUS QA FAILED",e.stack||e);process.exitCode=1}
  finally{await browser.close()}
 })();

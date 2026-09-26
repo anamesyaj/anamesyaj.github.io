@@ -6,7 +6,7 @@
  const main=document.getElementById("main");
  if(!main||!root.classList.contains("app-shell"))return;
 
- const order=["top","challenge","showcase","projects","skills","approach","about","results","experience","contact"];
+ const order=["top","showcase","skills","about","results","experience","contact"];
  const sections=order.map(id=>document.getElementById(id)).filter(Boolean);
  if(sections.length!==order.length)return;
  // Arrange the real HTML sections into the visitor's reading order. The
@@ -23,11 +23,11 @@
  const reduce=window.matchMedia("(prefers-reduced-motion: reduce)");
  const rail=[...document.querySelectorAll(".portfolio-rail__nav a[href^='#']")];
  const dock=[...document.querySelectorAll(".mobile-tabs a[data-app-tab]")];
- const fallbackRail={challenge:"top",projects:"showcase",results:"about"};
+ const fallbackRail={};
  const switcher=document.createElement("nav");
  switcher.className="screen-switcher";
  switcher.setAttribute("aria-label","Portfolio section navigation");
- switcher.innerHTML='<button type="button" data-screen-prev aria-label="Previous section">↑</button><output aria-live="off" aria-label="Section number">1 / 10</output><span class="screen-switcher__name"></span><button type="button" data-screen-next aria-label="Next section">↓</button>';
+ switcher.innerHTML='<button type="button" data-screen-prev aria-label="Previous section">↑</button><output aria-live="off" aria-label="Section number">1 / 7</output><span class="screen-switcher__name"></span><button type="button" data-screen-next aria-label="Next section">↓</button>';
  main.insertAdjacentElement("afterend",switcher);
  const prev=switcher.querySelector("[data-screen-prev]");
  const next=switcher.querySelector("[data-screen-next]");

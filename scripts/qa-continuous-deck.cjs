@@ -12,7 +12,7 @@ const devices=[
  {name:'android',width:390,height:844,mobile:true},
  {name:'small-android',width:320,height:568,mobile:true}
 ];
-const order=['top','challenge','showcase','projects','skills','approach','about','results','experience','contact'];
+const order=['top','showcase','skills','about','results','experience','contact'];
 const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 async function inspect(browser,device){
  const ctx=await browser.newContext({viewport:{width:device.width,height:device.height},deviceScaleFactor:device.mobile?2:1,isMobile:device.mobile,hasTouch:device.mobile,reducedMotion:'reduce'});
@@ -36,7 +36,7 @@ async function inspect(browser,device){
     };
   });
   console.log('CONTINUOUS LAYOUT',device.name,JSON.stringify({rootSnap:layout.rootSnap,rootHeight:layout.rootHeight,mainOverflow:layout.mainOverflow,docScroll:layout.docScroll,windowY:layout.windowY,sectionHeights:layout.heights.map(x=>({id:x.id,h:x.height,panel:x.panelHeight,content:x.panelScroll}))}));
-  assert.deepEqual(layout.ids,order,device.name+' all ten sections in logical reading order');
+  assert.deepEqual(layout.ids,order,device.name+' all seven résumé sections in logical reading order');
   assert.deepEqual(layout.hidden,[],device.name+' no view hidden or aria-hidden');
   assert.ok(layout.rootSnap==='y'||layout.rootSnap.includes('proximity'),device.name+' native proximity snap (Chromium serializes the default proximity as y)');
   assert.ok(layout.docScroll,device.name+' document scrolls through every page');
@@ -45,7 +45,7 @@ async function inspect(browser,device){
   assert.ok(layout.heights.every(s=>s.panelOverflow==='visible'&&s.sectionOverflow==='visible'),device.name+' no clipped or nested-scroll section content');
   const switcher=page.locator('.screen-switcher');
   assert.ok(await switcher.isVisible(),device.name+' fixed previous/next affordance');
-  assert.equal((await switcher.locator('output').textContent()).trim(),'1 / 10');
+  assert.equal((await switcher.locator('output').textContent()).trim(),'1 / 7');
   await page.mouse.move(Math.min(550,device.width*.52),Math.min(340,device.height*.5));
   await page.mouse.wheel(0,device.height*.9);
   await page.waitForTimeout(350);
@@ -63,9 +63,9 @@ async function inspect(browser,device){
   assert.ok(photo.width>=(device.mobile?92:165),device.name+' image is visibly sized; got '+photo.width);
   const about=await page.locator('#about').evaluate(el=>({sectionHeight:el.getBoundingClientRect().height,panelHeight:el.querySelector(':scope>.mx-auto').clientHeight,panelScroll:el.querySelector(':scope>.mx-auto').scrollHeight}));
   assert.ok(about.panelScroll<=about.panelHeight+40,device.name+' About text and photo fit without clipping');
-  assert.equal((await switcher.locator('output').textContent()).trim(),'7 / 10');
+  assert.equal((await switcher.locator('output').textContent()).trim(),'4 / 7');
   // Every chapter must remain readable even after clicking a tab.
-  assert.equal(await page.locator('main>section[data-app-view]:not([hidden])').count(),10);
+  assert.equal(await page.locator('main>section[data-app-view]:not([hidden])').count(),7);
   const toWork=device.mobile?'.mobile-tabs a[data-app-tab="work"]':'.portfolio-rail__nav a[href="#showcase"]';
   await page.locator(toWork).click();
   await page.waitForFunction(()=>document.documentElement.dataset.appSection==='showcase',{timeout:5000});
@@ -75,7 +75,7 @@ async function inspect(browser,device){
   await page.waitForFunction(()=>document.documentElement.dataset.appSection==='contact',{timeout:5000});
   if(device.mobile){await page.locator('.fit-contact-more summary').click();}
   assert.ok(await page.locator('#contact-form').isVisible(),device.name+' contact form available');
-  assert.equal((await switcher.locator('output').textContent()).trim(),'10 / 10');
+  assert.equal((await switcher.locator('output').textContent()).trim(),'7 / 7');
   const contactScroll=await page.evaluate(()=>scrollY);
   assert.ok(contactScroll>device.height*5,device.name+' contact is reached by scrolling down through the document');
   assert.equal(errors.length,0,device.name+' no JS errors: '+errors.join(' | '));

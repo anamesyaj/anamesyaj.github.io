@@ -10,6 +10,7 @@ on:
       - 'scripts/qa-presentation-fit.cjs'
       - 'assets/presentation-fit-v8.css'
       - 'assets/presentation-fit-v8.js'
+      - 'assets/resume-focus-v9.css'
       - 'scripts/diag-screen-fit.cjs'
       - 'assets/work-card-fit-v7.css'
       - 'assets/continuous-deck-v6.js'
@@ -52,7 +53,7 @@ jobs:
         run: node scripts/qa-portfolio-carousel.cjs
       - name: Full-screen snap and multi-device app checks
         run: node scripts/qa-continuous-deck.cjs
-      - name: Readable full-screen chapter layouts and accessible expanded details
+      - name: Resume-focused layout and readable projects across viewports
         run: node scripts/qa-presentation-fit.cjs
       - name: Measure viewport fit on eight screen sizes
         run: node scripts/diag-screen-fit.cjs

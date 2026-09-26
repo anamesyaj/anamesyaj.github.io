@@ -34,9 +34,9 @@
   function resolveView(targetId){
     const section=document.getElementById(targetId)?.closest("section[data-app-view]");
     return viewForId.get(targetId)||section?.dataset.appView||({
-      top:"home",challenge:"home",
-      showcase:"work",projects:"work",
-      skills:"skills",approach:"skills",
+      top:"home",
+      showcase:"work",
+      skills:"skills",
       about:"about",results:"about",experience:"about",
       contact:"contact"
     })[targetId]||"home";
