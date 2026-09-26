@@ -10,7 +10,7 @@ const { pathToFileURL } = require('node:url');
 const projects = [
   { name: 'gold-ops-os', url: 'https://gold-ops-os.vercel.app/', accent: '#d3aa5b', mode: 'dark' },
   { name: 'aspirva', url: 'https://aspirva.online/', accent: '#4dc7ce', mode: 'light' },
-  { name: 'puddleloom-studio', url: 'https://puddle.loomstudio.workers.dev/', localPreview: 'scripts/puddleloom-preview.html', accent: '#6de0c1', mode: 'dark' },
+  { name: 'puddleloom-studio', url: 'https://puddleloom-studio.loomstudio.workers.dev/', localPreview: 'scripts/puddleloom-preview.html', accent: '#6de0c1', mode: 'dark' },
 ];
 const outDir = path.join(process.cwd(), 'assets', 'projects');
 const W = 2720, H = 1510, x = 70, top = 175, contentW = 2580, contentH = 1205;
