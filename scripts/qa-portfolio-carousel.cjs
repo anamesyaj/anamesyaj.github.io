@@ -25,6 +25,38 @@ const source=pathToFileURL(path.join(process.cwd(),'index.html')).href+'#showcas
     assert.equal(widths.length,3,'all 3 carousel previews present');
     assert.ok(widths.every(x=>x.width>=2000&&x.height>=1100),'each image is genuinely HD');
     assert.ok(await desktop.locator('.portfolio-rail').isVisible(),'desktop persistent sidebar visible');
+    const linkedIn=desktop.locator('.portfolio-rail__socials a[href*="linkedin"]');
+    assert.ok((await linkedIn.textContent()).includes('LinkedIn'),'full LinkedIn label, not in abbreviation');
+    assert.ok(await linkedIn.isVisible(),'full LinkedIn sidebar link is visible');
+    const linkBox=await linkedIn.boundingBox();
+    const railBox=await desktop.locator('.portfolio-rail').boundingBox();
+    assert.ok(linkBox&&railBox&&linkBox.x>=railBox.x&&linkBox.x+linkBox.width<=railBox.x+railBox.width+1,'LinkedIn link fits sidebar');
+    const colors=await desktop.evaluate(()=>{
+      document.documentElement.dataset.theme='light';
+      const computed=selector=>{
+        const s=getComputedStyle(document.querySelector(selector));
+        return {text:s.color,bg:s.backgroundColor};
+      };
+      return{
+        sidebar:computed('.portfolio-rail__resume'),
+        hero:computed('#top a.button-quiet'),
+        contact:computed('.resume-icon-link')
+      };
+    });
+    const lum=value=>{
+      const rgb=(value.match(/[0-9.]+/g)||[]).slice(0,3).map(Number);
+      assert.equal(rgb.length,3,'valid computed RGB color: '+value);
+      const lin=rgb.map(v=>{v/=255;return v<=.04045?v/12.92:Math.pow((v+.055)/1.055,2.4)});
+      return lin[0]*.2126+lin[1]*.7152+lin[2]*.0722;
+    };
+    for(const [name,c] of Object.entries(colors)){
+      const a=lum(c.text),b=lum(c.bg);
+      const contrast=(Math.max(a,b)+.05)/(Math.min(a,b)+.05);
+      assert.ok(contrast>=4.5,name+' light resume contrast must reach WCAG AA, got '+contrast.toFixed(2));
+    }
+    await desktop.evaluate(()=>{document.documentElement.dataset.theme='dark'});
+    console.log('LINKEDIN AND LIGHT RÉSUMÉ CONTRAST PASS',JSON.stringify(colors));
+
     await desktop.locator('#orbit-pause').click();
     await desktop.locator('.orbit-card.is-front [data-zoom-preview]').click();
     assert.ok(await desktop.locator('#orbit-preview-dialog').evaluate(el=>el.open),'HD preview dialog opens');

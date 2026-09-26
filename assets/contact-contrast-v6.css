@@ -1,0 +1,41 @@
+/* Compact desktop rail: spell out LinkedIn without clipping the label. */
+@media(min-width:761px){
+ .portfolio-rail__socials{
+  display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:7px!important;align-items:stretch;width:100%
+ }
+ .portfolio-rail__socials a{
+  display:flex!important;align-items:center;justify-content:center;
+  min-width:0!important;width:100%;min-height:43px;
+  padding:8px 5px!important;font-size:clamp(.67rem,.76vw,.77rem)!important;
+  font-weight:780;line-height:1.22;white-space:nowrap;text-align:center;
+  overflow:visible;border:1px solid var(--border-strong);border-radius:11px;
+  color:var(--app-rail-text);background:var(--surface)
+ }
+ .portfolio-rail__socials a:last-child{grid-column:1/-1}
+ .portfolio-rail__socials a:is(:hover,:focus-visible){
+  border-color:var(--accent-strong);color:var(--accent-strong)
+ }
+}
+/* Light mode: deep teal/white rather than low-contrast brown-on-bronze. */
+html[data-theme="light"] .portfolio-rail__resume{
+ background:#095963!important;color:#fff!important;border-color:#095963!important
+}
+html[data-theme="light"] .portfolio-rail__resume span{color:#fff!important}
+html[data-theme="light"] .portfolio-rail__resume:is(:hover,:focus-visible){
+ background:#07434c!important;color:#fff!important;border-color:#07434c!important;filter:none!important
+}
+html[data-theme="light"] .hero a.button-quiet{
+ background:#fff!important;color:#1b303a!important;border-color:#7699a0!important
+}
+html[data-theme="light"] .hero a.button-quiet:is(:hover,:focus-visible){
+ background:#e7f3f4!important;color:#11363c!important;border-color:#126f7b!important
+}
+html[data-theme="light"] .resume-icon-link{
+ background:#095963!important;color:#fff!important
+}
+@media(forced-colors:active){
+ .portfolio-rail__resume,.hero .button-quiet,.resume-icon-link{
+  forced-color-adjust:auto;border:1px solid ButtonText!important
+ }
+}
