@@ -70,11 +70,14 @@
   }
 
   function revealView(view){
-    // Continuous navigation: never hide other chapters when a tab is pressed.
-    // The visitor can naturally wheel from the first screen through the last.
+    // Desktop: all seven chapters remain continuously scrollable.
+    // Mobile: only the selected bottom-tab view is visible; its supporting
+    // About material is retained in accessible in-tab disclosures.
+    const phone=window.matchMedia("(max-width:760px)").matches;
     sections.forEach(section=>{
-      section.hidden=false;
-      section.setAttribute("aria-hidden","false");
+      const shown=!phone||section.dataset.appView===view;
+      section.hidden=!shown;
+      section.setAttribute("aria-hidden",String(!shown));
       section.classList.remove("app-view-enter");
     });
   }

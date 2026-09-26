@@ -5,6 +5,9 @@
  const root=document.documentElement;
  const main=document.getElementById("main");
  if(!main||!root.classList.contains("app-shell"))return;
+ // Desktop owns ordinary page scrolling. On phones, the separate mobile
+ // application owns five fixed views and their local content scrollers.
+ if(window.matchMedia("(max-width:760px)").matches)return;
 
  const order=["top","showcase","skills","about","results","experience","contact"];
  const sections=order.map(id=>document.getElementById(id)).filter(Boolean);
