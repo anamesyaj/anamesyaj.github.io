@@ -7,6 +7,9 @@ on:
       - 'scripts/qa-screen-deck.cjs'
       - 'scripts/qa-continuous-deck.cjs'
       - 'scripts/qa-work-fit.cjs'
+      - 'scripts/qa-presentation-fit.cjs'
+      - 'assets/presentation-fit-v8.css'
+      - 'assets/presentation-fit-v8.js'
       - 'scripts/diag-screen-fit.cjs'
       - 'assets/work-card-fit-v7.css'
       - 'assets/continuous-deck-v6.js'
@@ -43,13 +46,14 @@ jobs:
           node --check assets/screen-deck-v5.js
           node --check scripts/qa-continuous-deck.cjs
           node --check assets/continuous-deck-v6.js
-          node --check scripts/qa-work-fit.cjs
+          node --check scripts/qa-presentation-fit.cjs
+          node --check assets/presentation-fit-v8.js
       - name: Desktop and Android-sized carousel checks
         run: node scripts/qa-portfolio-carousel.cjs
       - name: Full-screen snap and multi-device app checks
         run: node scripts/qa-continuous-deck.cjs
-      - name: Work card alignment and responsive layout at eight screen sizes
-        run: node scripts/qa-work-fit.cjs
+      - name: Readable full-screen chapter layouts and accessible expanded details
+        run: node scripts/qa-presentation-fit.cjs
       - name: Measure viewport fit on eight screen sizes
         run: node scripts/diag-screen-fit.cjs
       - name: Upload screenshots if tests fail
