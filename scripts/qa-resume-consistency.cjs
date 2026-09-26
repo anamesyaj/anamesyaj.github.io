@@ -8,7 +8,7 @@ const fs=require("node:fs");
 const {createHash}=require("node:crypto");
 const {pathToFileURL}=require("node:url");
 const pdf=fs.readFileSync(path.resolve("assets/Mark_Jay_Lisay_Public_Resume.pdf"));
-const blobSha=createHash("sha1").update(Buffer.from("blob "+pdf.length+"\\0")).update(pdf).digest("hex");
+const blobSha=createHash("sha1").update(Buffer.from("blob "+pdf.length+"\0")).update(pdf).digest("hex");
 assert.equal(blobSha,"6b770ba75ab3556bc89b8655f2a22635ea6126eb","downloadable résumé must be the audited two-page public PDF");
 const origin=pathToFileURL(path.resolve("index.html")).href;
 const screens=[
