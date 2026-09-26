@@ -2,11 +2,13 @@
 
 A minimal, mobile-first, single-page portfolio that applies the StoryBrand framework to **AI workflow, automation, QA and product operations**, based on the provided two-page résumé. The hiring manager is the reader; Mark Jay is the guide who helps make complex operations reliable.
 
-## Sections
+## Current structure (September 2026)
 
-Sticky navigation, reader-first hero, the operational problem, story-driven About Me, documented results, categorized skills, three featured project case studies, a practical methodology, an illustrative first-90-days plan, role-relevant KPI framework, experience timeline, and contact with a PDF download.
+Desktop (761px and up) uses a persistent fixed profile rail and seven résumé-first, naturally scrollable chapters with proximity snapping: Home, Work, Skills, About, Results, Experience, Contact. Phones (760px and below) use five isolated, no-reload app tabs: Home, Work, Contact, Skills, About. Results and Experience are expandable sections within mobile About; the blue/gold theme orbit sits above Contact inside the single mobile dock.
 
-The operations metrics and Gold Ops OS/Aspirva evidence come from the résumé; the PuddleLoom Studio web-tool scope comes from the requested GitHub development branch. The 90-day plan and KPI framework are forward-looking examples, not prior achievements. No unverifiable Customer Success, churn, ARR or testimonial claims are included.
+The Work carousel has exactly three full-resolution 2720×1510 WebP showcase assets (Gold Ops OS, Aspirva, Studio), with accessible image zoom, swipe/keyboard controls and reduced-motion support. An adjacent evidence disclosure also documents the fourth résumé project, PuddleLoom Growth OS, without introducing a duplicate project gallery. The Skills details and Experience chapter retain further résumé information behind accessible disclosures as needed.
+
+The uploaded two-page public résumé is the factual source for employment, credentials and dated test checkpoints. The active-development Studio web PWA preview is separate from the résumé-described FFmpeg/TypeScript local workflow; the PWA preview was recreated from a supplied screenshot, not captured from a private authenticated dashboard.
 
 ## Run locally
 
@@ -24,11 +26,11 @@ This is a static site. The form validates input and opens a prefilled message in
 
 ## Branding and proof
 
-The site uses the GitHub avatar for `anamesyaj` with a local initials fallback. Three project logos reference already published project artwork in the same GitHub Pages repository; if moving hosts, copy those assets locally or update the paths. Project tests are dated résumé checkpoints, not ongoing live certification. Gold Ops OS is private alpha, Aspirva is pre-release, and PuddleLoom Studio is an active-development web PWA, with nine creator tool routes on `feat/web-pwa-foundation`. Public-facing project links: Gold Ops OS (`https://gold-ops-os.vercel.app/`, Private Alpha), Aspirva (`https://aspirva.online/`, pre-release informational site), and PuddleLoom Studio (`https://puddle.loomstudio.workers.dev/`, development web app). External site reachability was not independently verified at the time of publication.
+The site uses the GitHub avatar for `anamesyaj` with a local initials fallback. Three project logos reference already published project artwork in the same GitHub Pages repository; if moving hosts, copy those assets locally or update the paths. Project tests are dated résumé checkpoints, not ongoing live certification. Gold Ops OS is private alpha, Aspirva is pre-release, and PuddleLoom Studio is an active-development web PWA, with nine creator tool routes on `feat/web-pwa-foundation`. Public-facing project links: Gold Ops OS (`https://gold-ops-os.vercel.app/`, Private Alpha), Aspirva (`https://aspirva.online/`, pre-release informational site), and PuddleLoom Studio (`https://puddleloom-studio.loomstudio.workers.dev/`, development web app). External site reachability was not independently verified at the time of publication.
 ## Studio source of truth
 
 Studio content and its bundled logo come from `anamesyaj/puddleloom-studio` branch `feat/web-pwa-foundation`, notably `web/src/StudioShell.tsx`, `web/package.json`, `web/wrangler.jsonc` and `web/public/puddleloom-logo-dark.svg`. Nine routed tool workspaces are present; no claim is made that all are production-complete.
 
-## Theme and accessibility review (2026-09-24)
+## Theme and browser QA
 
-The static site includes a separate, no-dependency `assets/theme-audit.css` stylesheet loaded after the compiled Tailwind base. It supplies paired light/dark tokens for portrait and branded project artwork, plus readable text colors on accent buttons. `assets/theme-interaction.js` adds a keyboard-operated visitor-priority selector and an expand/collapse-all control for the three project case studies. Both enhancements use the documented source material and no added tracking, remote libraries, or recurring animation loops. For changes to the theme layer edit `assets/theme-audit.css` (the Tailwind source remains `src/input.css`).
+All production styles are linked in `index.html`, with late layers `resume-focus-v9.css`, `mobile-app-v10.css` and `mobile-dock-overlay-v12.css` enforcing the current desktop/mobile distinction. The GitHub Actions portfolio QA checks desktop scroll, HD images, five isolated mobile tabs, attached theme-orb geometry, responsive fit and résumé content on several mobile and desktop viewports. Passing headless Chromium CI is not proof of the appearance on any particular physical phone.

@@ -8,6 +8,7 @@ on:
       - 'scripts/qa-continuous-deck.cjs'
       - 'scripts/qa-work-fit.cjs'
       - 'scripts/qa-presentation-fit.cjs'
+      - 'scripts/qa-resume-consistency.cjs'
       - 'scripts/qa-mobile-app-v10.cjs'
       - 'assets/mobile-app-v10.js'
       - 'assets/mobile-app-v10.css'
@@ -57,6 +58,7 @@ jobs:
           node --check scripts/qa-continuous-deck.cjs
           node --check assets/continuous-deck-v6.js
           node --check scripts/qa-presentation-fit.cjs
+          node --check scripts/qa-resume-consistency.cjs
           node --check assets/presentation-fit-v8.js
       - name: Desktop and Android-sized carousel checks
         run: node scripts/qa-portfolio-carousel.cjs
@@ -68,6 +70,8 @@ jobs:
         run: node scripts/qa-mobile-dock-overlay-v12.cjs
       - name: Resume-focused layout and readable projects across viewports
         run: node scripts/qa-presentation-fit.cjs
+      - name: Audit uploaded resume coverage and desktop/mobile hitboxes
+        run: node scripts/qa-resume-consistency.cjs
       - name: Measure viewport fit on eight screen sizes
         run: node scripts/diag-screen-fit.cjs
       - name: Upload screenshots if tests fail
