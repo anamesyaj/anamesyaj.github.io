@@ -241,6 +241,22 @@ html[data-theme="light"] .orbit-card[data-position="current"]{
   transform:translate(-50%,0) scale(1);
   will-change:auto;
 }
+/* A high-resolution 16:9 image was intrinsically taller than its old
+   288px visual button on desktop: the overflowing IMG covered the active
+   project's title. Allocate its true aspect-ratio height and grow the
+   scrollable Work chapter rather than crop either the artwork or copy. */
+@media(min-width:761px){
+ html.screen-deck.continuous-deck[data-theme="light"] #showcase .orbit-stage{
+   height:clamp(530px,65dvh,610px)!important;
+ }
+ html.screen-deck.continuous-deck[data-theme="light"] #showcase .orbit-card[data-position="current"] .orbit-card__visual{
+   height:auto!important;aspect-ratio:2720/1510;flex:0 0 auto;
+ }
+ html.screen-deck.continuous-deck[data-theme="light"] #showcase .orbit-card[data-position="current"] .orbit-card__info{
+   margin-top:10px;
+ }
+}
+
 html[data-theme="light"] .orbit-card[data-position="current"] :is(.orbit-card__title,.orbit-card__metric){
   color:var(--text);
 }

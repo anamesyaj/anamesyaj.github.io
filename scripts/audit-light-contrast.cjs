@@ -50,6 +50,13 @@ const views=[["home","top"],["work","showcase"],["skills","skills"],["about","ab
           return [".orbit-card__top",".orbit-card__visual",".orbit-card__visual img",".orbit-card__info",".orbit-card__info>div:first-child",".orbit-card__title",".orbit-card__description",".orbit-card__footer"].map(g);
         });
         console.log("LIGHT FRONT DESKTOP GEOMETRY "+JSON.stringify(geometry));
+        const image=geometry.find(x=>x.selector===".orbit-card__visual img");
+        const title=geometry.find(x=>x.selector===".orbit-card__title");
+        const desc=geometry.find(x=>x.selector===".orbit-card__description");
+        assert.ok(image&&title&&desc&&image.y+image.h<=title.y+2,
+          "light desktop full-HD preview must not cover project title: "+JSON.stringify({image,title,desc}));
+        assert.ok(!title.hit?.startsWith("IMG.")&&!desc.hit?.startsWith("IMG."),
+          "desktop project copy must be hit-visible, not obscured by image");
       }
       const evidence=page.locator("#showcase .resume-project-evidence");
       if(!await evidence.evaluate(el=>el.open))await evidence.locator("summary").click();
