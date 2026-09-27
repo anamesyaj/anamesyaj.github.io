@@ -18,6 +18,7 @@ on:
       - 'assets/client-phase3-v15.js'
       - 'assets/client-phase3-v15.css'
       - 'assets/client-polish-v16.css'
+      - 'assets/portfolio-social-preview.jpg'
       - 'scripts/build-social-preview.cjs'
       - 'assets/introduction-poster.svg'
       - 'robots.txt'
@@ -67,9 +68,7 @@ jobs:
         run: npm install --no-save --no-package-lock --ignore-scripts playwright@1.56.1
       - name: Install browser
         run: npx playwright install --with-deps chromium
-      - name: Generate verified branded social-preview candidate
-        env:
-          EXPORT_OG_BASE64: '1'
+      - name: Verify reproducible portrait-based social-preview design
         run: node scripts/build-social-preview.cjs
       - name: JavaScript syntax
         run: |

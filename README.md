@@ -64,3 +64,5 @@ The nine old prototype routes (canvas-v4–v10 and deck-v2–v3) now carry noind
 ## September 2026 visual and copy polish
 
 The blue-gold appearance orb stays centered over Contact, but both controls now sit inside a 112px dock instead of overlaying scrollable content. The five mobile tabs remain unchanged. The small-phone Overview is tightened without modifying introduction autoplay, audio, video JavaScript, captions or playback. Intro overlay title is a labelled paragraph, leaving the primary hero H1 as the first semantic heading. Service, case-study, About and Contact language is simplified without expanding claims beyond the public résumé.
+
+The actual 1200×630 branded social-sharing JPEG uses Mark Jay's current public GitHub portrait (no generated likeness). It lives at `assets/portfolio-social-preview.jpg`, with Open Graph and Twitter tags pointing to the same published raster. The reproducible Playwright builder and deployed-asset QA guard against broken previews.

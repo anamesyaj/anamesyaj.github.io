@@ -40,6 +40,8 @@ const site=pathToFileURL(path.resolve("index.html")).href;
     assert.equal(await panel.getAttribute("data-intro-state"),"placeholder");
     assert.equal(await p.locator("#phase3-intro-play").isVisible(),false,"no deceptive play button without MP4");
     assert.equal(await p.locator('meta[name="twitter:card"]').getAttribute("content"),"summary");
+   assert.match(await p.locator('meta[property="og:image"]').getAttribute("content"),/\/assets\/portfolio-social-preview\.jpg$/);
+   assert.ok(fs.existsSync("assets/portfolio-social-preview.jpg"),"published branded sharing preview present");
     assert.equal(errors.length,0,"JS errors "+errors.join(" | "));
     if((name==="desktop"||name==="android")&&theme==="light")await p.screenshot({path:"qa-screens/phase3-"+name+"-overview.png"});
     console.log("PHASE3 RESPONSIVE INTRO PASS "+name+" "+theme+" "+JSON.stringify(box));

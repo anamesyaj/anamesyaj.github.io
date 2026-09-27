@@ -49,7 +49,7 @@ const screens=[{name:"desktop-1440",w:1440,h:900,mobile:false},{name:"compact-90
      assert.equal(await form.locator('[name="_captcha"]').inputValue(),"true","provider reCAPTCHA ON");
      assert.equal(await form.locator('[name="_honey"]').count(),1,"server-recognized honeypot");
      assert.equal(await p.locator('a[href*="calendar.google.com/calendar/appointments"]').count(),0,"no invented booking URL");
-     assert.ok((await p.locator("#contact").innerText()).includes("not a confirmed appointment"),"realistic call wording");
+     assert.ok(/confirm the appointment together/i.test(await p.locator("#contact").textContent()),"introductory call is a request, not automatic booking");
      let posted=null;
      await p.route("https://formsubmit.co/**",async route=>{
       const req=route.request();posted={method:req.method(),data:req.postData()||""};

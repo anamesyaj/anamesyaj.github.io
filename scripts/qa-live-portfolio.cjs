@@ -27,7 +27,7 @@ const base="https://anamesyaj.github.io/";
       mobileIdentity:Boolean(document.querySelector(".phase2-mobile-id")),
       personalIntro:Boolean(document.querySelector('#phase3-introduction-video[autoplay]:not([muted])')),
       introPoster:document.querySelector(".phase3-intro__stage img")?.getAttribute("src")==="assets/introduction-poster.svg",
-      socialPreview:document.querySelector('meta[name="twitter:card"]')?.content==="summary",
+      socialPreview:document.querySelector('meta[name="twitter:card"]')?.content==="summary"&&document.querySelector('meta[property="og:image"]')?.content==="https://anamesyaj.github.io/assets/portfolio-social-preview.jpg",
       realPost:document.querySelector("#contact-form")?.getAttribute("action")==="https://formsubmit.co/markjay.lisay@gmail.com"
     }));
     if(result&&result.status()===200&&state.noGrowth&&state.image&&state.cert&&state.services&&state.realPost&&state.phase2&&state.phase2Script&&state.mobileIdentity&&state.personalIntro&&state.introPoster&&state.socialPreview){deployed=true;break}
@@ -104,6 +104,10 @@ const base="https://anamesyaj.github.io/";
   assert.ok(robotsResponse.ok()&&(await robotsResponse.text()).includes("sitemap.xml"),"production crawler robots points at sitemap");
   assert.ok(sitemapResponse.ok()&&(await sitemapResponse.text()).includes("https://anamesyaj.github.io/"),"production canonical homepage sitemap");
   assert.ok(retiredResponse.ok()&&(await retiredResponse.text()).includes('content="noindex, follow"'),"production retired prototype noindex and redirect");
+  const socialImage=await fetchAsset("assets/portfolio-social-preview.jpg");
+  assert.ok(socialImage.ok(),"deployed sharing preview loads");
+  const socialBytes=await socialImage.body();
+  assert.ok(socialBytes.length>10000&&socialBytes[0]===0xff&&socialBytes[1]===0xd8,"deployed sharing preview is a valid JPEG");
   const imageRequest=await fetchAsset("assets/ghl-certificate-preview.webp");
   assert.ok(imageRequest.ok(),"production certificate image response "+imageRequest.status());
   const imageBytes=await imageRequest.body();
