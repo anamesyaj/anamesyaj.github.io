@@ -89,7 +89,7 @@ const base="https://anamesyaj.github.io/";
     desktop.request.get(base+"sitemap.xml",{timeout:20000}),
     desktop.request.get(base+"canvas-v4.html",{timeout:20000})
   ]);
-  assert.ok(introPosterResponse.ok()&&(await introPosterResponse.text()).includes("PERSONAL INTRODUCTION"),"production owner introduction SVG poster");
+  assert.ok(introPosterResponse.ok()&&(await introPosterResponse.text()).includes('viewBox="0 0 1200 675"'),"production owner introduction SVG poster");
   assert.ok(robotsResponse.ok()&&(await robotsResponse.text()).includes("sitemap.xml"),"production crawler robots points at sitemap");
   assert.ok(sitemapResponse.ok()&&(await sitemapResponse.text()).includes("https://anamesyaj.github.io/"),"production canonical homepage sitemap");
   assert.ok(retiredResponse.ok()&&(await retiredResponse.text()).includes('content="noindex, follow"'),"production retired prototype noindex and redirect");
