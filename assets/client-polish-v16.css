@@ -24,7 +24,7 @@
   }
   html.mobile-app .mobile-tabs>.mobile-theme-float,
   html.screen-deck.continuous-deck.mobile-app .mobile-tabs>.mobile-theme-float{
-    top:2px!important;left:50%!important;right:auto!important;
+    top:1px!important;left:50%!important;right:auto!important;
     bottom:auto!important;transform:translateX(-50%)!important;
   }
   html.mobile-app .mobile-tabs>.mobile-tabs__contact{

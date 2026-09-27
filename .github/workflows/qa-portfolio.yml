@@ -18,6 +18,7 @@ on:
       - 'assets/client-phase3-v15.js'
       - 'assets/client-phase3-v15.css'
       - 'assets/client-polish-v16.css'
+      - 'scripts/build-social-preview.cjs'
       - 'assets/introduction-poster.svg'
       - 'robots.txt'
       - 'sitemap.xml'
@@ -66,6 +67,10 @@ jobs:
         run: npm install --no-save --no-package-lock --ignore-scripts playwright@1.56.1
       - name: Install browser
         run: npx playwright install --with-deps chromium
+      - name: Generate verified branded social-preview candidate
+        env:
+          EXPORT_OG_BASE64: '1'
+        run: node scripts/build-social-preview.cjs
       - name: JavaScript syntax
         run: |
           node --check assets/portfolio-motion.js
@@ -78,6 +83,7 @@ jobs:
           node --check scripts/qa-client-phase2.cjs
           node --check scripts/qa-client-phase3.cjs
           node --check assets/client-phase3-v15.js
+          node --check scripts/build-social-preview.cjs
           node --check assets/client-phase2-v14.js
           node --check assets/screen-deck-v5.js
           node --check scripts/qa-continuous-deck.cjs
@@ -93,7 +99,7 @@ jobs:
         run: node scripts/qa-continuous-deck.cjs
       - name: Android-style mobile tabs, browser history and theme cap
         run: node scripts/qa-mobile-app-v10.cjs
-      - name: Floating theme orbit attached to Contact without extra page space
+      - name: Accessible theme orbit inside the mobile dock
         run: node scripts/qa-mobile-dock-overlay-v12.cjs
       - name: Resume-focused layout and readable projects across viewports
         run: node scripts/qa-presentation-fit.cjs
