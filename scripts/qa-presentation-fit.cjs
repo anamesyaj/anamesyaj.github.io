@@ -11,7 +11,7 @@ const viewports=[
  {name:"small desktop",width:1024,height:768},
  {name:"tablet",width:768,height:1024}
 ];
-const order=["top","showcase","skills","about","results","experience","contact"];
+const order=["top","services","showcase","skills","about","results","experience","contact"];
 (async()=>{
  const browser=await chromium.launch({headless:true,args:["--no-sandbox","--disable-dev-shm-usage"]});
  try{

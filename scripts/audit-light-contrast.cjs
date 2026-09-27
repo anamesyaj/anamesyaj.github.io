@@ -8,7 +8,7 @@ const path=require("node:path");
 const {pathToFileURL}=require("node:url");
 const site=pathToFileURL(path.resolve("index.html")).href;
 const screens=[{name:"desktop-1440",w:1440,h:900},{name:"desktop-900",w:900,h:740},{name:"phone-390",w:390,h:844},{name:"phone-320",w:320,h:568}];
-const views=[["home","top"],["work","showcase"],["skills","skills"],["about","about"],["results","results"],["experience","experience"],["contact","contact"]];
+const views=[["home","top"],["services","services"],["work","showcase"],["skills","skills"],["about","about"],["results","results"],["experience","experience"],["contact","contact"]];
 (async()=>{
  const browser=await chromium.launch({headless:true,args:["--no-sandbox","--disable-dev-shm-usage"]});
  await fs.mkdir("qa-screens",{recursive:true});

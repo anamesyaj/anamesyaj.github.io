@@ -20,9 +20,11 @@ const base="https://anamesyaj.github.io/";
     const state=await page.evaluate(()=>({
       noGrowth:!document.documentElement.outerHTML.includes("PuddleLoom Growth OS"),
       image:Boolean(document.querySelector(".certificate-proof--desktop img[src='assets/ghl-certificate-preview.webp']")),
-      cert:document.documentElement.outerHTML.includes("my-certificates.com/certificates/6a51c63281683ab6396a9e45")
+      cert:document.documentElement.outerHTML.includes("my-certificates.com/certificates/6a51c63281683ab6396a9e45"),
+      services:Boolean(document.querySelector("#services .client-services__grid")),
+      realPost:document.querySelector("#contact-form")?.getAttribute("action")==="https://formsubmit.co/markjay.lisay@gmail.com"
     }));
-    if(result&&result.status()===200&&state.noGrowth&&state.image&&state.cert){deployed=true;break}
+    if(result&&result.status()===200&&state.noGrowth&&state.image&&state.cert&&state.services&&state.realPost){deployed=true;break}
     lastError="Public HTML is not at the audited version yet: "+JSON.stringify(state)+"; status="+result?.status();
    }catch(e){lastError=String(e)}
    await page.waitForTimeout(4500);
@@ -35,7 +37,7 @@ const base="https://anamesyaj.github.io/";
     sections:document.querySelectorAll("#main > section[data-app-view]").length
   }));
   assert.equal(desktopState.rail,"fixed","production desktop rail remains fixed");
-  assert.equal(desktopState.sections,7,"production desktop keeps 7 resume chapters");
+  assert.equal(desktopState.sections,8,"production desktop includes Services plus seven existing chapters");
   assert.ok(desktopState.overflow<=7,"production desktop has no horizontal overflow");
   const switcher=page.locator(".screen-switcher");
   const switcherRect=await switcher.boundingBox();
@@ -43,6 +45,9 @@ const base="https://anamesyaj.github.io/";
   const cardsOverlap=switcherRect&&lastCardRect&&switcherRect.x<lastCardRect.x+lastCardRect.width&&switcherRect.x+switcherRect.width>lastCardRect.x&&switcherRect.y<lastCardRect.y+lastCardRect.height&&switcherRect.y+switcherRect.height>lastCardRect.y;
   assert.ok(!cardsOverlap,"live desktop fixed pager may not cover the final Home highlight card");
   await page.screenshot({path:"qa-screens/live-desktop-1440-dark.png"});
+  await page.locator('.portfolio-rail__nav a[href="#services"]').click();
+  assert.equal(await page.locator("#services .client-service-card").count(),3,"three accurately scoped service cards");
+  await page.screenshot({path:"qa-screens/live-desktop-services.png"});
   await page.locator('.portfolio-rail__nav a[href="#showcase"]').click();
   await page.locator("#showcase .resume-project-evidence summary").click();
   assert.ok(await page.locator("#showcase .resume-project-evidence__grid article").count()===3,"production evidence shows only three selected projects");
@@ -85,6 +90,10 @@ const base="https://anamesyaj.github.io/";
   assert.equal(mobileMetrics.length,3,"three mobile proof metrics");
   assert.ok(mobileMetrics.every(m=>m.rect&&m.rect.w>=5&&m.rect.h>=8&&m.visibility==="visible"&&m.display!=="none"),"mobile metric units must remain visibly rendered");
   await phone.screenshot({path:"qa-screens/live-mobile-390-dark.png"});
+  await phone.locator('#top a[href="#services"]').tap();
+  assert.equal(await phone.locator("#services .client-service-card").count(),3,"three client services on mobile Home");
+  await phone.locator("#services").scrollIntoViewIfNeeded();
+  await phone.screenshot({path:"qa-screens/live-mobile-services.png"});
   await phone.locator('.mobile-tabs a[data-app-tab="work"]').tap();
   await phone.waitForFunction(()=>document.documentElement.dataset.appView==="work",{timeout:6000});
   await phone.locator("#showcase .resume-project-evidence summary").tap();

@@ -4,7 +4,7 @@ A minimal, mobile-first, single-page portfolio that applies the StoryBrand frame
 
 ## Current structure (September 2026)
 
-Desktop (761px and up) uses a persistent fixed profile rail and seven résumé-first, naturally scrollable chapters with proximity snapping: Home, Work, Skills, About, Results, Experience, Contact. Phones (760px and below) use five isolated, no-reload app tabs: Home, Work, Contact, Skills, About. Results and Experience are expandable sections within mobile About; the blue/gold theme orbit sits above Contact inside the single mobile dock.
+Desktop (761px and up) uses a persistent fixed profile rail and eight naturally scrollable chapters (Overview, Services, Work, Skills, About, Results, Experience, Contact) with proximity snapping: Home, Work, Skills, About, Results, Experience, Contact. Phones (760px and below) keep five isolated, no-reload app tabs: Home (including Services), Work, Contact, Skills, About. Results and Experience are expandable sections within mobile About; the blue/gold theme orbit sits above Contact inside the single mobile dock.
 
 The Work carousel has exactly three full-resolution 2720×1510 WebP showcase assets (Gold Ops OS, Aspirva, Studio), with accessible image zoom, swipe/keyboard controls and reduced-motion support. The adjacent evidence disclosure documents those same three showcased products without adding a duplicate gallery. Growth OS is intentionally omitted from website content at the owner's request. The Skills details and Experience chapter retain further résumé information behind accessible disclosures as needed.
 
@@ -18,7 +18,7 @@ For Tailwind CSS changes, run `npm install && npm run build`. The project uses T
 
 ## Contact form
 
-This is a static site. The form validates input and opens a prefilled message in the visitor's email app. It does not claim to submit, store or send mail. The copy-email button is a fallback. To support server-backed submissions, connect an explicitly verified form endpoint.
+The static site now sends native HTTPS POST form submissions through FormSubmit (https://formsubmit.co/) to the public portfolio email. FormSubmit's reCAPTCHA remains enabled and a hidden honeypot is included. IMPORTANT: The recipient must make one test submission from the live website and confirm the one-time activation email before delivery is operational. Browser tests mock outbound POST and cannot prove external delivery. Direct email, copy address and copy brief remain fallbacks. Submitted visitor data is handled by FormSubmit; the public form asks visitors not to include sensitive data. The 15-minute call option is a REQUEST rather than a live booking link; add a real calendar URL supplied by the owner later.
 
 ## Résumé privacy
 
@@ -42,3 +42,7 @@ The on-site certificate preview is `assets/ghl-certificate-preview.webp`, a redu
 ## Light-theme readability (2026-09-27)
 
 The light-only palette was tuned for stronger normal/body/secondary text, deeper bronze over pale backgrounds, explicit white-on-bronze project CTAs, clear form placeholders/input outlines and readable mobile labels. Decorative side-carousel copy is hidden only while its card is inactive, retaining transparent 3D previews. Dark colors, the fixed desktop sidebar, five-tab phone dock, floating theme orbit, HD previews and full certificate remain unchanged. `scripts/audit-light-contrast.cjs` now enforces computed >=4.5:1 for normal text (3:1 for large text) in 4 responsive viewport sets and verifies existing dark-mode base tokens.
+
+## Client-facing Phase 1 (September 2026)
+
+The Services section provides three possible scoped offerings drawn ONLY from the verified résumé: Excel/VBA/Power Query workflow improvement (one Accenture macro saved 5+ hours in one complex case), AI-assisted human-reviewed workflow scoping and QA/release-readiness support (own product work and dated tests). It does not claim paid client contracts, guaranteed outcomes or fully deployed third-party systems. Desktop has eight scrollable chapters; mobile keeps five tabs with Services underneath Home. Every inquiry is an actual native third-party form POST, subject to FormSubmit reCAPTCHA/honeypot and the owner's one-time confirmation; email/copy fallback is independent. Requesting a 15-minute introductory call does not book anything without an actual calendar link.
