@@ -41,8 +41,10 @@ const devices=[
    }
    assert.ok(!/completed paid client contracts|guaranteed savings|certified Windows release/i.test(copy),"no invented outcome");
    assert.ok(!copy.includes("PuddleLoom Growth OS"),"excluded product absent");
-   assert.equal(await page.locator("#phase2-welcome-template").count(),1,"video waiting for actual owner footage");
-   assert.equal(await page.locator("video").count(),0,"no fabricated welcome video");
+   assert.equal(await page.locator("#phase2-welcome-template").count(),0,"obsolete welcome slot removed");
+   assert.equal(await page.locator("#phase3-introduction-video").count(),1,"personal introduction on Overview");
+   assert.equal(await page.locator("#phase3-introduction-video").getAttribute("autoplay"),"","video configured for autoplay");
+   assert.equal(await page.locator("#phase3-introduction-video").evaluate(el=>el.muted),false,"never muted by default");
    await result.click();
    await page.waitForFunction(()=>document.documentElement.dataset.appView==="work",{timeout:7000});
    if(d.mobile){
