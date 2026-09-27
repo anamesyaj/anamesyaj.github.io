@@ -25,9 +25,12 @@ const base="https://anamesyaj.github.io/";
       phase2:document.querySelectorAll("#case-studies .phase2-case").length===2,
       phase2Script:Boolean(document.querySelector('script[src^="assets/client-phase2-v14.js"]')),
       mobileIdentity:Boolean(document.querySelector(".phase2-mobile-id")),
+      personalIntro:Boolean(document.querySelector('#phase3-introduction-video[autoplay]:not([muted])')),
+      introPoster:document.querySelector(".phase3-intro__stage img")?.getAttribute("src")==="assets/introduction-poster.svg",
+      socialPreview:document.querySelector('meta[name="twitter:card"]')?.content==="summary",
       realPost:document.querySelector("#contact-form")?.getAttribute("action")==="https://formsubmit.co/markjay.lisay@gmail.com"
     }));
-    if(result&&result.status()===200&&state.noGrowth&&state.image&&state.cert&&state.services&&state.realPost&&state.phase2&&state.phase2Script&&state.mobileIdentity){deployed=true;break}
+    if(result&&result.status()===200&&state.noGrowth&&state.image&&state.cert&&state.services&&state.realPost&&state.phase2&&state.phase2Script&&state.mobileIdentity&&state.personalIntro&&state.introPoster&&state.socialPreview){deployed=true;break}
     lastError="Public HTML is not at the audited version yet: "+JSON.stringify(state)+"; status="+result?.status();
    }catch(e){lastError=String(e)}
    await page.waitForTimeout(4500);
@@ -47,6 +50,8 @@ const base="https://anamesyaj.github.io/";
   const lastCardRect=await page.locator("#top .home-bento .bento-tile").last().boundingBox();
   const cardsOverlap=switcherRect&&lastCardRect&&switcherRect.x<lastCardRect.x+lastCardRect.width&&switcherRect.x+switcherRect.width>lastCardRect.x&&switcherRect.y<lastCardRect.y+lastCardRect.height&&switcherRect.y+switcherRect.height>lastCardRect.y;
   assert.ok(!cardsOverlap,"live desktop fixed pager may not cover the final Home highlight card");
+  assert.ok(await page.locator("#personal-introduction").isVisible(),"production desktop personal introduction in Overview");
+  assert.equal(await page.locator("#phase3-introduction-video").evaluate(el=>el.muted),false,"production media never starts muted");
   await page.screenshot({path:"qa-screens/live-desktop-1440-dark.png"});
   await page.locator('.portfolio-rail__nav a[href="#services"]').click();
   await page.locator("#services h2").scrollIntoViewIfNeeded();
@@ -78,6 +83,16 @@ const base="https://anamesyaj.github.io/";
   const dc=await desktopCert.locator("img").evaluate(img=>({loaded:img.complete&&img.naturalWidth===340&&img.naturalHeight===427,w:img.getBoundingClientRect().width,h:img.getBoundingClientRect().height}));
   assert.ok(dc.loaded&&Math.abs(dc.h/dc.w-427/340)<.02,"production desktop certificate is loaded and uncropped");
   await page.screenshot({path:"qa-screens/live-desktop-certificate.png",fullPage:false});
+  const [introPosterResponse,robotsResponse,sitemapResponse,retiredResponse]=await Promise.all([
+    desktop.request.get(base+"assets/introduction-poster.svg",{timeout:20000}),
+    desktop.request.get(base+"robots.txt",{timeout:20000}),
+    desktop.request.get(base+"sitemap.xml",{timeout:20000}),
+    desktop.request.get(base+"canvas-v4.html",{timeout:20000})
+  ]);
+  assert.ok(introPosterResponse.ok()&&(await introPosterResponse.text()).includes("PERSONAL INTRODUCTION"),"production owner introduction SVG poster");
+  assert.ok(robotsResponse.ok()&&(await robotsResponse.text()).includes("sitemap.xml"),"production crawler robots points at sitemap");
+  assert.ok(sitemapResponse.ok()&&(await sitemapResponse.text()).includes("https://anamesyaj.github.io/"),"production canonical homepage sitemap");
+  assert.ok(retiredResponse.ok()&&(await retiredResponse.text()).includes('content="noindex, follow"'),"production retired prototype noindex and redirect");
   const imageRequest=await desktop.request.get(base+"assets/ghl-certificate-preview.webp",{timeout:20000});
   assert.ok(imageRequest.ok(),"production certificate image response "+imageRequest.status());
   const imageBytes=await imageRequest.body();
@@ -108,6 +123,9 @@ const base="https://anamesyaj.github.io/";
   await phone.locator(".phase2-mobile-id").waitFor({state:"visible",timeout:8000});
   assert.ok(await phone.locator(".phase2-mobile-id").isVisible(),"live mobile identity");
   assert.ok(await phone.locator(".phase2-home-result").isVisible(),"live mobile proven result");
+  await phone.locator("#personal-introduction").waitFor({state:"visible",timeout:8000});
+  assert.ok(await phone.locator("#personal-introduction").isVisible(),"production mobile personal introduction visible");
+  assert.equal(await phone.locator("#phase3-introduction-video").evaluate(el=>el.muted),false,"production mobile media not muted");
   await phone.screenshot({path:"qa-screens/live-mobile-390-dark.png"});
   await phone.locator('#top a[href="#services"]').tap();
   assert.equal(await phone.locator("#services .client-service-card").count(),3,"three client services on mobile Home");
