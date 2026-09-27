@@ -22,10 +22,10 @@ html[data-theme="light"] {
   --app-plate-border:#cadadd;
   --app-ink:#1b2c37;
   --app-tab-bg:rgba(255,255,255,.98);
-  --app-tab-ink:#536872;
-  --app-tab-on:#164e58;
+  --app-tab-ink:#405965;
+  --app-tab-on:#0a4e5a;
   --app-rail-bg:#f3f9f9;
-  --app-rail-text:#1b303a;
+  --app-rail-text:#182c36;
   --app-soft-glow:rgba(18,117,132,.075);
   --app-avatar-border:rgba(17,117,132,.26);
 }

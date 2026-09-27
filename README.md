@@ -38,3 +38,7 @@ All production styles are linked in `index.html`, with late layers `resume-focus
 ## Training certificate (2026-09-26)
 
 The on-site certificate preview is `assets/ghl-certificate-preview.webp`, a reduced-size rendering of the exact one-page uploaded PDF. Keep its native 340×427 aspect ratio and `object-fit:contain` in desktop and mobile layouts. The complete original PDF supplied by the owner was not substituted for the site's separate two-page résumé. Source-issued credential URL is included verbatim: `https://my-certificates.com/certificates/6a51c63281683ab6396a9e45`; remote reachability was not verified. The public portfolio intentionally displays no Growth OS project content.
+
+## Light-theme readability (2026-09-27)
+
+The light-only palette was tuned for stronger normal/body/secondary text, deeper bronze over pale backgrounds, explicit white-on-bronze project CTAs, clear form placeholders/input outlines and readable mobile labels. Decorative side-carousel copy is hidden only while its card is inactive, retaining transparent 3D previews. Dark colors, the fixed desktop sidebar, five-tab phone dock, floating theme orbit, HD previews and full certificate remain unchanged. `scripts/audit-light-contrast.cjs` now enforces computed >=4.5:1 for normal text (3:1 for large text) in 4 responsive viewport sets and verifies existing dark-mode base tokens.

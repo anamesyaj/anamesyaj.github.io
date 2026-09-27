@@ -22,10 +22,10 @@
 }
 html[data-theme="light"]{
  --bg:#f4f8f8;--surface:#fff;--surface-elevated:#edf5f5;--surface-muted:#f0f5f6;
- --text:#1b2c37;--body:#435963;--muted:#59707a;--border:#d8e4e5;--border-strong:#aac5c8;
- --accent:#137c87;--accent-strong:#0b6d79;--accent-wash:rgba(18,133,143,.08);--accent-ink:#096572;
+ --text:#182c36;--body:#344b55;--muted:#465e69;--border:#ccdde0;--border-strong:#91abb2;
+ --accent:#137c87;--accent-strong:#0a5b68;--accent-wash:rgba(18,133,143,.09);--accent-ink:#084b58;
  --nav-bg:rgba(249,252,252,.97);--input-bg:#f7fbfb;--shadow:rgba(25,58,68,.09);
- --hy-gold:#976722;--hy-gold-wash:rgba(183,136,59,.07);--hy-gold-line:rgba(164,115,38,.28);
+ --hy-gold:#80571b;--hy-gold-wash:rgba(128,87,27,.08);--hy-gold-line:rgba(128,87,27,.35);
  --hy-rail:#d5e3e4;--hy-ring:rgba(18,133,143,.17);--hy-hero:rgba(241,248,249,.95);
  --primary-bg:#126f7b;--primary-hover:#075865;--primary-on:#fff;
  --brand-ink:#203541;--brand-electric:#a57432;
@@ -202,4 +202,46 @@ html,body{background:var(--bg);color:var(--text)}
 @media(forced-colors:active){
  .project-card,.skill-card,.challenge-card,.method-step,.visitor-explorer,.contact-form-panel{border:1px solid CanvasText}
  .accent-gradient{-webkit-text-fill-color:currentColor;color:CanvasText;background:none}
+}
+
+/* Light-theme legibility audit (Sep 2026).
+   Light-specific corrections only: existing dark palette and page layouts
+   remain unchanged. Small text aims for comfortably >4.5:1 on light panels. */
+html[data-theme="light"] :is(.orbit-card__action,.orbit-preview-dialog__actions a){
+  background:var(--hy-gold);color:#fff;
+  border:1px solid #80571b;
+  text-shadow:none;
+}
+html[data-theme="light"] :is(.orbit-card__action,.orbit-preview-dialog__actions a):is(:hover,:focus-visible){
+  background:#69460f;color:#fff;
+  border-color:#69460f;
+}
+html[data-theme="light"] .orbit-card:not(.is-front) :is(.orbit-card__top,.orbit-card__info){
+  /* Side mockups are visual hints, not faded copies of interactive copy. */
+  visibility:hidden;
+}
+html[data-theme="light"] :is(.contact-form-panel input,.contact-form-panel textarea){
+  border-color:#718d96;
+  color:var(--text);
+  background:var(--input-bg);
+}
+html[data-theme="light"] :is(input,textarea)::placeholder{
+  color:#465e69;opacity:1;
+}
+html[data-theme="light"] :is(.orbit-controls button,.screen-switcher button,.copy-email,.copy-message,.portfolio-rail__socials a,.portfolio-rail__theme){
+  border-color:#718d96;
+}
+html[data-theme="light"] .portfolio-rail__nav a:not(.is-current){
+  color:var(--muted);
+}
+html[data-theme="light"] .orbit-card[data-position="current"] :is(.orbit-card__title,.orbit-card__metric){
+  color:var(--text);
+}
+html[data-theme="light"] :is(.certificate-proof__exact-link,.visitor-focus-copy a){
+  color:var(--accent-strong);
+}
+@media(forced-colors:active){
+  html[data-theme="light"] :is(.orbit-card__action,.orbit-preview-dialog__actions a,.contact-form-panel input,.contact-form-panel textarea){
+    forced-color-adjust:auto;
+  }
 }

@@ -3,6 +3,7 @@
    Text on image/gradient backgrounds is flagged for manual visual inspection. */
 const {chromium}=require("playwright");
 const fs=require("node:fs/promises");
+const assert=require("node:assert/strict");
 const path=require("node:path");
 const {pathToFileURL}=require("node:url");
 const site=pathToFileURL(path.resolve("index.html")).href;
@@ -11,6 +12,7 @@ const views=[["home","top"],["work","showcase"],["skills","skills"],["about","ab
 (async()=>{
  const browser=await chromium.launch({headless:true,args:["--no-sandbox","--disable-dev-shm-usage"]});
  await fs.mkdir("qa-screens",{recursive:true});
+ const failures=[];
  try{
  for(const d of screens){
   const mobile=d.w<=760;
@@ -82,13 +84,35 @@ const views=[["home","top"],["work","showcase"],["skills","skills"],["about","ab
       return{count:audit.length,lowCount:low.length,low:low.slice(0,27),gradient: audit.filter(x=>x.gradient&&x.ratio<4.5).slice(0,9)};
     },scope);
     console.log("LIGHT DIAGNOSTIC "+d.name+" "+view+" "+JSON.stringify(result));
+    if(result.error||result.lowCount>0)failures.push({screen:d.name,view,low:result.low}); 
+    if(view==="work"){
+     const observed=await page.locator(".orbit-card.is-front .orbit-card__action").evaluate(el=>({
+      fg:getComputedStyle(el).color,bg:getComputedStyle(el).backgroundColor
+     }));
+     const parse=s=>(s.match(/[0-9.]+/g)||[]).slice(0,3).map(Number);
+     const luminance=c=>c.map(v=>{v/=255;return v<=.04045?v/12.92:((v+.055)/1.055)**2.4}).reduce((a,v,i)=>a+v*[.2126,.7152,.0722][i],0);
+     const x=luminance(parse(observed.fg)),y=luminance(parse(observed.bg)),contrast=(Math.max(x,y)+.05)/(Math.min(x,y)+.05);
+     assert.ok(contrast>=4.5,d.name+" light project Visit site CTA contrast "+contrast.toFixed(2));
+    }
+    if(view==="contact"){
+     const observed=await page.locator("#contact-name").evaluate(el=>({fg:getComputedStyle(el,"::placeholder").color,bg:getComputedStyle(el).backgroundColor}));
+     const parse=s=>(s.match(/[0-9.]+/g)||[]).slice(0,3).map(Number);
+     const L=c=>c.map(v=>{v/=255;return v<=.04045?v/12.92:((v+.055)/1.055)**2.4}).reduce((a,v,i)=>a+v*[.2126,.7152,.0722][i],0);
+     const x=L(parse(observed.fg)),y=L(parse(observed.bg)),c=(Math.max(x,y)+.05)/(Math.min(x,y)+.05);
+     assert.ok(c>=4.5,d.name+" form placeholder contrast "+c.toFixed(2));
+     console.log("LIGHT PLACEHOLDER PASS "+d.name+" ratio="+c.toFixed(2));
+    }
     if((view==="home"||view==="work"||view==="about"||view==="contact"||view==="experience")&&["desktop-1440","phone-390"].includes(d.name)){
       await page.screenshot({path:"qa-screens/light-"+d.name+"-"+view+".png"});
     }
    }
+   const dark=await page.evaluate(()=>{document.documentElement.dataset.theme="dark";const s=getComputedStyle(document.documentElement);return{bg:s.getPropertyValue("--bg").trim(),ink:s.getPropertyValue("--text").trim(),gold:s.getPropertyValue("--hy-gold").trim()};});
+   assert.deepEqual(dark,{bg:"#09121a",ink:"#f4f7f7",gold:"#e5bc6d"},d.name+" dark-theme tokens unchanged");
+   console.log("DARK THEME TOKEN REGRESSION PASS "+d.name);
   }finally{await ctx.close()}
  }
- console.log("LIGHT CONTRAST DIAGNOSTICS COMPLETE");
+ console.log("LIGHT CONTRAST DIAGNOSTICS COMPLETE failures="+failures.length);
+ if(failures.length)throw Error("LIGHT CONTRAST REGRESSION "+JSON.stringify(failures));
  }catch(e){console.error("LIGHT DIAGNOSTIC SCRIPT ERROR",e.stack||e);process.exitCode=1}
  finally{await browser.close()}
 })();
