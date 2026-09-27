@@ -10,6 +10,7 @@ on:
       - 'scripts/qa-presentation-fit.cjs'
       - 'scripts/qa-resume-consistency.cjs'
       - 'scripts/qa-live-portfolio.cjs'
+      - 'scripts/audit-light-contrast.cjs'
       - 'scripts/qa-mobile-app-v10.cjs'
       - 'assets/mobile-app-v10.js'
       - 'assets/mobile-app-v10.css'
@@ -61,6 +62,7 @@ jobs:
           node --check scripts/qa-presentation-fit.cjs
           node --check scripts/qa-resume-consistency.cjs
           node --check scripts/qa-live-portfolio.cjs
+          node --check scripts/audit-light-contrast.cjs
           node --check assets/presentation-fit-v8.js
       - name: Desktop and Android-sized carousel checks
         run: node scripts/qa-portfolio-carousel.cjs
@@ -78,12 +80,17 @@ jobs:
         run: node scripts/diag-screen-fit.cjs
       - name: Verify the deployed HTTPS site in desktop and mobile Chromium
         run: node scripts/qa-live-portfolio.cjs
+      - name: Diagnose current light contrast on desktop and Android
+        if: success()
+        run: node scripts/audit-light-contrast.cjs
       - name: Upload production desktop and mobile screenshots
         if: success()
         uses: actions/upload-artifact@v4
         with:
           name: portfolio-live-responsive-screenshots
-          path: qa-screens/live-*.png
+          path: |
+            qa-screens/live-*.png
+            qa-screens/light-*.png
           if-no-files-found: error
           retention-days: 3
       - name: Upload screenshots if tests fail
