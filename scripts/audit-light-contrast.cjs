@@ -35,6 +35,10 @@ const views=[["home","top"],["work","showcase"],["skills","skills"],["about","ab
       if(!await res.evaluate(el=>el.open))await res.locator("summary").click();
     }
     if(view==="work"){
+      await page.locator(".orbit-card.is-front .orbit-card__visual img").evaluate(async image=>{
+        if(image.decode)await image.decode();
+        if(!image.complete||image.naturalWidth<2000)throw Error("front full-HD image not loaded before light-mode visual audit");
+      });
       const evidence=page.locator("#showcase .resume-project-evidence");
       if(!await evidence.evaluate(el=>el.open))await evidence.locator("summary").click();
     }

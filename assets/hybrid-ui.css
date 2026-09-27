@@ -234,6 +234,13 @@ html[data-theme="light"] :is(.orbit-controls button,.screen-switcher button,.cop
 html[data-theme="light"] .portfolio-rail__nav a:not(.is-current){
   color:var(--muted);
 }
+/* On pale surfaces, keep the active project's copy on the flat raster
+   plane. The previous +140px Z projection resampled small text and pulled
+   its top labels over the heading; side previews retain the 3D coverflow. */
+html[data-theme="light"] .orbit-card[data-position="current"]{
+  transform:translate(-50%,0) scale(1);
+  will-change:auto;
+}
 html[data-theme="light"] .orbit-card[data-position="current"] :is(.orbit-card__title,.orbit-card__metric){
   color:var(--text);
 }
