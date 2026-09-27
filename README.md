@@ -60,3 +60,7 @@ The Overview now presents a prominent, accurately labelled **personal introducti
 ### Phase 3 site hygiene and dedicated QA
 
 The nine old prototype routes (canvas-v4–v10 and deck-v2–v3) now carry noindex, canonical and an immediate accessible homepage redirect. Only the current homepage is included in `sitemap.xml`; `robots.txt` advertises it. Phase 3 browser QA verifies desktop/Android first-view video-placeholder visibility across eight device/theme combinations and a *mocked* future-clip case with autoplay rejected then user-started, always unmuted. The actual recording's audible end-to-end quality cannot be certified until the owner supplies its MP4. No visitor analytics are enabled without the owner's account configuration and privacy decision.
+
+## September 2026 visual and copy polish
+
+The blue-gold appearance orb stays centered over Contact, but both controls now sit inside a 112px dock instead of overlaying scrollable content. The five mobile tabs remain unchanged. The small-phone Overview is tightened without modifying introduction autoplay, audio, video JavaScript, captions or playback. Intro overlay title is a labelled paragraph, leaving the primary hero H1 as the first semantic heading. Service, case-study, About and Contact language is simplified without expanding claims beyond the public résumé.

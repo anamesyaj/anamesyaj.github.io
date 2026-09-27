@@ -60,8 +60,8 @@ async function run(browser,device){
     device.label+" orbit must touch Contact with no separate gap: "+JSON.stringify(state));
   assert.ok(state.main.bottom>=state.nav.top-10&&state.main.bottom<=state.nav.top+3,
     device.label+" no extra 40-70px reserved strip: "+JSON.stringify(state));
-  assert.ok(state.orb.top<state.main.bottom-20,
-    device.label+" theme control overlays the page, not a separately reserved space");
+  assert.ok(state.orb.top>=state.main.bottom&&state.orb.bottom<=state.nav.bottom,
+    device.label+" theme control must stay entirely inside its own dock, away from scrollable content");
   assert.ok(state.orb.top>=0,device.label+" theme stays on-screen even on short phone");
   assert.equal(state.hiddenThemes,1,"single theme control");
   assert.equal(await page.locator(".mobile-tabs>a[data-app-tab]").count(),5,"five untouched navigation links");

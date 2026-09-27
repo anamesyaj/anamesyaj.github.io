@@ -17,6 +17,7 @@ on:
       - 'scripts/qa-visual-review.cjs'
       - 'assets/client-phase3-v15.js'
       - 'assets/client-phase3-v15.css'
+      - 'assets/client-polish-v16.css'
       - 'assets/introduction-poster.svg'
       - 'robots.txt'
       - 'sitemap.xml'

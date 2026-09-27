@@ -48,7 +48,7 @@ async function run(browser,device){
   assert.equal(state.rootOverflow,"hidden",device.name+": root document must not scroll");
   assert.equal(state.mainOverflow,"hidden",device.name+": main must not scroll between tabs");
   assert.ok(state.mainHeight<device.height-75,device.name+": main leaves room for the bottom dock");
-  assert.ok(state.themeIsInsideDock,device.name+": separate orbit stays centered using dock coordinates");
+  assert.ok(state.themeIsInsideDock,device.name+": theme remains in the five-tab dock");
   assert.equal(state.desktopRail,"none",device.name+": desktop sidebar hidden on phone");
   const session=await page.evaluate(()=>{window.__mobileInstance="existing-document";return window.__mobileInstance});
   async function select(view){
