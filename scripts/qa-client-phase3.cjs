@@ -24,9 +24,10 @@ const site=pathToFileURL(path.resolve("index.html")).href;
    try{
     await p.goto(site+"#top",{waitUntil:"load",timeout:35000});
     await p.waitForFunction(()=>document.documentElement.classList.contains("presentation-fit"));
-    if(mobile)await p.waitForFunction(()=>document.documentElement.classList.contains("mobile-app"));
+    if(mobile)await p.waitForFunction(()=>document.documentElement.classList.contains("mobile-app")&&!document.documentElement.classList.contains("mobile-app-boot"),{timeout:9000});
     const panel=p.locator("#personal-introduction"),video=p.locator("#phase3-introduction-video");
     assert.equal(await panel.count(),1,"one owner introduction in Overview");
+    await panel.waitFor({state:"visible",timeout:9000});
     assert.ok(await panel.isVisible(),"placeholder visible");
     const box=await panel.evaluate(el=>{const r=el.getBoundingClientRect();return {top:r.top,bottom:r.bottom,width:r.width,window:innerHeight,overflow:document.documentElement.scrollWidth-innerWidth}});
     assert.ok(box.top<box.window-50&&box.bottom>50,"intro visible in first viewport "+JSON.stringify(box));
@@ -62,6 +63,7 @@ const site=pathToFileURL(path.resolve("index.html")).href;
    try{
     await p.goto(site+"#top",{waitUntil:"load",timeout:35000});
     await p.waitForFunction(()=>document.querySelector("#personal-introduction")?.dataset.introState==="blocked",{timeout:10000});
+    await p.locator("#phase3-intro-play").waitFor({state:"visible",timeout:9000});
     assert.ok(await p.locator("#phase3-intro-play").isVisible(),"sound button offered on rejection");
     await p.locator("#phase3-intro-play").click();
     await p.waitForFunction(()=>document.querySelector("#personal-introduction")?.dataset.introState==="playing",{timeout:5000});
