@@ -9,7 +9,7 @@
  // application owns five fixed views and their local content scrollers.
  if(window.matchMedia("(max-width:760px)").matches)return;
 
- const order=["top","showcase","skills","about","results","experience","contact"];
+ const order=["top","services","showcase","skills","about","results","experience","contact"];
  const sections=order.map(id=>document.getElementById(id)).filter(Boolean);
  if(sections.length!==order.length)return;
  // Arrange the real HTML sections into the visitor's reading order. The
@@ -30,7 +30,7 @@
  const switcher=document.createElement("nav");
  switcher.className="screen-switcher";
  switcher.setAttribute("aria-label","Portfolio section navigation");
- switcher.innerHTML='<button type="button" data-screen-prev aria-label="Previous section">↑</button><output aria-live="off" aria-label="Section number">1 / 7</output><span class="screen-switcher__name"></span><button type="button" data-screen-next aria-label="Next section">↓</button>';
+ switcher.innerHTML='<button type="button" data-screen-prev aria-label="Previous section">↑</button><output aria-live="off" aria-label="Section number">1 / 8</output><span class="screen-switcher__name"></span><button type="button" data-screen-next aria-label="Next section">↓</button>';
  main.insertAdjacentElement("afterend",switcher);
  const prev=switcher.querySelector("[data-screen-prev]");
  const next=switcher.querySelector("[data-screen-next]");
