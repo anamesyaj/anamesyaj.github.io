@@ -47,7 +47,7 @@ const views=[["home","top"],["work","showcase"],["skills","skills"],["about","ab
     const scope=mobile?'.mobile-app__page[data-mobile-view="'+view+'"]':("#"+id);
     const result=await page.evaluate((sel)=>{
       const root=document.querySelector(sel);if(!root)return{error:"no scope"};
-      const color=v=>{if(!v)return null;const s=v.match(/rgba?\\(([^)]+)\\)/i);if(!s)return null;const a=s[1].split(/[\\s,/]+/).filter(Boolean).map(Number);return a.length>=3?[a[0],a[1],a[2],a.length>3?a[3]:1]:null};
+      const color=v=>{if(!v)return null;const s=v.match(/rgba?\(([^)]+)\)/i);if(!s)return null;const a=s[1].split(/[\s,/]+/).filter(Boolean).map(Number);return a.length>=3?[a[0],a[1],a[2],a.length>3?a[3]:1]:null};
       const mix=(top,base)=>[0,1,2].map(i=>top[i]*top[3]+base[i]*(1-top[3]));
       const bg=el=>{
        const layers=[];let cur=el;
@@ -63,7 +63,7 @@ const views=[["home","top"],["work","showcase"],["skills","skills"],["about","ab
       };
       const lum=rgb=>rgb.slice(0,3).map(n=>{let c=n/255;return c<=.04045?c/12.92:((c+.055)/1.055)**2.4}).reduce((a,c,i)=>a+c*[.2126,.7152,.0722][i],0);
       const ratio=(a,b)=>{let x=lum(a),y=lum(b);return(Math.max(x,y)+.05)/(Math.min(x,y)+.05)};
-      const selector=el=>{let s=el.tagName.toLowerCase();if(el.id)s+="#"+el.id;else if(typeof el.className==="string"&&el.className)s+="."+el.className.trim().split(/\\s+/).slice(0,2).join(".");return s};
+      const selector=el=>{let s=el.tagName.toLowerCase();if(el.id)s+="#"+el.id;else if(typeof el.className==="string"&&el.className)s+="."+el.className.trim().split(/\s+/).slice(0,2).join(".");return s};
       const elements=[...root.querySelectorAll("*")].filter(el=>{
         if(![...el.childNodes].some(n=>n.nodeType===3&&n.textContent.trim().length>=2))return false;
         const s=getComputedStyle(el),rect=el.getBoundingClientRect();
@@ -72,7 +72,7 @@ const views=[["home","top"],["work","showcase"],["skills","skills"],["about","ab
         return true;
       });
       const audit=elements.map(el=>{
-        const s=getComputedStyle(el),fg=color(s.color),b=bg(el),size=parseFloat(s.fontSize)||16,weight=parseFloat(s.fontWeight)||400,large=size>=24||(size>=18.66&&weight>=700),text=[...el.childNodes].filter(n=>n.nodeType===3).map(n=>n.textContent).join(" ").replace(/\\s+/g," ").trim();
+        const s=getComputedStyle(el),fg=color(s.color),b=bg(el),size=parseFloat(s.fontSize)||16,weight=parseFloat(s.fontWeight)||400,large=size>=24||(size>=18.66&&weight>=700),text=[...el.childNodes].filter(n=>n.nodeType===3).map(n=>n.textContent).join(" ").replace(/\s+/g," ").trim();
         const isGradient=s.backgroundClip==="text"||s.webkitTextFillColor==="rgba(0, 0, 0, 0)";
         if(!fg||isGradient)return null;
         const r=ratio(fg,b.rgb),threshold=large?3:4.5;
