@@ -27,6 +27,7 @@ const screens=[{name:"desktop-1440",w:1440,h:900,mobile:false},{name:"compact-90
      }
      assert.ok(!content.includes("Growth OS"),"Growth OS intentionally omitted");
      assert.ok(!/guaranteed revenue|100 clients|certified third-party|delivered to hundreds/i.test(content),"no fabricated client proof");
+     await p.locator('#top a[data-inquiry-intent="project"]').waitFor({state:"visible",timeout:7000});
      assert.ok(await p.locator('#top a[data-inquiry-intent="project"]').isVisible(),"primary hero inquiry visible");
      if(s.mobile){
       await p.locator('#top a[href="#services"]').click();
