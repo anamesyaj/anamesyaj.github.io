@@ -32,7 +32,7 @@ const devices=[
    }else assert.equal(await identity.isVisible(),false,"mobile header stays mobile-only");
    const result=page.locator("#top .phase2-home-result");
    assert.ok(await result.isVisible(),"true one-case result near Home");
-   assert.match(await result.innerText(),/one complex reconciliation case/i);
+   assert.match(await result.textContent(),/one complex reconciliation case/i);
    const cases=page.locator("#case-studies");
    assert.equal(await cases.locator(".phase2-case").count(),2);
    const copy=await cases.textContent();

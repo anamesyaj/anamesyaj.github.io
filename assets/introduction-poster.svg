@@ -1,1 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675"><defs><radialGradient id="g" cx=".7" cy=".25" r=".95"><stop stop-color="#2a4b73"/><stop offset=".55" stop-color="#13253f"/><stop offset="1" stop-color="#08131f"/></radialGradient></defs><rect width="1200" height="675" fill="url(#g)"/><g fill="none" stroke="#d6ad72" opacity=".2"><circle cx="932" cy="333" r="180"/><circle cx="932" cy="333" r="239"/><circle cx="932" cy="333" r="305"/></g><path d="M80 88h1040M80 587h1040" stroke="#d6ad72" opacity=".4"/><text x="80" y="151" font-family="Arial,sans-serif" font-size="23" fill="#e9c58c" letter-spacing="4">PERSONAL INTRODUCTION · 01:00</text><text x="80" y="295" font-family="Arial,sans-serif" font-size="77" font-weight="bold" fill="#f6f8fc">MARK JAY</text><text x="80" y="380" font-family="Arial,sans-serif" font-size="77" font-weight="bold" fill="#f6f8fc">LISAY</text><text x="82" y="438" font-family="Arial,sans-serif" font-size="25" font-weight="bold" fill="#e9c58c">AI WORKFLOW &amp; PRODUCT OPERATIONS</text><text x="82" y="500" font-family="Arial,sans-serif" font-size="20" fill="#d6e1ef">Actual personal recording coming soon</text><circle cx="936" cy="320" r="89" fill="#d6ad72" fill-opacity=".16" stroke="#e9c58c" stroke-width="3"/><path d="M913 270v100l74-50z" fill="#f4dfbb"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+<defs><radialGradient id="g" cx=".77" cy=".32" r="1"><stop stop-color="#345778"/><stop offset=".54" stop-color="#162942"/><stop offset="1" stop-color="#0a182b"/></radialGradient><linearGradient id="line" x1="0" x2="1"><stop stop-color="#d8ad73" stop-opacity=".6"/><stop offset="1" stop-color="#d8ad73" stop-opacity=".05"/></linearGradient></defs>
+<rect width="1200" height="675" fill="url(#g)"/>
+<g fill="none" stroke="#e6bd82" stroke-width="1.4" opacity=".16">
+<circle cx="955" cy="315" r="150"/><circle cx="955" cy="315" r="218"/><circle cx="955" cy="315" r="293"/><circle cx="955" cy="315" r="370"/>
+<path d="M0 130h1200M0 550h1200M110 0v675M1080 0v675"/>
+<path d="M115 550l425-420M480 675l550-545M115 300l420 250M685 110l395 395"/>
+</g>
+<path d="M78 94h260M78 94v86M1122 94H862M1122 94v86M78 582h260M78 582v-86M1122 582H862M1122 582v-86" stroke="url(#line)" fill="none" stroke-width="4"/>
+<g opacity=".17"><circle cx="952" cy="315" r="86" fill="#f7d8a0"/><path d="M924 256v118l83-59z" fill="#ffffff"/></g>
+</svg>

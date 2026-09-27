@@ -31,3 +31,6 @@
  .phase3-intro__overlay p{font-size:clamp(.7rem,2.85vw,.8rem)}
 }
 @media(max-width:350px){.phase3-intro__overlay{gap:5px}.phase3-intro__overlay>span{font-size:.53rem}.phase3-intro__footer p{font-size:.65rem}}
+
+/* Phase 3 visual QA: prevent wrapping on narrow 320px Android screens. */
+@media(max-width:350px){.phase3-intro__header{gap:4px;font-size:.59rem;letter-spacing:.03em}.phase3-intro__header span:last-child{white-space:nowrap}.phase3-intro__overlay h2{font-size:1.19rem;line-height:1.17}.phase3-intro__overlay p{font-size:.69rem;line-height:1.38}}
