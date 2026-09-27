@@ -83,22 +83,33 @@ const base="https://anamesyaj.github.io/";
   const dc=await desktopCert.locator("img").evaluate(img=>({loaded:img.complete&&img.naturalWidth===340&&img.naturalHeight===427,w:img.getBoundingClientRect().width,h:img.getBoundingClientRect().height}));
   assert.ok(dc.loaded&&Math.abs(dc.h/dc.w-427/340)<.02,"production desktop certificate is loaded and uncropped");
   await page.screenshot({path:"qa-screens/live-desktop-certificate.png",fullPage:false});
+  // GitHub Pages CDN occasionally returns transient 503 during deployment;
+  // retry bounded static-asset fetches, but still fail on persistent errors.
+  const fetchAsset=async relative=>{
+    let response;
+    for(let attempt=0;attempt<5;attempt++){
+      try{response=await desktop.request.get(base+relative,{timeout:20000});if(response.ok())return response}
+      catch(e){if(attempt===4)throw e}
+      await page.waitForTimeout((attempt+1)*650);
+    }
+    return response;
+  };
   const [introPosterResponse,robotsResponse,sitemapResponse,retiredResponse]=await Promise.all([
-    desktop.request.get(base+"assets/introduction-poster.svg",{timeout:20000}),
-    desktop.request.get(base+"robots.txt",{timeout:20000}),
-    desktop.request.get(base+"sitemap.xml",{timeout:20000}),
-    desktop.request.get(base+"canvas-v4.html",{timeout:20000})
+    fetchAsset("assets/introduction-poster.svg"),
+    fetchAsset("robots.txt"),
+    fetchAsset("sitemap.xml"),
+    fetchAsset("canvas-v4.html")
   ]);
   assert.ok(introPosterResponse.ok()&&(await introPosterResponse.text()).includes('viewBox="0 0 1200 675"'),"production owner introduction SVG poster");
   assert.ok(robotsResponse.ok()&&(await robotsResponse.text()).includes("sitemap.xml"),"production crawler robots points at sitemap");
   assert.ok(sitemapResponse.ok()&&(await sitemapResponse.text()).includes("https://anamesyaj.github.io/"),"production canonical homepage sitemap");
   assert.ok(retiredResponse.ok()&&(await retiredResponse.text()).includes('content="noindex, follow"'),"production retired prototype noindex and redirect");
-  const imageRequest=await desktop.request.get(base+"assets/ghl-certificate-preview.webp",{timeout:20000});
+  const imageRequest=await fetchAsset("assets/ghl-certificate-preview.webp");
   assert.ok(imageRequest.ok(),"production certificate image response "+imageRequest.status());
   const imageBytes=await imageRequest.body();
   assert.equal(imageBytes.length,9534,"published certificate binary must match inspected source");
   assert.equal(imageBytes.toString("ascii",0,4),"RIFF","published asset has WebP RIFF signature");
-  const resume=await desktop.request.get(base+"assets/Mark_Jay_Lisay_Public_Resume.pdf",{timeout:20000});
+  const resume=await fetchAsset("assets/Mark_Jay_Lisay_Public_Resume.pdf");
   assert.ok(resume.ok(),"production resume download HTTP status "+resume.status());
   const pdf=await resume.body();
   assert.equal(pdf.length,84933,"live PDF is the uploaded public resume (byte length)");
