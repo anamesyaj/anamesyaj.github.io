@@ -28,7 +28,7 @@ const devices=[
    const identity=page.locator(".phase2-mobile-id");
    if(d.mobile){
     await identity.waitFor({state:"visible",timeout:8000});
-    assert.equal((await identity.locator("strong").innerText()).trim(),"Mark Jay Lisay");
+    assert.equal((await identity.locator("strong").textContent()).trim(),"Mark Jay Lisay");
    }else assert.equal(await identity.isVisible(),false,"mobile header stays mobile-only");
    const result=page.locator("#top .phase2-home-result");
    assert.ok(await result.isVisible(),"true one-case result near Home");

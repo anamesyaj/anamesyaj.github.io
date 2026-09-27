@@ -13,6 +13,14 @@ on:
       - 'scripts/audit-light-contrast.cjs'
       - 'scripts/qa-client-phase1.cjs'
       - 'scripts/qa-client-phase2.cjs'
+      - 'scripts/qa-client-phase3.cjs'
+      - 'assets/client-phase3-v15.js'
+      - 'assets/client-phase3-v15.css'
+      - 'assets/introduction-poster.svg'
+      - 'robots.txt'
+      - 'sitemap.xml'
+      - 'canvas-*.html'
+      - 'deck-*.html'
       - 'assets/client-phase2-v14.js'
       - 'assets/client-phase2-v14.css'
       - 'assets/client-phase1-v13.css'
@@ -66,6 +74,8 @@ jobs:
           node --check assets/site.js
           node --check scripts/qa-client-phase1.cjs
           node --check scripts/qa-client-phase2.cjs
+          node --check scripts/qa-client-phase3.cjs
+          node --check assets/client-phase3-v15.js
           node --check assets/client-phase2-v14.js
           node --check assets/screen-deck-v5.js
           node --check scripts/qa-continuous-deck.cjs
@@ -93,6 +103,8 @@ jobs:
         run: node scripts/qa-client-phase1.cjs
       - name: Phase 2 case studies and guided walkthrough checks
         run: node scripts/qa-client-phase2.cjs
+      - name: Phase 3 introduction, audible autoplay policy and SEO smoke
+        run: node scripts/qa-client-phase3.cjs
       - name: Verify the deployed HTTPS site in desktop and mobile Chromium
         run: node scripts/qa-live-portfolio.cjs
       - name: Diagnose current light contrast on desktop and Android
@@ -107,6 +119,7 @@ jobs:
             qa-screens/live-*.png
             qa-screens/light-*.png
             qa-screens/phase2-*.png
+            qa-screens/phase3-*.png
           if-no-files-found: error
           retention-days: 3
       - name: Upload screenshots if tests fail
