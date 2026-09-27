@@ -20,7 +20,8 @@ const screens=[{name:"desktop-1440",w:1440,h:900,mobile:false},{name:"compact-90
      await p.goto(url+"#top",{waitUntil:"load"});
      await p.waitForFunction(()=>document.documentElement.classList.contains("continuous-deck"));
      assert.equal(await p.locator("#services .client-service-card").count(),3,"exactly three services");
-     const content=await p.locator("#services").innerText();
+     if(s.mobile)await p.waitForFunction(()=>document.documentElement.classList.contains("mobile-app")&&!document.querySelector('.mobile-app__page[data-mobile-view="home"]')?.hidden);
+     const content=await p.locator("#services").textContent();
      for(const evidence of ["Excel","VBA","Power Query","five hours","human","acceptance criteria","functional","regression"]){
       assert.ok(content.toLowerCase().includes(evidence.toLowerCase()),"Résumé-based copy missing "+evidence);
      }
