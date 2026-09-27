@@ -39,6 +39,18 @@ const views=[["home","top"],["work","showcase"],["skills","skills"],["about","ab
         if(image.decode)await image.decode();
         if(!image.complete||image.naturalWidth<2000)throw Error("front full-HD image not loaded before light-mode visual audit");
       });
+      if(d.name==="desktop-1440"){
+        const geometry=await page.evaluate(()=>{
+          const c=document.querySelector(".orbit-card.is-front"),g=sel=>{
+            const el=c?.querySelector(sel);if(!el)return null;
+            const r=el.getBoundingClientRect(),s=getComputedStyle(el);
+            const x=r.x+r.width/2,y=r.y+r.height/2,top=document.elementFromPoint(x,y);
+            return {selector:sel,x:r.x,y:r.y,w:r.width,h:r.height,visible:s.visibility,display:s.display,opacity:s.opacity,overflow:s.overflow,hit:top?.tagName+"."+(typeof top?.className==="string"?top.className:"")};
+          };
+          return [".orbit-card__top",".orbit-card__visual",".orbit-card__visual img",".orbit-card__info",".orbit-card__info>div:first-child",".orbit-card__title",".orbit-card__description",".orbit-card__footer"].map(g);
+        });
+        console.log("LIGHT FRONT DESKTOP GEOMETRY "+JSON.stringify(geometry));
+      }
       const evidence=page.locator("#showcase .resume-project-evidence");
       if(!await evidence.evaluate(el=>el.open))await evidence.locator("summary").click();
     }
