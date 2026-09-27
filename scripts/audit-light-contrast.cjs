@@ -40,7 +40,7 @@ const views=[["home","top"],["work","showcase"],["skills","skills"],["about","ab
       const all=page.locator("#skills .resume-skills-more");
       if(!await all.evaluate(el=>el.open))await all.locator("summary").click();
     }
-    if(view==="contact"){
+    if(view==="contact"&&mobile){
       const form=page.locator("#contact .fit-contact-more");
       if(!await form.evaluate(el=>el.open))await form.locator("summary").click();
     }
