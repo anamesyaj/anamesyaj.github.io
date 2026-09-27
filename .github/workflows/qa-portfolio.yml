@@ -14,6 +14,7 @@ on:
       - 'scripts/qa-client-phase1.cjs'
       - 'scripts/qa-client-phase2.cjs'
       - 'scripts/qa-client-phase3.cjs'
+      - 'scripts/qa-visual-review.cjs'
       - 'assets/client-phase3-v15.js'
       - 'assets/client-phase3-v15.css'
       - 'assets/introduction-poster.svg'
@@ -105,6 +106,16 @@ jobs:
         run: node scripts/qa-client-phase2.cjs
       - name: Phase 3 introduction, audible autoplay policy and SEO smoke
         run: node scripts/qa-client-phase3.cjs
+      - name: Read-only full desktop and Android visual audit
+        run: node scripts/qa-visual-review.cjs
+      - name: Upload complete visual audit screenshots and geometry
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: portfolio-full-visual-audit
+          path: qa-visual-audit/
+          if-no-files-found: error
+          retention-days: 3
       - name: Verify the deployed HTTPS site in desktop and mobile Chromium
         run: node scripts/qa-live-portfolio.cjs
       - name: Diagnose current light contrast on desktop and Android
@@ -120,6 +131,7 @@ jobs:
             qa-screens/light-*.png
             qa-screens/phase2-*.png
             qa-screens/phase3-*.png
+            qa-visual-audit/*.png
           if-no-files-found: error
           retention-days: 3
       - name: Upload screenshots if tests fail
