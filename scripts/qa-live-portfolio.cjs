@@ -105,6 +105,7 @@ const base="https://anamesyaj.github.io/";
   console.log("LIVE MOBILE HERO METRICS "+JSON.stringify(mobileMetrics));
   assert.equal(mobileMetrics.length,3,"three mobile proof metrics");
   assert.ok(mobileMetrics.every(m=>m.rect&&m.rect.w>=5&&m.rect.h>=8&&m.visibility==="visible"&&m.display!=="none"),"mobile metric units must remain visibly rendered");
+  await phone.locator(".phase2-mobile-id").waitFor({state:"visible",timeout:8000});
   assert.ok(await phone.locator(".phase2-mobile-id").isVisible(),"live mobile identity");
   assert.ok(await phone.locator(".phase2-home-result").isVisible(),"live mobile proven result");
   await phone.screenshot({path:"qa-screens/live-mobile-390-dark.png"});
