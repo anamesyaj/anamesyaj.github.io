@@ -22,9 +22,12 @@ const base="https://anamesyaj.github.io/";
       image:Boolean(document.querySelector(".certificate-proof--desktop img[src='assets/ghl-certificate-preview.webp']")),
       cert:document.documentElement.outerHTML.includes("my-certificates.com/certificates/6a51c63281683ab6396a9e45"),
       services:Boolean(document.querySelector("#services .client-services__grid")),
+      phase2:document.querySelectorAll("#case-studies .phase2-case").length===2,
+      phase2Script:Boolean(document.querySelector('script[src^="assets/client-phase2-v14.js"]')),
+      mobileIdentity:Boolean(document.querySelector(".phase2-mobile-id")),
       realPost:document.querySelector("#contact-form")?.getAttribute("action")==="https://formsubmit.co/markjay.lisay@gmail.com"
     }));
-    if(result&&result.status()===200&&state.noGrowth&&state.image&&state.cert&&state.services&&state.realPost){deployed=true;break}
+    if(result&&result.status()===200&&state.noGrowth&&state.image&&state.cert&&state.services&&state.realPost&&state.phase2&&state.phase2Script&&state.mobileIdentity){deployed=true;break}
     lastError="Public HTML is not at the audited version yet: "+JSON.stringify(state)+"; status="+result?.status();
    }catch(e){lastError=String(e)}
    await page.waitForTimeout(4500);
@@ -59,6 +62,15 @@ const base="https://anamesyaj.github.io/";
   if(switcherRect&&evidenceRect)assert.ok(evidenceRect.x+evidenceRect.width<=switcherRect.x-4,"desktop pager may not overlay Work evidence");
   await page.locator("#showcase .resume-project-evidence__grid article").last().scrollIntoViewIfNeeded();
   await page.screenshot({path:"qa-screens/live-desktop-project-evidence.png"});
+  await page.locator("#showcase .phase2-work-link").click();
+  await page.locator("#case-studies").scrollIntoViewIfNeeded();
+  assert.equal(await page.locator("#case-studies .phase2-case").count(),2,"live case studies");
+  await page.locator('[data-phase2-project="gold"]').click();
+  assert.ok((await page.locator("#phase2-demo-image").getAttribute("src")).includes("gold-ops"),"live desktop project switch");
+  await page.locator("#case-studies").scrollIntoViewIfNeeded();
+  await page.screenshot({path:"qa-screens/live-desktop-phase2-cases.png"});
+  await page.locator("#phase2-walkthrough").scrollIntoViewIfNeeded();
+  await page.screenshot({path:"qa-screens/live-desktop-phase2-walkthrough.png"});
   await page.locator('.portfolio-rail__nav a[href="#experience"]').click();
   const desktopCert=page.locator(".certificate-proof--desktop");
   await desktopCert.scrollIntoViewIfNeeded();
@@ -93,6 +105,8 @@ const base="https://anamesyaj.github.io/";
   console.log("LIVE MOBILE HERO METRICS "+JSON.stringify(mobileMetrics));
   assert.equal(mobileMetrics.length,3,"three mobile proof metrics");
   assert.ok(mobileMetrics.every(m=>m.rect&&m.rect.w>=5&&m.rect.h>=8&&m.visibility==="visible"&&m.display!=="none"),"mobile metric units must remain visibly rendered");
+  assert.ok(await phone.locator(".phase2-mobile-id").isVisible(),"live mobile identity");
+  assert.ok(await phone.locator(".phase2-home-result").isVisible(),"live mobile proven result");
   await phone.screenshot({path:"qa-screens/live-mobile-390-dark.png"});
   await phone.locator('#top a[href="#services"]').tap();
   assert.equal(await phone.locator("#services .client-service-card").count(),3,"three client services on mobile Home");
@@ -102,6 +116,13 @@ const base="https://anamesyaj.github.io/";
   await phone.waitForFunction(()=>document.documentElement.dataset.appView==="work",{timeout:6000});
   await phone.locator("#showcase .resume-project-evidence summary").tap();
   assert.equal(await phone.locator("#showcase .resume-project-evidence__grid article").count(),3,"production mobile three selected evidence cards");
+  await phone.locator("#case-studies").scrollIntoViewIfNeeded();
+  assert.ok(await phone.locator("#case-studies .phase2-case").first().isVisible(),"mobile case studies in Work");
+  await phone.screenshot({path:"qa-screens/live-mobile-phase2-cases.png"});
+  await phone.locator("#phase2-walkthrough").scrollIntoViewIfNeeded();
+  await phone.locator('[data-phase2-project="studio"]').tap();
+  assert.ok((await phone.locator("#phase2-demo-image").getAttribute("src")).includes("puddleloom-studio"),"mobile guided project switch");
+  await phone.screenshot({path:"qa-screens/live-mobile-phase2-walkthrough.png"});
   await phone.locator('.mobile-tabs a[data-app-tab="about"]').tap();
   await phone.waitForFunction(()=>document.documentElement.dataset.appView==="about",{timeout:6000});
   const cert=phone.locator(".certificate-proof--mobile");

@@ -12,6 +12,9 @@ on:
       - 'scripts/qa-live-portfolio.cjs'
       - 'scripts/audit-light-contrast.cjs'
       - 'scripts/qa-client-phase1.cjs'
+      - 'scripts/qa-client-phase2.cjs'
+      - 'assets/client-phase2-v14.js'
+      - 'assets/client-phase2-v14.css'
       - 'assets/client-phase1-v13.css'
       - 'assets/site.js'
       - 'assets/continuous-deck-v6.js'
@@ -62,6 +65,8 @@ jobs:
           node --check scripts/qa-mobile-dock-overlay-v12.cjs
           node --check assets/site.js
           node --check scripts/qa-client-phase1.cjs
+          node --check scripts/qa-client-phase2.cjs
+          node --check assets/client-phase2-v14.js
           node --check assets/screen-deck-v5.js
           node --check scripts/qa-continuous-deck.cjs
           node --check assets/continuous-deck-v6.js
@@ -86,6 +91,8 @@ jobs:
         run: node scripts/diag-screen-fit.cjs
       - name: Phase 1 client services and native form checks
         run: node scripts/qa-client-phase1.cjs
+      - name: Phase 2 case studies and guided walkthrough checks
+        run: node scripts/qa-client-phase2.cjs
       - name: Verify the deployed HTTPS site in desktop and mobile Chromium
         run: node scripts/qa-live-portfolio.cjs
       - name: Diagnose current light contrast on desktop and Android
@@ -99,6 +106,7 @@ jobs:
           path: |
             qa-screens/live-*.png
             qa-screens/light-*.png
+            qa-screens/phase2-*.png
           if-no-files-found: error
           retention-days: 3
       - name: Upload screenshots if tests fail
