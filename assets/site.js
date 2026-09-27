@@ -11,6 +11,12 @@
   if(link.dataset.service)setService(link.dataset.service);
   else if(link.dataset.inquiryIntent==="call")setService("15-minute introductory call");
   else if(link.dataset.inquiryIntent==="project"&&!service.value)setService("Not sure yet");
+  // A service CTA should reveal the project brief on phones instead of
+  // requiring the visitor to discover an extra hidden accordion.
+  if(window.matchMedia("(max-width:760px)").matches){
+   const detail=document.querySelector("#contact .fit-contact-more");
+   if(detail)detail.open=true;
+  }
  }));
  const v=id=>document.getElementById(id)?.value.trim()||"";
  form.addEventListener("submit",event=>{
