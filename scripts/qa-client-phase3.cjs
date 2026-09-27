@@ -33,7 +33,7 @@ const site=pathToFileURL(path.resolve("index.html")).href;
     assert.ok(box.overflow<=7,"page no horizontal overflow "+JSON.stringify(box));
     assert.equal(await video.getAttribute("autoplay"),"");
     assert.equal(await video.getAttribute("playsinline"),"");
-    assert.equal(await video.hasAttribute("muted"),false,"not forced silent by markup");
+    assert.equal(await video.evaluate(el=>el.hasAttribute("muted")),false,"not forced silent by markup");
     assert.equal(await video.evaluate(el=>el.muted),false,"not auto-muted by script");
     assert.equal(await video.getAttribute("src"),null,"no broken video source before owner supplies MP4");
     assert.equal(await panel.getAttribute("data-intro-state"),"placeholder");
