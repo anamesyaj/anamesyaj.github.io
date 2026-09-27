@@ -58,6 +58,20 @@ const views=[["home","top"],["work","showcase"],["skills","skills"],["about","ab
         assert.ok(!title.hit?.startsWith("IMG.")&&!desc.hit?.startsWith("IMG."),
           "desktop project copy must be hit-visible, not obscured by image");
       }
+      if(d.name==="phone-390"){
+        const mobileImg=page.locator(".orbit-card.is-front .orbit-card__visual img");
+        const snapshots=async()=>mobileImg.evaluate(img=>{
+          const chain=[img,img.parentElement,img.closest(".orbit-card"),img.closest(".orbit-stage")];
+          return chain.map(el=>{
+            const s=getComputedStyle(el),b=el.getBoundingClientRect();
+            return{element:el.tagName+"."+(typeof el.className==="string"?el.className:""),display:s.display,opacity:s.opacity,visibility:s.visibility,transform:s.transform,filter:s.filter,pointerEvents:s.pointerEvents,width:b.width,height:b.height,x:b.x,y:b.y,natural:el===img?[img.complete,img.naturalWidth,img.naturalHeight,img.currentSrc]:null};
+          });
+        });
+        console.log("LIGHT PHONE IMAGE IMMEDIATE "+JSON.stringify(await snapshots()));
+        await page.waitForTimeout(800);
+        console.log("LIGHT PHONE IMAGE SETTLED "+JSON.stringify(await snapshots()));
+        await page.screenshot({path:"qa-screens/light-phone-390-work-settled.png"});
+      }
       const evidence=page.locator("#showcase .resume-project-evidence");
       if(!await evidence.evaluate(el=>el.open))await evidence.locator("summary").click();
     }
