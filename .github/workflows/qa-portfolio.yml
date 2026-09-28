@@ -19,6 +19,7 @@ on:
       - 'assets/client-phase3-v15.js'
       - 'assets/client-phase3-v15.css'
       - 'assets/client-polish-v16.css'
+      - 'assets/mobile-dock-compact-v17.css'
       - 'assets/portfolio-social-preview.jpg'
       - 'scripts/build-social-preview.cjs'
       - 'assets/introduction-poster.svg'

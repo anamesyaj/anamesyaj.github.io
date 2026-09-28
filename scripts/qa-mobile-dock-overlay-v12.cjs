@@ -58,10 +58,14 @@ async function run(browser,device){
   assert.ok(approx(state.orb.cx,state.contact.cx,3),device.label+" orbit must center exactly over Contact: "+JSON.stringify(state));
   assert.ok(state.orb.bottom>=state.contact.top-4&&state.orb.bottom<=state.contact.top+9,
     device.label+" orbit must touch Contact with no separate gap: "+JSON.stringify(state));
-  assert.ok(state.main.bottom>=state.nav.top-10&&state.main.bottom<=state.nav.top+3,
-    device.label+" no extra 40-70px reserved strip: "+JSON.stringify(state));
-  assert.ok(state.orb.top>=state.main.bottom&&state.orb.bottom<=state.nav.bottom,
-    device.label+" theme control must stay entirely inside its own dock, away from scrollable content");
+  assert.ok(state.nav.height>=70&&state.nav.height<=74,
+    device.label+" compact navigation must be around 72px, not a tall banner: "+JSON.stringify(state));
+  assert.ok(state.nav.top-state.main.bottom>=40&&state.nav.top-state.main.bottom<=53,
+    device.label+" small clearance above dock protects content: "+JSON.stringify(state));
+  assert.ok(state.orb.top>=state.main.bottom+1&&state.orb.bottom<=state.contact.top+9,
+    device.label+" floating ring must touch Contact, not the page: "+JSON.stringify(state));
+  const labels=await page.evaluate(()=>({before:getComputedStyle(document.querySelector(".mobile-tabs"),"::before").content,after:getComputedStyle(document.querySelector(".mobile-tabs"),"::after").content}));
+  assert.ok(["none","normal"].includes(labels.before)&&["none","normal"].includes(labels.after),device.label+" hide oversized Appearance banner");
   assert.ok(state.orb.top>=0,device.label+" theme stays on-screen even on short phone");
   assert.equal(state.hiddenThemes,1,"single theme control");
   assert.equal(await page.locator(".mobile-tabs>a[data-app-tab]").count(),5,"five untouched navigation links");

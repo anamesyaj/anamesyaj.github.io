@@ -70,3 +70,7 @@ The actual 1200×630 branded social-sharing JPEG uses Mark Jay's current public 
 ### Final small-screen polish
 
 While the owner recording is still absent, the redundant introduction-status sentence is visually hidden *only* on phones; its live region remains accessible and becomes visible again with a real clip. This conserves precious first-fold space. On phones the primary project and service links share a readable two-column row, with résumé below. The full visual audit now clips intersection checks to the visible mobile tab bounds, avoiding false reports about links physically outside the scrollable page; actual visible collisions now fail CI. A targeted first-fold QA verifies 320/390/430px Android layouts and hit-tested Home, Work and About links in both themes. Audible autoplay and the existing playback script remain untouched.
+
+## v17 restored compact bottom navigation
+
+Replaced the screenshot-reported oversized 112px APPEARANCE banner with a compact, 72px, five-tab rounded Android-style dock. The 50px animated blue/gold appearance ring is again immediately above Contact with a 44px accessible tap target. No extra visible heading, line or sixth tab. The scrollable page ends immediately before the raised ring so it never covers important content. Mobile tests cover 320–760px layouts, geometry and tap targets. Video/audio playback is untouched.

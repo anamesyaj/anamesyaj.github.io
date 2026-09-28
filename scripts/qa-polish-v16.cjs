@@ -26,7 +26,7 @@ const site=pathToFileURL(path.resolve("index.html")).href;
      return {dockTop:dock?.top,headingBottom:heading?.bottom,contactBottom:contact?.bottom,serviceBottom:service?.bottom,
       footerStatusVisible:!!footer&&(footer.getBoundingClientRect().width>20),mainBottom:box("#main")?.bottom};
     });
-    assert.ok(Math.abs(first.mainBottom-first.dockTop)<=3,"content must stop above the complete dock "+JSON.stringify(first));
+    assert.ok(first.dockTop-first.mainBottom>=40&&first.dockTop-first.mainBottom<=53,"content must stop just above the raised appearance ring "+JSON.stringify(first));
     assert.equal(first.footerStatusVisible,false,"placeholder repeats its message; visually hide duplicate only on phones");
     if(width>=390){
      assert.ok(first.contactBottom<=first.dockTop-5,"first-fold project CTA fully visible "+JSON.stringify(first));
