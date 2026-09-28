@@ -78,3 +78,7 @@ Replaced the screenshot-reported oversized 112px APPEARANCE banner with a compac
 ## v18 action buttons and social icons
 
 Action links now share a consistent button system while section navigation and the five mobile app tabs remain navigation. Full-card destinations and the certificate-image preview remain card-style controls. Service, case-study, project-site, HD-preview, certificate, résumé, email-fallback and Back-to-top actions use button styling with 40–44px minimum targets. GitHub, LinkedIn and email use inline SVG icons; icon-only controls retain accessible labels. The exact certificate URL remains visible. Introduction autoplay/audio behavior is unchanged.
+
+## v19 contact-form visual cleanup
+
+The lower mobile contact form now uses one compact visual hierarchy instead of several disconnected buttons. Empty `#form-status` no longer reserves vertical space, the FormSubmit privacy explanation and provider link form one compact block, direct email is grouped with two equal copy actions, and the copy labels are shortened to `Copy email` / `Copy brief`. The compact Android navigation, action-button system, social icons and sound-first introduction behavior are unchanged. Android QA verifies the submit-to-privacy gap and contact alternatives at 320/390/430px in both themes.

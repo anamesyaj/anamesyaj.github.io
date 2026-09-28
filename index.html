@@ -51,6 +51,7 @@
 <link rel="stylesheet" href="assets/client-polish-v16.css?v=20260928">
 <link rel="stylesheet" href="assets/mobile-dock-compact-v17.css?v=20260928b">
 <link rel="stylesheet" href="assets/action-buttons-v18.css?v=20260928">
+<link rel="stylesheet" href="assets/contact-polish-v19.css?v=20260928">
   <script>
     try { if (localStorage.getItem('mj-theme') === 'light') document.documentElement.dataset.theme = 'light'; } catch (e) {}
   </script>
@@ -321,10 +322,22 @@
 <div class="grid gap-5 sm:grid-cols-2"><div><label for="contact-service">What would you like to discuss? *</label><select id="contact-service" name="project_type" required><option value="" disabled selected>Select an area</option><option value="Excel & process automation">Excel &amp; process automation</option><option value="AI-assisted workflow planning">AI-assisted workflow planning</option><option value="QA & release-readiness support">QA &amp; release-readiness support</option><option value="15-minute introductory call">15-minute introductory call</option><option value="Product operations / employment">Product operations / employment</option><option value="Not sure yet">Not sure yet</option></select></div><div><label for="contact-timeline">Ideal timeframe <span class="client-optional">(optional)</span></label><select id="contact-timeline" name="timeline"><option value="" selected>Not decided</option><option>As soon as practical</option><option>Within one month</option><option>1–3 months</option><option>Just exploring</option></select></div></div>
 <div><label for="contact-company">Business or project name <span class="client-optional">(optional)</span></label><input id="contact-company" name="business_or_project" type="text" autocomplete="organization" maxlength="120" placeholder="Company, project or independent client"></div>
 <div><label for="contact-message">What would you like to improve? *</label><textarea id="contact-message" name="message" rows="5" minlength="25" maxlength="2500" required placeholder="A few sentences about your current process, goal and any tools involved."></textarea><small class="client-inquiry-hint">Please don't include confidential data, passwords or account numbers.</small></div>
-<button type="submit" class="button button-primary client-inquiry-submit w-full sm:w-auto">Send project inquiry ↗</button><p id="form-status" class="form-status" role="status" aria-live="polite"></p>
-<p class="client-privacy-note">The FormSubmit service processes and emails this inquiry and may show a reCAPTCHA challenge. By submitting, you choose to share your brief for a reply. <a class="ui-action ui-action--ghost ui-action--micro" href="https://formsubmit.co/" target="_blank" rel="noopener noreferrer"><span>About FormSubmit</span><svg class="ui-icon ui-icon--arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></a></p></form>
-<p class="client-inquiry-fallback">Prefer direct contact? <a class="ui-action ui-action--secondary ui-action--micro" href="mailto:markjay.lisay@gmail.com?subject=Portfolio%20inquiry"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v14H3V5Zm1.5 2 7.5 5.5L19.5 7M4.5 17l5.2-4.2m9.8 4.2-5.2-4.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Open email app</span></a></p>
-<button id="copy-email" class="copy-email mt-4" type="button">Copy email address ⧉</button><button id="copy-message" class="copy-message" type="button">Copy prepared brief ⧉</button>
+<button type="submit" class="button button-primary client-inquiry-submit w-full sm:w-auto">Send project inquiry ↗</button>
+<p id="form-status" class="form-status" role="status" aria-live="polite"></p>
+<div class="client-privacy-block">
+  <p class="client-privacy-note">FormSubmit securely forwards this inquiry to my email and may show a reCAPTCHA challenge.</p>
+  <a class="ui-action ui-action--ghost ui-action--micro" href="https://formsubmit.co/" target="_blank" rel="noopener noreferrer"><span>About FormSubmit</span><svg class="ui-icon ui-icon--arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+</div></form>
+<div class="contact-utility-panel" aria-label="Alternative contact options">
+  <div class="contact-utility-panel__top">
+    <div><strong>Prefer direct contact?</strong><span>Email me directly or copy the details you need.</span></div>
+    <a class="ui-action ui-action--secondary ui-action--compact" href="mailto:markjay.lisay@gmail.com?subject=Portfolio%20inquiry"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v14H3V5Zm1.5 2 7.5 5.5L19.5 7M4.5 17l5.2-4.2m9.8 4.2-5.2-4.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Email me</span></a>
+  </div>
+  <div class="contact-copy-actions">
+    <button id="copy-email" class="contact-copy-button" type="button"><span>Copy email</span><span aria-hidden="true">⧉</span></button>
+    <button id="copy-message" class="contact-copy-button" type="button"><span>Copy brief</span><span aria-hidden="true">⧉</span></button>
+  </div>
+</div>
 </div></div></section>
   </main>
 
