@@ -53,7 +53,10 @@ const site=pathToFileURL(path.resolve("index.html")).href;
       const x=r.x+r.width/2,y=r.y+r.height/2,front=document.elementFromPoint(x,y);
       return {top:r.top,bottom:r.bottom,dockTop:dock.top,hit:front===el||el.contains(front),front:front?.outerHTML?.slice(0,240),stack:document.elementsFromPoint(x,y).slice(0,5).map(n=>n.tagName+"."+n.className)};
      });
-     assert.ok(hit.bottom<=hit.dockTop+2&&hit.hit,"mobile "+view+" actionable element is unobstructed "+JSON.stringify(hit));
+     assert.ok(hit.bottom<=hit.dockTop+2,"mobile "+view+" target stays above the dock "+JSON.stringify(hit));
+     // Trial click is Playwright’s browser-level actionability test: it checks
+     // the actual pointer hit target and auto-scrolls without navigation.
+     await target.click({trial:true,timeout:4000});
     }
     assert.equal(errors.length,0,"no page JS errors "+errors.join(";"));
     if(width===320||width===390)await page.screenshot({path:"qa-screens/polish-"+width+"-"+theme+"-about.png"});
