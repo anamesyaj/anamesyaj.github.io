@@ -26,7 +26,7 @@ const source=pathToFileURL(path.join(process.cwd(),'index.html')).href+'#showcas
     assert.ok(widths.every(x=>x.width>=2000&&x.height>=1100),'each image is genuinely HD');
     assert.ok(await desktop.locator('.portfolio-rail').isVisible(),'desktop persistent sidebar visible');
     const linkedIn=desktop.locator('.portfolio-rail__socials a[href*="linkedin"]');
-    assert.ok((await linkedIn.textContent()).includes('LinkedIn'),'full LinkedIn label, not in abbreviation');
+    assert.ok(((await linkedIn.getAttribute('aria-label'))||'').includes('LinkedIn'),'icon-only LinkedIn control keeps the full accessible label');
     assert.ok(await linkedIn.isVisible(),'full LinkedIn sidebar link is visible');
     const linkBox=await linkedIn.boundingBox();
     const railBox=await desktop.locator('.portfolio-rail').boundingBox();
