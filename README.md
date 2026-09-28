@@ -74,3 +74,7 @@ While the owner recording is still absent, the redundant introduction-status sen
 ## v17 restored compact bottom navigation
 
 Replaced the screenshot-reported oversized 112px APPEARANCE banner with a compact, 72px, five-tab rounded Android-style dock. The 50px animated blue/gold appearance ring is again immediately above Contact with a 44px accessible tap target. No extra visible heading, line or sixth tab. The scrollable page ends immediately before the raised ring so it never covers important content. Mobile tests cover 320–760px layouts, geometry and tap targets. Video/audio playback is untouched.
+
+## v18 action buttons and social icons
+
+Action links now share a consistent button system while section navigation and the five mobile app tabs remain navigation. Full-card destinations and the certificate-image preview remain card-style controls. Service, case-study, project-site, HD-preview, certificate, résumé, email-fallback and Back-to-top actions use button styling with 40–44px minimum targets. GitHub, LinkedIn and email use inline SVG icons; icon-only controls retain accessible labels. The exact certificate URL remains visible. Introduction autoplay/audio behavior is unchanged.

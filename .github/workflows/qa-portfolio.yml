@@ -20,6 +20,8 @@ on:
       - 'assets/client-phase3-v15.css'
       - 'assets/client-polish-v16.css'
       - 'assets/mobile-dock-compact-v17.css'
+      - 'assets/action-buttons-v18.css'
+      - 'scripts/qa-action-buttons-v18.cjs'
       - 'assets/portfolio-social-preview.jpg'
       - 'scripts/build-social-preview.cjs'
       - 'assets/introduction-poster.svg'
@@ -86,6 +88,7 @@ jobs:
           node --check assets/client-phase3-v15.js
           node --check scripts/build-social-preview.cjs
           node --check scripts/qa-polish-v16.cjs
+          node --check scripts/qa-action-buttons-v18.cjs
           node --check assets/client-phase2-v14.js
           node --check assets/screen-deck-v5.js
           node --check scripts/qa-continuous-deck.cjs
@@ -115,6 +118,8 @@ jobs:
         run: node scripts/qa-client-phase2.cjs
       - name: Phase 3 introduction, audible autoplay policy and SEO smoke
         run: node scripts/qa-client-phase3.cjs
+      - name: Action buttons and social icon controls
+        run: node scripts/qa-action-buttons-v18.cjs
       - name: First-fold layout and unobstructed mobile touch targets
         run: node scripts/qa-polish-v16.cjs
       - name: Read-only full desktop and Android visual audit
@@ -143,6 +148,7 @@ jobs:
             qa-screens/phase2-*.png
             qa-screens/phase3-*.png
             qa-screens/polish-*.png
+            qa-screens/actions-*.png
             qa-visual-audit/*.png
           if-no-files-found: error
           retention-days: 3
