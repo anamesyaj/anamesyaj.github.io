@@ -19,3 +19,20 @@
 @media(max-width:760px){.ui-action{min-height:44px}.ui-action--micro{min-height:38px}.ui-contact-socials{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.ui-social-button--labeled{min-width:0;width:100%;padding-inline:7px;font-size:.72rem}.ui-social-button--labeled .ui-icon{width:17px;height:17px}.phase2-work-link.ui-action,.phase2-case__cta.ui-action,.phase2-demo__actions .ui-action,.client-contact-path .ui-action{width:100%}.resume-panel .resume-icon-link.ui-action{width:100%;margin-top:10px}.client-inquiry-fallback .ui-action{margin-top:8px;margin-inline:0}.client-privacy-note .ui-action{margin-top:7px;margin-inline:0}.certificate-proof__exact-link.ui-action{font-size:.63rem}}
 @media(max-width:350px){.ui-social-button--labeled{font-size:0;gap:0}.ui-social-button--labeled .ui-icon{width:19px;height:19px}.ui-social-button--labeled{min-height:44px}}
 @media(prefers-reduced-motion:reduce){.ui-action,.ui-social-button{transition:none}.ui-action:is(:hover,:focus-visible),.ui-social-button:is(:hover,:focus-visible){transform:none}}
+
+/* Resolve legacy gold project-CTA background against the new secondary
+   button foreground in the light palette. Use a single high-contrast teal
+   treatment for project-site and HD-image actions. */
+html[data-theme="light"] .orbit-card__action.ui-action,
+html[data-theme="light"] .orbit-preview-dialog__actions a.ui-action{
+  --ui-action-bg:#0b5260;--ui-action-border:#0b5260;--ui-action-fg:#ffffff;
+  background:#0b5260!important;border-color:#0b5260!important;color:#ffffff!important;
+}
+html[data-theme="light"] .orbit-card__action.ui-action span,
+html[data-theme="light"] .orbit-preview-dialog__actions a.ui-action span{
+  color:inherit!important;
+}
+html[data-theme="light"] .orbit-card__action.ui-action:is(:hover,:focus-visible),
+html[data-theme="light"] .orbit-preview-dialog__actions a.ui-action:is(:hover,:focus-visible){
+  background:#083f4a!important;border-color:#083f4a!important;color:#ffffff!important;
+}
