@@ -51,7 +51,7 @@ const site=pathToFileURL(path.resolve("index.html")).href;
      const hit=await target.evaluate(el=>{
       const r=el.getBoundingClientRect(),dock=document.querySelector(".mobile-tabs").getBoundingClientRect();
       const x=r.x+r.width/2,y=r.y+r.height/2,front=document.elementFromPoint(x,y);
-      return {top:r.top,bottom:r.bottom,dockTop:dock.top,hit:front===el||el.contains(front)};
+      return {top:r.top,bottom:r.bottom,dockTop:dock.top,hit:front===el||el.contains(front),front:front?.outerHTML?.slice(0,240),stack:document.elementsFromPoint(x,y).slice(0,5).map(n=>n.tagName+"."+n.className)};
      });
      assert.ok(hit.bottom<=hit.dockTop+2&&hit.hit,"mobile "+view+" actionable element is unobstructed "+JSON.stringify(hit));
     }
