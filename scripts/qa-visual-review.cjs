@@ -38,10 +38,14 @@ const devices=[{name:"desktop",w:1440,h:900,m:false,shots:true},{name:"compact",
       const box=el=>{if(!el)return null;const r=el.getBoundingClientRect(),s=getComputedStyle(el);return{x:Math.round(r.x),y:Math.round(r.y),w:Math.round(r.width),h:Math.round(r.height),visibility:s.visibility}};
       const o=orb?.getBoundingClientRect(),hits=[],clipped=[];
       if(m&&o&&active){
+       // A scrollable tab clips anything below its own viewport. Previous
+       // diagnostics counted these CLIPPED buttons as overlapping the orb
+       // even though the orb is now inside a separate, opaque dock.
+       const visibleBounds=active.getBoundingClientRect();
        for(const el of active.querySelectorAll("a,button,summary")){
         const r=el.getBoundingClientRect(),s=getComputedStyle(el);
-        if(s.display==="none"||s.visibility==="hidden"||r.width<20||r.bottom<0||r.top>innerHeight)continue;
-        const l=Math.max(r.left,o.left),right=Math.min(r.right,o.right),top=Math.max(r.top,o.top),bottom=Math.min(r.bottom,o.bottom);
+        if(s.display==="none"||s.visibility==="hidden"||r.width<20||r.bottom<=visibleBounds.top||r.top>=visibleBounds.bottom)continue;
+        const l=Math.max(r.left,o.left,visibleBounds.left),right=Math.min(r.right,o.right,visibleBounds.right),top=Math.max(r.top,o.top,visibleBounds.top),bottom=Math.min(r.bottom,o.bottom,visibleBounds.bottom);
         const area=Math.max(0,right-l)*Math.max(0,bottom-top);
         if(area>50){
          const cover=document.elementFromPoint((l+right)/2,(top+bottom)/2);
@@ -80,5 +84,6 @@ const devices=[{name:"desktop",w:1440,h:900,m:false,shots:true},{name:"compact",
  await fs.writeFile(dir+"/report.json",JSON.stringify(report,null,2));
  const overlaps=report.flatMap(x=>x.overlaps.map(v=>({...v,device:x.device,theme:x.theme,target:x.target})));
  console.log("VISUAL AUDIT SUMMARY "+JSON.stringify({states:report.length,overlaps:overlaps.slice(0,40),missingHeadings:report.filter(x=>!x.heading||!x.heading.w||!x.heading.h).map(x=>x.device+"-"+x.theme+"-"+x.target),errors:report.filter(x=>x.errors.length).map(x=>({device:x.device,theme:x.theme,errors:x.errors.slice(-3)}))}));
+ if(overlaps.some(x=>x.cover))throw Error("Visible mobile controls covered by the dock: "+JSON.stringify(overlaps.filter(x=>x.cover)));
  }finally{await browser.close()}
 })();

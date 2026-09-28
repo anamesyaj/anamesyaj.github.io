@@ -15,6 +15,7 @@ on:
       - 'scripts/qa-client-phase2.cjs'
       - 'scripts/qa-client-phase3.cjs'
       - 'scripts/qa-visual-review.cjs'
+      - 'scripts/qa-polish-v16.cjs'
       - 'assets/client-phase3-v15.js'
       - 'assets/client-phase3-v15.css'
       - 'assets/client-polish-v16.css'
@@ -83,6 +84,7 @@ jobs:
           node --check scripts/qa-client-phase3.cjs
           node --check assets/client-phase3-v15.js
           node --check scripts/build-social-preview.cjs
+          node --check scripts/qa-polish-v16.cjs
           node --check assets/client-phase2-v14.js
           node --check assets/screen-deck-v5.js
           node --check scripts/qa-continuous-deck.cjs
@@ -112,6 +114,8 @@ jobs:
         run: node scripts/qa-client-phase2.cjs
       - name: Phase 3 introduction, audible autoplay policy and SEO smoke
         run: node scripts/qa-client-phase3.cjs
+      - name: First-fold layout and unobstructed mobile touch targets
+        run: node scripts/qa-polish-v16.cjs
       - name: Read-only full desktop and Android visual audit
         run: node scripts/qa-visual-review.cjs
       - name: Upload complete visual audit screenshots and geometry
@@ -137,6 +141,7 @@ jobs:
             qa-screens/light-*.png
             qa-screens/phase2-*.png
             qa-screens/phase3-*.png
+            qa-screens/polish-*.png
             qa-visual-audit/*.png
           if-no-files-found: error
           retention-days: 3

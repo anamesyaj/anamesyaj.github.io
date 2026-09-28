@@ -67,3 +67,28 @@
     animation:none!important;
   }
 }
+
+/* Small-screen first fold: eliminate the duplicate placeholder status only
+   while no recording exists. Status stays in the accessibility tree and real
+   ready/playing/ended video controls are unaffected. */
+@media(max-width:760px){
+  html.mobile-app #top .phase3-intro[data-intro-state="placeholder"] .phase3-intro__footer{
+    position:absolute!important;width:1px!important;height:1px!important;
+    margin:-1px!important;padding:0!important;border:0!important;
+    overflow:hidden!important;clip:rect(0,0,0,0)!important;
+    clip-path:inset(50%)!important;white-space:nowrap!important;
+  }
+  html.mobile-app #top .mt-9.flex.flex-wrap.items-center.gap-3{
+    display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    align-items:center!important;gap:8px!important;
+  }
+  html.mobile-app #top .mt-9.flex.flex-wrap.items-center.gap-3>a.button{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:100%!important;min-width:0!important;min-height:44px;
+    padding:10px 6px!important;font-size:clamp(.71rem,3vw,.81rem)!important;
+    white-space:nowrap;text-align:center;
+  }
+  html.mobile-app #top .mt-9.flex.flex-wrap.items-center.gap-3>.hero-resume-link{
+    grid-column:1/-1;justify-self:start;min-height:40px;
+  }
+}
