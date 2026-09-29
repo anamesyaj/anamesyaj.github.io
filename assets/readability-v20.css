@@ -75,3 +75,6 @@ html.screen-deck.continuous-deck #top .body-lead{font-size:clamp(1rem,1.25vw,1.1
 .project-summary-disclosure>summary span{margin-left:auto;color:var(--body);font-size:.9rem;font-weight:550}
 .project-summary-disclosure .project-list{margin:0;padding:18px}
 @media(max-width:760px){.project-summary-disclosure>summary{align-items:flex-start;flex-direction:column;padding:15px}.project-summary-disclosure>summary span{margin:0}.project-summary-disclosure>summary::after{position:absolute;right:18px}.project-summary-disclosure .project-list{padding:12px}}
+@media(max-width:760px){
+  html.mobile-app #main #showcase .orbit-showcase__inner{overflow-x:clip!important;overflow-y:visible!important}
+}
