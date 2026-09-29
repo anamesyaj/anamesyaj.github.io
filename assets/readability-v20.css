@@ -65,3 +65,13 @@ html.screen-deck.continuous-deck #main>section{height:auto!important;max-height:
 html.screen-deck.continuous-deck #top .body-lead{font-size:clamp(1rem,1.25vw,1.18rem)!important;line-height:1.58!important}
 .project-feature dd,.project-feature__actions a{font-size:1rem}
 .client-service-card p,.client-service-card ul,.client-service-card__evidence{font-size:1rem!important}
+
+/* Keep the original interactive carousel as the primary work experience. */
+.project-summary-disclosure{margin:26px 0 45px;border:1px solid var(--border-strong);border-radius:16px;background:var(--surface);overflow:hidden}
+.project-summary-disclosure>summary{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:17px 22px;cursor:pointer;color:var(--text);font-size:1rem;font-weight:820;list-style:none}
+.project-summary-disclosure>summary::-webkit-details-marker{display:none}
+.project-summary-disclosure>summary::after{content:"+";color:var(--hy-gold);font-size:1.35rem}
+.project-summary-disclosure[open]>summary::after{content:"−"}
+.project-summary-disclosure>summary span{margin-left:auto;color:var(--body);font-size:.9rem;font-weight:550}
+.project-summary-disclosure .project-list{margin:0;padding:18px}
+@media(max-width:760px){.project-summary-disclosure>summary{align-items:flex-start;flex-direction:column;padding:15px}.project-summary-disclosure>summary span{margin:0}.project-summary-disclosure>summary::after{position:absolute;right:18px}.project-summary-disclosure .project-list{padding:12px}}
