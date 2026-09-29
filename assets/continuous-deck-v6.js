@@ -110,8 +110,8 @@
    }
    // Pause automatic hash replacement while the browser animates to the
    // destination. Native proximity snap supplies the final section alignment.
-   programmaticUntil=performance.now()+(smooth&&!reduce.matches?850:150);
-   target.scrollIntoView({block:"start",inline:"nearest",behavior:smooth&&!reduce.matches?"smooth":"auto"});
+   programmaticUntil=performance.now()+150;
+   target.scrollIntoView({block:"start",inline:"nearest",behavior:"instant"});
  }
  prev.addEventListener("click",()=>navigate(sections[Math.max(0,sections.indexOf(current)-1)]));
  next.addEventListener("click",()=>navigate(sections[Math.min(sections.length-1,sections.indexOf(current)+1)]));
@@ -121,10 +121,10 @@
    const target=document.getElementById(event.detail?.target||"top")||sections[0];
    const section=target.closest("section[data-app-view]")||target;
    mark(section);
-   programmaticUntil=performance.now()+900;
+   programmaticUntil=performance.now()+150;
    requestAnimationFrame(()=>target.scrollIntoView({
      block:"start",inline:"nearest",
-     behavior:reduce.matches?"auto":"smooth"
+     behavior:"instant"
    }));
  });
  window.addEventListener("popstate",()=>{

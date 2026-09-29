@@ -1,0 +1,63 @@
+/* Readability and project clarity, 2026-09-30. Keep sections at natural height. */
+html {scroll-behavior:auto!important}
+.screen-switcher{display:none!important}
+#top>.mx-auto{align-items:center!important;gap:clamp(24px,3vw,50px)!important}
+#top .hero-heading{font-size:clamp(2.4rem,4vw,4.2rem)!important;line-height:1.08!important;max-width:14ch!important}
+#top .body-lead{font-size:clamp(1rem,1.25vw,1.18rem)!important;line-height:1.58!important;max-width:53ch}
+.hero-proofline{margin-top:24px;padding-top:17px;border-top:1px solid var(--border);font-size:1rem;line-height:1.5;color:var(--body);max-width:52ch}
+.hero-feature{display:block;grid-column:2;grid-row:1;align-self:center;overflow:hidden;border:1px solid var(--border-strong);border-radius:22px;background:var(--surface);text-decoration:none;box-shadow:0 20px 56px var(--shadow);transition:transform .2s ease,border-color .2s ease}
+.hero-feature:hover,.hero-feature:focus-visible{transform:translateY(-4px);border-color:var(--accent-strong)}
+.hero-feature img{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;object-position:top center}
+.hero-feature__caption{display:grid;gap:7px;padding:22px 25px;color:var(--text)}
+.hero-feature__caption small{color:var(--accent-strong);font-size:.78rem;font-weight:800;letter-spacing:.09em}
+.hero-feature__caption strong{font-size:1.55rem;line-height:1.2}
+.hero-feature__caption>span{color:var(--body);font-size:1rem}
+html.screen-deck.continuous-deck #top .hero-feature{display:block!important}
+html.screen-deck.continuous-deck #main>section .body-copy{font-size:1rem!important;line-height:1.58!important}
+html.screen-deck.continuous-deck #main>section{height:auto!important;max-height:none!important}
+.client-service-card{gap:12px}
+.client-service-card p,.client-service-card ul,.client-service-card__evidence{font-size:.98rem!important;line-height:1.55!important}
+.client-service-card>strong,.client-service-card__link,.client-services__footer p{font-size:.95rem!important}
+.client-service-card h3{font-size:1.34rem!important}
+.skill-card p,.timeline-copy>p,.result-tile p{font-size:.98rem!important;line-height:1.55!important;min-height:0}
+.skill-tags span,.timeline-highlights span{font-size:.81rem!important}
+.phase2-evidence__head p,.phase2-case dd,.phase2-case__limit,.phase2-demo>header p,#phase2-demo-copy{font-size:.95rem!important;line-height:1.55!important}
+.phase2-case__context,.phase2-case__impact span,.phase2-demo figcaption{font-size:.88rem!important}
+.client-contact-path p,.client-inquiry-hint,.client-privacy-note{font-size:.9rem!important;line-height:1.5!important}
+.client-inquiry-form label,.client-inquiry-form :is(input,textarea,select){font-size:.98rem!important}
+.project-list{display:grid;gap:24px;margin:25px 0 55px}
+.project-feature{display:grid;grid-template-columns:minmax(0,1.03fr) minmax(0,1fr);overflow:hidden;border:1px solid var(--border-strong);border-radius:20px;background:var(--surface);box-shadow:0 14px 36px var(--shadow)}
+.project-feature__image{position:relative;display:block;min-height:330px;overflow:hidden;background:var(--surface-elevated)}
+.project-feature__image img{display:block;width:100%;height:100%;min-height:330px;object-fit:cover;object-position:top left;transition:transform .35s ease}
+.project-feature__image:hover img{transform:scale(1.035)}
+.project-feature__image>span{position:absolute;bottom:16px;left:16px;padding:9px 12px;border-radius:9px;background:var(--surface);color:var(--accent-strong);font-size:.88rem;font-weight:800;box-shadow:0 6px 18px var(--shadow)}
+.project-feature__body{display:flex;flex-direction:column;justify-content:center;gap:11px;padding:clamp(24px,3vw,36px)}
+.project-feature__eyebrow{font-size:.76rem;letter-spacing:.08em;color:var(--hy-gold);font-weight:820}
+.project-feature h3{font-size:clamp(1.7rem,2.5vw,2.4rem);line-height:1.12;color:var(--text);font-weight:850;letter-spacing:-.045em}
+.project-feature__lead{color:var(--body);font-size:1.05rem;line-height:1.48}
+.project-feature dl{display:grid;gap:10px;margin:7px 0 0}
+.project-feature dl>div{display:grid;grid-template-columns:75px 1fr;gap:11px}
+.project-feature dt{color:var(--text);font-weight:850;font-size:.91rem}
+.project-feature dd{margin:0;color:var(--body);font-size:.94rem;line-height:1.5}
+.project-feature__actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:7px}
+.project-feature__actions a{color:var(--accent-strong);font-size:.94rem;font-weight:800;text-underline-offset:4px}
+#showcase .phase2-work-link{margin-top:9px}
+@media(max-width:900px){.project-feature{grid-template-columns:1fr}.project-feature__image,.project-feature__image img{min-height:0;height:auto;aspect-ratio:16/9}.project-feature__body{padding:23px}}
+@media(max-width:760px){
+ html.mobile-app #top .hero-feature{display:block!important;grid-column:auto;grid-row:auto;max-width:100%}
+ html.mobile-app #top .hero-heading{font-size:clamp(2rem,7.5vw,2.7rem)!important;line-height:1.11!important}
+ html.mobile-app #top .body-lead{font-size:1rem!important;line-height:1.55!important}
+ html.mobile-app #top .hero-proofline{font-size:.94rem!important;margin-top:16px}
+ html.mobile-app #top .hero-feature img{aspect-ratio:16/9}
+ html.mobile-app #top .hero-feature__caption{padding:14px 17px}
+ html.mobile-app #top .hero-feature__caption strong{font-size:1.25rem}
+ html.mobile-app #top .hero-feature__caption>span{font-size:.92rem}
+ html.mobile-app #main .mobile-app__page .section-intro>p{font-size:1rem!important;line-height:1.5!important}
+ html.mobile-app #main #skills .skill-card p{font-size:.98rem!important;line-height:1.5!important}
+ .project-list{gap:16px;margin:18px 0 40px}
+ .project-feature__image>span{font-size:.8rem}
+ .project-feature dl>div{grid-template-columns:1fr;gap:2px}
+ .project-feature dd{font-size:.94rem}
+ .client-service-card p,.client-service-card ul{font-size:.96rem!important}
+}
+@media(prefers-reduced-motion:reduce){.hero-feature,.project-feature__image img{transition:none}}
