@@ -1,0 +1,54 @@
+const {chromium}=require('playwright');
+const {pathToFileURL}=require('node:url');
+const path=require('node:path');
+const fs=require('node:fs/promises');
+const assert=require('node:assert/strict');
+const source=pathToFileURL(path.join(process.cwd(),'index.html')).href+'#top';
+(async()=>{
+ const browser=await chromium.launch({headless:true,args:['--no-sandbox','--disable-dev-shm-usage']});
+ await fs.mkdir('qa-screens',{recursive:true});
+ try{
+  const desktop=await browser.newPage({viewport:{width:1365,height:900}}),errors=[];
+  desktop.on('pageerror',e=>errors.push(e.message));
+  await desktop.goto(source,{waitUntil:'load'});
+  await desktop.waitForFunction(()=>document.documentElement.classList.contains('continuous-deck'));
+  assert.equal(await desktop.locator('#personal-introduction').count(),0,'unfinished video placeholder removed');
+  assert.equal(await desktop.locator('.project-feature').count(),3,'three project summaries visible');
+  assert.equal(await desktop.locator('#orbit-stage').count(),0,'autoplay carousel removed');
+  assert.ok(await desktop.locator('.hero-feature img').evaluate(i=>i.complete&&i.naturalWidth>2000),'real HD project image loads');
+  const heroFont=await desktop.locator('#top .body-lead').evaluate(e=>parseFloat(getComputedStyle(e).fontSize));
+  assert.ok(heroFont>=16,`hero text should be at least 16px, got ${heroFont}`);
+  await desktop.locator('.portfolio-rail__nav a[href="#showcase"]').click();
+  assert.equal(new URL(desktop.url()).hash,'#showcase');
+  const top=await desktop.locator('#showcase').evaluate(e=>e.getBoundingClientRect().top);
+  assert.ok(Math.abs(top)<120,`section navigation should land promptly, got ${top}`);
+  for(const item of await desktop.locator('.project-feature img').all())assert.ok(await item.evaluate(i=>i.complete&&i.naturalWidth>2000),'project image loads in HD');
+  await desktop.screenshot({path:'qa-screens/readability-desktop.png'});
+  await desktop.locator('#theme-toggle-desktop').click();
+  assert.equal(await desktop.locator('html').getAttribute('data-theme'),'light');
+  await desktop.screenshot({path:'qa-screens/readability-light.png'});
+  assert.deepEqual(errors,[],'no desktop JS errors');
+  const mobileCtx=await browser.newContext({viewport:{width:390,height:844},deviceScaleFactor:3,isMobile:true,hasTouch:true});
+  const mobile=await mobileCtx.newPage(),mobileErrors=[];
+  mobile.on('pageerror',e=>mobileErrors.push(e.message));
+  await mobile.goto(source,{waitUntil:'load'});
+  await mobile.waitForFunction(()=>document.documentElement.classList.contains('mobile-app'));
+  assert.ok(await mobile.locator('.mobile-tabs').isVisible(),'bottom dock visible');
+  assert.ok(await mobile.locator('.hero-feature').isVisible(),'featured work visible on phone');
+  const heroSize=await mobile.locator('#top .body-lead').evaluate(e=>parseFloat(getComputedStyle(e).fontSize));
+  assert.ok(heroSize>=16,`mobile hero text should be at least 16px, got ${heroSize}`);
+  await mobile.screenshot({path:'qa-screens/readability-mobile-home.png'});
+  await mobile.locator('.mobile-tabs a[data-app-tab="work"]').tap();
+  assert.equal(await mobile.locator('html').getAttribute('data-app-view'),'work');
+  assert.equal(await mobile.locator('.project-feature').count(),3);
+  const horizontal=await mobile.evaluate(()=>document.querySelector('.mobile-app__page:not([hidden])').scrollWidth-innerWidth);
+  assert.ok(horizontal<=2,`mobile work view has horizontal overflow: ${horizontal}`);
+  await mobile.screenshot({path:'qa-screens/readability-mobile-work.png'});
+  await mobile.locator('.mobile-tabs a[data-app-tab="contact"]').tap();
+  assert.equal(await mobile.locator('html').getAttribute('data-app-view'),'contact');
+  assert.ok(await mobile.locator('.fit-contact-more').isVisible(),'contact form entry visible');
+  assert.deepEqual(mobileErrors,[],'no mobile JS errors');
+  console.log('Readability, real project evidence, desktop navigation, themes, and mobile tabs PASS');
+ }catch(e){console.error(e.stack||e);process.exitCode=1}
+ finally{await browser.close()}
+})();

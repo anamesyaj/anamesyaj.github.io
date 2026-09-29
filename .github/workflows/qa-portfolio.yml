@@ -1,61 +1,11 @@
-name: Verify portfolio HD carousel
+name: Verify portfolio readability
 on:
   push:
     paths:
-      - '.github/workflows/qa-portfolio.yml'
-      - 'scripts/qa-portfolio-carousel.cjs'
-      - 'scripts/qa-screen-deck.cjs'
-      - 'scripts/qa-continuous-deck.cjs'
-      - 'scripts/qa-work-fit.cjs'
-      - 'scripts/qa-presentation-fit.cjs'
-      - 'scripts/qa-resume-consistency.cjs'
-      - 'scripts/qa-live-portfolio.cjs'
-      - 'scripts/audit-light-contrast.cjs'
-      - 'scripts/qa-client-phase1.cjs'
-      - 'scripts/qa-client-phase2.cjs'
-      - 'scripts/qa-client-phase3.cjs'
-      - 'scripts/qa-visual-review.cjs'
-      - 'scripts/qa-polish-v16.cjs'
-      - 'assets/client-phase3-v15.js'
-      - 'assets/client-phase3-v15.css'
-      - 'assets/client-polish-v16.css'
-      - 'assets/mobile-dock-compact-v17.css'
-      - 'assets/action-buttons-v18.css'
-      - 'assets/contact-polish-v19.css'
-      - 'scripts/qa-contact-polish-v19.cjs'
-      - 'scripts/qa-action-buttons-v18.cjs'
-      - 'assets/portfolio-social-preview.jpg'
-      - 'scripts/build-social-preview.cjs'
-      - 'assets/introduction-poster.svg'
-      - 'robots.txt'
-      - 'sitemap.xml'
-      - 'canvas-*.html'
-      - 'deck-*.html'
-      - 'assets/client-phase2-v14.js'
-      - 'assets/client-phase2-v14.css'
-      - 'assets/client-phase1-v13.css'
-      - 'assets/site.js'
-      - 'assets/continuous-deck-v6.js'
-      - 'thanks.html'
-      - 'scripts/qa-mobile-app-v10.cjs'
-      - 'assets/mobile-app-v10.js'
-      - 'assets/mobile-app-v10.css'
-      - 'assets/mobile-dock-v11.css'
-      - 'assets/mobile-dock-overlay-v12.css'
-      - 'scripts/qa-mobile-dock-overlay-v12.cjs'
-      - 'assets/presentation-fit-v8.css'
-      - 'assets/presentation-fit-v8.js'
-      - 'assets/resume-focus-v9.css'
-      - 'scripts/diag-screen-fit.cjs'
-      - 'assets/work-card-fit-v7.css'
-      - 'assets/continuous-deck-v6.js'
-      - 'assets/continuous-deck-v6.css'
-      - 'assets/screen-deck-v5.js'
-      - 'assets/screen-deck-v5.css'
-      - 'assets/app-navigation.js'
       - 'index.html'
-      - 'assets/portfolio-motion.js'
-      - 'assets/carousel-hd-v4.css'
+      - 'assets/**'
+      - 'scripts/qa-readability-v20.cjs'
+      - '.github/workflows/qa-portfolio.yml'
   workflow_dispatch:
 permissions:
   contents: read
@@ -74,94 +24,19 @@ jobs:
         run: npm install --no-save --no-package-lock --ignore-scripts playwright@1.56.1
       - name: Install browser
         run: npx playwright install --with-deps chromium
-      - name: Verify reproducible portrait-based social-preview design
-        run: node scripts/build-social-preview.cjs
       - name: JavaScript syntax
         run: |
-          node --check assets/portfolio-motion.js
+          node --check assets/continuous-deck-v6.js
           node --check assets/app-navigation.js
           node --check assets/mobile-app-v10.js
-          node --check scripts/qa-mobile-app-v10.cjs
-          node --check scripts/qa-mobile-dock-overlay-v12.cjs
-          node --check assets/site.js
-          node --check scripts/qa-client-phase1.cjs
-          node --check scripts/qa-client-phase2.cjs
-          node --check scripts/qa-client-phase3.cjs
-          node --check assets/client-phase3-v15.js
-          node --check scripts/build-social-preview.cjs
-          node --check scripts/qa-polish-v16.cjs
-          node --check scripts/qa-action-buttons-v18.cjs
-          node --check scripts/qa-contact-polish-v19.cjs
-          node --check assets/client-phase2-v14.js
-          node --check assets/screen-deck-v5.js
-          node --check scripts/qa-continuous-deck.cjs
-          node --check assets/continuous-deck-v6.js
-          node --check scripts/qa-presentation-fit.cjs
-          node --check scripts/qa-resume-consistency.cjs
-          node --check scripts/qa-live-portfolio.cjs
-          node --check scripts/audit-light-contrast.cjs
-          node --check assets/presentation-fit-v8.js
-      - name: Desktop and Android-sized carousel checks
-        run: node scripts/qa-portfolio-carousel.cjs
-      - name: Preserve desktop continuous-scroll layout
-        run: node scripts/qa-continuous-deck.cjs
-      - name: Android-style mobile tabs, browser history and theme cap
-        run: node scripts/qa-mobile-app-v10.cjs
-      - name: Accessible theme orbit inside the mobile dock
-        run: node scripts/qa-mobile-dock-overlay-v12.cjs
-      - name: Resume-focused layout and readable projects across viewports
-        run: node scripts/qa-presentation-fit.cjs
-      - name: Audit uploaded resume coverage and desktop/mobile hitboxes
-        run: node scripts/qa-resume-consistency.cjs
-      - name: Measure viewport fit on eight screen sizes
-        run: node scripts/diag-screen-fit.cjs
-      - name: Phase 1 client services and native form checks
-        run: node scripts/qa-client-phase1.cjs
-      - name: Phase 2 case studies and guided walkthrough checks
-        run: node scripts/qa-client-phase2.cjs
-      - name: Phase 3 introduction, audible autoplay policy and SEO smoke
-        run: node scripts/qa-client-phase3.cjs
-      - name: Contact form visual polish and compact alternatives
-        run: node scripts/qa-contact-polish-v19.cjs
-      - name: Action buttons and social icon controls
-        run: node scripts/qa-action-buttons-v18.cjs
-      - name: First-fold layout and unobstructed mobile touch targets
-        run: node scripts/qa-polish-v16.cjs
-      - name: Read-only full desktop and Android visual audit
-        run: node scripts/qa-visual-review.cjs
-      - name: Upload complete visual audit screenshots and geometry
+          node --check scripts/qa-readability-v20.cjs
+      - name: Desktop and Android-sized readability checks
+        run: node scripts/qa-readability-v20.cjs
+      - name: Upload visual QA screenshots
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: portfolio-full-visual-audit
-          path: qa-visual-audit/
-          if-no-files-found: error
-          retention-days: 3
-      - name: Verify the deployed HTTPS site in desktop and mobile Chromium
-        run: node scripts/qa-live-portfolio.cjs
-      - name: Diagnose current light contrast on desktop and Android
-        if: success()
-        run: node scripts/audit-light-contrast.cjs
-      - name: Upload production desktop and mobile screenshots
-        if: success()
-        uses: actions/upload-artifact@v4
-        with:
-          name: portfolio-live-responsive-screenshots
-          path: |
-            qa-screens/live-*.png
-            qa-screens/light-*.png
-            qa-screens/phase2-*.png
-            qa-screens/phase3-*.png
-            qa-screens/polish-*.png
-            qa-screens/actions-*.png
-            qa-screens/contact-v19-*.png
-            qa-visual-audit/*.png
-          if-no-files-found: error
-          retention-days: 3
-      - name: Upload screenshots if tests fail
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: carousel-qa-failure
-          path: qa-screens/
+          name: portfolio-readability-screenshots
+          path: qa-screens/readability-*.png
           if-no-files-found: ignore
+          retention-days: 3

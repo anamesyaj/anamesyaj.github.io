@@ -61,3 +61,7 @@ html.screen-deck.continuous-deck #main>section{height:auto!important;max-height:
  .client-service-card p,.client-service-card ul{font-size:.96rem!important}
 }
 @media(prefers-reduced-motion:reduce){.hero-feature,.project-feature__image img{transition:none}}
+
+html.screen-deck.continuous-deck #top .body-lead{font-size:clamp(1rem,1.25vw,1.18rem)!important;line-height:1.58!important}
+.project-feature dd,.project-feature__actions a{font-size:1rem}
+.client-service-card p,.client-service-card ul,.client-service-card__evidence{font-size:1rem!important}
