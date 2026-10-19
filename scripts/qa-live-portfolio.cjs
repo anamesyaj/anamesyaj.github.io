@@ -113,10 +113,10 @@ const base="https://anamesyaj.github.io/";
   const imageBytes=await imageRequest.body();
   assert.equal(imageBytes.length,9534,"published certificate binary must match inspected source");
   assert.equal(imageBytes.toString("ascii",0,4),"RIFF","published asset has WebP RIFF signature");
-  const resume=await fetchAsset("assets/Mark_Jay_Lisay_Public_Resume.pdf");
+  const resume=await fetchAsset("assets/Mark_Jay_Lisay_AR_Resume.pdf");
   assert.ok(resume.ok(),"production resume download HTTP status "+resume.status());
   const pdf=await resume.body();
-  assert.equal(pdf.length,84933,"live PDF is the uploaded public resume (byte length)");
+  assert.equal(pdf.length,1015781,"live PDF is the uploaded public resume (byte length)");
   assert.equal(errors.length,0,"desktop page JS errors "+errors.join(" | "));
   console.log("LIVE DESKTOP HTTPS PASS "+JSON.stringify({...desktopState,pdfBytes:pdf.length}));
 

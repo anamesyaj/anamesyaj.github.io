@@ -7,7 +7,7 @@ const fs=require('node:fs/promises');
 const source=pathToFileURL(path.join(process.cwd(),'index.html')).href+'#showcase';
 
 (async()=>{
-  const browser=await chromium.launch({headless:true,args:['--no-sandbox','--disable-dev-shm-usage']});
+  const browser=await chromium.launch({headless:true,...(process.env.CHROME_PATH?{executablePath:process.env.CHROME_PATH}:{}),args:['--no-sandbox','--disable-dev-shm-usage']});
   const desktop=await browser.newPage({viewport:{width:1440,height:900},deviceScaleFactor:1});
   let mobile;
   try{

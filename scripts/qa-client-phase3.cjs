@@ -3,7 +3,7 @@
 const {chromium}=require("playwright"),assert=require("node:assert/strict"),fs=require("node:fs"),fsp=require("node:fs/promises"),path=require("node:path"),{pathToFileURL}=require("node:url");
 const site=pathToFileURL(path.resolve("index.html")).href;
 (async()=>{
- const browser=await chromium.launch({headless:true,args:["--no-sandbox","--disable-dev-shm-usage"]});
+ const browser=await chromium.launch({headless:true,...(process.env.CHROME_PATH?{executablePath:process.env.CHROME_PATH}:{}),args:["--no-sandbox","--disable-dev-shm-usage"]});
  await fsp.mkdir("qa-screens",{recursive:true});
  try{
   for(const file of ["canvas-v4.html","canvas-v5.html","canvas-v6.html","canvas-v7.html","canvas-v8.html","canvas-v9.html","canvas-v10.html","deck-v2.html","deck-v3.html"]){

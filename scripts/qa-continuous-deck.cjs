@@ -91,7 +91,7 @@ async function inspect(browser,device){
  }finally{await ctx.close()}
 }
 (async()=>{
- const browser=await chromium.launch({headless:true,args:['--no-sandbox','--disable-dev-shm-usage']});
+ const browser=await chromium.launch({headless:true,...(process.env.CHROME_PATH?{executablePath:process.env.CHROME_PATH}:{}),args:['--no-sandbox','--disable-dev-shm-usage']});
  try{for(const device of devices)await inspect(browser,device);console.log('CONTINUOUS SCROLL QA PASSED')}
  catch(_){process.exitCode=1}
  finally{await browser.close()}

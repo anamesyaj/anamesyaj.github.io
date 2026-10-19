@@ -1,6 +1,6 @@
 # Mark Jay Lisay | Portfolio
 
-A minimal, mobile-first, single-page portfolio that applies the StoryBrand framework to **AI workflow, automation, QA and product operations**, based on the provided two-page résumé. The hiring manager is the reader; Mark Jay is the guide who helps make complex operations reliable.
+A mobile-first, single-page portfolio grounded in Mark Jay Lisay's **Accounts Receivable, premium reconciliation, QuickBooks Online and Excel/VBA experience**. His AI-assisted products remain as additional work. The October 2026 editorial update uses the attached two-page AR résumé as the source of truth for the downloadable PDF and visible experience claims.
 
 ## Current structure (September 2026)
 
@@ -22,7 +22,7 @@ The static site now sends native HTTPS POST form submissions through FormSubmit 
 
 ## Résumé privacy
 
-`assets/Mark_Jay_Lisay_Public_Resume.pdf` is a two-page public-safe copy of the supplied résumé, with only the phone number removed from the contact line. The supplied original remains unchanged outside this website distribution. Do not publish the original PDF unintentionally.
+`assets/Mark_Jay_Lisay_AR_Resume.pdf` is the owner's attached two-page AR résumé, including the contact number he provided. Both desktop and mobile download actions use this same document. The older public résumé was removed so visitors do not receive conflicting versions.
 
 ## Branding and proof
 
@@ -45,7 +45,7 @@ The light-only palette was tuned for stronger normal/body/secondary text, deeper
 
 ## Client-facing Phase 1 (September 2026)
 
-The Services section provides three possible scoped offerings drawn ONLY from the verified résumé: Excel/VBA/Power Query workflow improvement (one Accenture macro saved 5+ hours in one complex case), AI-assisted human-reviewed workflow scoping and QA/release-readiness support (own product work and dated tests). It does not claim paid client contracts, guaranteed outcomes or fully deployed third-party systems. Desktop has eight scrollable chapters; mobile keeps five tabs with Services underneath Home. Every inquiry is an actual native third-party form POST, subject to FormSubmit reCAPTCHA/honeypot and the owner's one-time confirmation; email/copy fallback is independent. Requesting a 15-minute introductory call does not book anything without an actual calendar link.
+The Services section presents AR/reconciliation support, project-based QuickBooks operations and Excel/VBA process improvement. These are based on the attached résumé; the five-hour VBA result is explicitly one complex internal case. The project carousel still presents three self-directed AI-assisted products as additional work. Desktop retains eight scrollable chapters; mobile keeps five tabs with Services under Home. Inquiries use the existing FormSubmit POST with reCAPTCHA and honeypot; the owner's one-time activation remains necessary for delivery.
 
 ## Phase 2: résumé-grounded client proof
 

@@ -5,7 +5,7 @@ const fs=require('node:fs/promises');
 const assert=require('node:assert/strict');
 const source=pathToFileURL(path.join(process.cwd(),'index.html')).href+'#top';
 (async()=>{
- const browser=await chromium.launch({headless:true,args:['--no-sandbox','--disable-dev-shm-usage']});
+ const browser=await chromium.launch({headless:true,...(process.env.CHROME_PATH?{executablePath:process.env.CHROME_PATH}:{}),args:['--no-sandbox','--disable-dev-shm-usage']});
  await fs.mkdir('qa-screens',{recursive:true});
  try{
   const desktop=await browser.newPage({viewport:{width:1365,height:900}}),errors=[];
@@ -15,11 +15,13 @@ const source=pathToFileURL(path.join(process.cwd(),'index.html')).href+'#top';
   assert.equal(await desktop.locator('#personal-introduction').count(),0,'unfinished video placeholder removed');
   assert.equal(await desktop.locator('.project-feature').count(),3,'three project summaries visible');
   assert.equal(await desktop.locator('#orbit-stage').count(),1,'featured carousel restored');
-  assert.ok(await desktop.locator('.hero-feature img').evaluate(i=>i.complete&&i.naturalWidth>2000),'real HD project image loads');
+  assert.ok((await desktop.locator('.hero-feature--ar').innerText()).includes('business accounts reconciled'),'AR proof leads the hero');
+  assert.ok(await desktop.locator('.orbit-card.is-front img').evaluate(async i=>{await i.decode();return i.naturalWidth>2000}),'carousel retains real HD project image');
   const heroFont=await desktop.locator('#top .body-lead').evaluate(e=>parseFloat(getComputedStyle(e).fontSize));
   assert.ok(heroFont>=16,`hero text should be at least 16px, got ${heroFont}`);
   await desktop.locator('.portfolio-rail__nav a[href="#showcase"]').click();
   assert.equal(new URL(desktop.url()).hash,'#showcase');
+  await desktop.waitForFunction(()=>Math.abs(document.getElementById('showcase').getBoundingClientRect().top)<120,null,{timeout:5000});
   const top=await desktop.locator('#showcase').evaluate(e=>e.getBoundingClientRect().top);
   assert.ok(Math.abs(top)<120,`section navigation should land promptly, got ${top}`);
   await desktop.locator('#orbit-pause').click();

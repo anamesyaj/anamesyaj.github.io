@@ -3,9 +3,11 @@
 const {chromium}=require("playwright");
 const fs=require("node:fs/promises");
 (async()=>{
- const browser=await chromium.launch({headless:true,args:["--no-sandbox","--disable-dev-shm-usage"]});
+ const browser=await chromium.launch({headless:true,args:["--no-sandbox","--disable-dev-shm-usage"],...(process.env.CHROME_PATH?{executablePath:process.env.CHROME_PATH}:{})});
  try{
   const page=await browser.newPage({viewport:{width:1200,height:630},deviceScaleFactor:1});
+  // Crop the owner's authentic portrait from the existing branded card.
+  const portraitSrc="data:image/jpeg;base64,"+(await fs.readFile("assets/portfolio-social-source.jpg")).toString("base64");
   const html=[
    '<!doctype html><html><head><meta charset="utf-8"><style>',
    '*{box-sizing:border-box}html,body{margin:0;width:1200px;height:630px;overflow:hidden}',
@@ -18,15 +20,15 @@ const fs=require("node:fs/promises");
    'h1 span{color:#edc988}.role{position:absolute;top:355px;left:82px;font-size:29px;line-height:1.3;font-weight:750}',
    '.proof{position:absolute;left:82px;top:455px;color:#d0e1eb;font-size:18px;line-height:1.5}',
    '.photo{position:absolute;right:105px;top:142px;width:260px;height:315px;overflow:hidden;background:#122633;border:3px solid #e4bb76;border-radius:25px;box-shadow:0 25px 56px #00000099}',
-   '.photo img{width:100%;height:100%;object-fit:cover;object-position:center}',
+   '.photo img{position:absolute;width:1200px;height:630px;max-width:none;left:-835px;top:-142px}',
    '.domain{position:absolute;left:82px;bottom:76px;color:#efca90;font-size:22px;font-weight:750;letter-spacing:.35px}',
    '.ring{position:absolute;right:111px;bottom:82px;border:1px solid #efca90bb;width:19px;height:19px;border-radius:50%}',
    '</style></head><body><div class="grid"></div><div class="frame"></div><div class="accent"></div>',
-   '<div class="eyebrow">PORTFOLIO · AUTOMATION · QA</div>',
+   '<div class="eyebrow">PORTFOLIO · ACCOUNTS RECEIVABLE</div>',
    '<h1>MARK JAY<br><span>LISAY</span></h1>',
-   '<div class="role">AI Workflow &amp;<br>Product Operations</div>',
-   '<div class="proof">Documented operations results · Human-reviewed automation<br>Independent product case studies</div>',
-   '<div class="photo"><img id="portrait" src="https://avatars.githubusercontent.com/u/305338593?v=4&amp;size=600" alt="Mark Jay Lisay public profile photograph"></div>',
+   '<div class="role">Accounts Receivable &amp;<br>Reconciliation</div>',
+   '<div class="proof">Accenture AR · Excel/VBA · QuickBooks Online<br>AI-assisted projects as an additional skill</div>',
+   '<div class="photo"><img id="portrait" src="'+portraitSrc+'" alt="Mark Jay Lisay public profile photograph"></div>',
    '<div class="domain">anamesyaj.github.io</div><div class="ring"></div></body></html>'
   ].join("");
   await page.setContent(html,{waitUntil:"load",timeout:35000});

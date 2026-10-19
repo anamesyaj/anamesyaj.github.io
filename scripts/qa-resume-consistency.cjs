@@ -7,9 +7,9 @@ const path=require("node:path");
 const fs=require("node:fs");
 const {createHash}=require("node:crypto");
 const {pathToFileURL}=require("node:url");
-const pdf=fs.readFileSync(path.resolve("assets/Mark_Jay_Lisay_Public_Resume.pdf"));
+const pdf=fs.readFileSync(path.resolve("assets/Mark_Jay_Lisay_AR_Resume.pdf"));
 const blobSha=createHash("sha1").update(Buffer.from("blob "+pdf.length+"\0")).update(pdf).digest("hex");
-assert.equal(blobSha,"6b770ba75ab3556bc89b8655f2a22635ea6126eb","downloadable résumé must be the audited two-page public PDF");
+assert.equal(blobSha,"9633537c7af490b35772eeb7030852cb5e0c76a2","downloadable résumé must be the audited two-page public PDF");
 const origin=pathToFileURL(path.resolve("index.html")).href;
 const screens=[
  {name:"wide desktop",width:1440,height:900,mobile:false},
@@ -24,7 +24,7 @@ const screens=[
 const ready=()=>document.documentElement.classList.contains("continuous-deck");
 const included=(text,terms,label)=>terms.forEach(term=>assert.ok(text.includes(term),label+" missing "+term));
 (async()=>{
- const browser=await chromium.launch({headless:true,args:["--no-sandbox","--disable-dev-shm-usage"]});
+ const browser=await chromium.launch({headless:true,...(process.env.CHROME_PATH?{executablePath:process.env.CHROME_PATH}:{}),args:["--no-sandbox","--disable-dev-shm-usage"]});
  try{
   for(const d of screens){
    const ctx=await browser.newContext({viewport:{width:d.width,height:d.height},deviceScaleFactor:d.mobile?2:1,isMobile:d.mobile,hasTouch:d.mobile,reducedMotion:"reduce"});
@@ -35,7 +35,7 @@ const included=(text,terms,label)=>terms.forEach(term=>assert.ok(text.includes(t
     await page.waitForFunction(ready,{timeout:7000});
     const root=page.locator("html");
     assert.equal(await page.locator(".orbit-card").count(),3,d.name+" keep three HD project previews");
-    assert.ok(await page.locator('a[href="assets/Mark_Jay_Lisay_Public_Resume.pdf"]').count()>=1,"public résumé download exists");
+    assert.ok(await page.locator('a[href="assets/Mark_Jay_Lisay_AR_Resume.pdf"]').count()>=1,"public résumé download exists");
     const route=async(view)=>{
       const selector=d.mobile?'.mobile-tabs a[data-app-tab="'+view+'"]':'.portfolio-rail__nav a[href="#'+({work:"showcase",skills:"skills",about:"about",contact:"contact",experience:"experience"})[view]+'"]';
       await page.locator(selector).click();
@@ -46,10 +46,8 @@ const included=(text,terms,label)=>terms.forEach(term=>assert.ok(text.includes(t
      assert.ok(await page.locator(".mobile-tabs>.mobile-theme-float").count()===1,"theme control remains in single dock");
     }else assert.equal(await page.locator(".portfolio-rail").evaluate(el=>getComputedStyle(el).position),"fixed","desktop sidebar fixed");
     await route("work");
-    await page.locator("#showcase .resume-project-evidence summary").click();
-    const evidence=page.locator("#showcase .resume-project-evidence");
-    const text=await evidence.innerText();
-    included(text,["836/836","782","62 files","310","MSIX","FFmpeg/TypeScript"],d.name+" work evidence");
+    const projects=await page.locator("#showcase .orbit-track").textContent();
+    included(projects,["Gold Ops OS","Aspirva","PuddleLoom Studio"],d.name+" project carousel");
     assert.equal(await page.locator("#growth-os-evidence-title").count(),0,"Growth OS omitted from public portfolio");
     await route("skills");
     await page.locator("#skills .resume-skills-more summary").click();

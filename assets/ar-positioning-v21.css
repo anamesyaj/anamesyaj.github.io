@@ -1,0 +1,31 @@
+/* Content-led AR identity; retain the existing responsive shell and carousel. */
+.hero-feature--ar .hero-feature__ar-visual{
+  position:relative;display:flex;flex-direction:column;justify-content:space-between;
+  min-height:305px;padding:28px;overflow:hidden;
+  background:radial-gradient(circle at 88% 10%,rgba(99,226,205,.24),transparent 46%),
+    linear-gradient(145deg,#0c2430,#123b45 63%,#071923);
+  color:#f6fcfb;
+}
+.hero-feature--ar .hero-feature__ar-visual::after{
+  content:"";position:absolute;right:-60px;bottom:-90px;width:270px;height:270px;
+  border:1px solid rgba(126,247,221,.25);border-radius:50%;box-shadow:0 0 0 36px rgba(126,247,221,.035),0 0 0 75px rgba(126,247,221,.025);
+}
+.ar-visual__label,.ar-visual__foot{font-size:.75rem;font-weight:800;letter-spacing:.12em;color:#a8e6dd;z-index:1}
+.ar-visual__flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;z-index:1}
+.ar-visual__flow b{padding:10px 12px;border:1px solid rgba(155,231,220,.26);border-radius:9px;background:rgba(255,255,255,.055);font-size:.83rem;white-space:nowrap}
+.ar-visual__flow i{font-size:1.2rem;font-style:normal;color:#b8eddf}
+.ar-visual__metric{display:grid;gap:0;z-index:1}
+.ar-visual__metric strong{font-size:clamp(4rem,7vw,6.5rem);line-height:.95;letter-spacing:-.065em;color:#f3c77c}
+.ar-visual__metric strong span{font-size:.27em;letter-spacing:0;margin-left:3px;color:#d9e9e5}
+.ar-visual__metric small{font-size:1rem;color:#d4e5e2;margin-top:9px}
+#top .hero-feature--ar{max-width:600px}
+html[data-theme="light"] .hero-feature--ar .hero-feature__ar-visual{background:radial-gradient(circle at 88% 10%,rgba(28,154,139,.25),transparent 46%),linear-gradient(145deg,#163744,#0c4149 63%,#0b2831)}
+@media(max-width:760px){
+  .hero-feature--ar .hero-feature__ar-visual{min-height:225px;padding:18px}
+  .ar-visual__flow{gap:5px}
+  .ar-visual__flow b{padding:6px 8px;font-size:.68rem}
+  .ar-visual__flow i{font-size:.9rem}
+  .ar-visual__metric strong{font-size:3.5rem}
+  .ar-visual__metric small{font-size:.88rem}
+  .ar-visual__label,.ar-visual__foot{font-size:.62rem}
+}

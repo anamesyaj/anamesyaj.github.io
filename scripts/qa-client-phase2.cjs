@@ -13,7 +13,7 @@ const devices=[
  {name:"small-android",w:320,h:568,mobile:true}
 ];
 (async()=>{
- const browser=await chromium.launch({headless:true,args:["--no-sandbox","--disable-dev-shm-usage"]});
+ const browser=await chromium.launch({headless:true,...(process.env.CHROME_PATH?{executablePath:process.env.CHROME_PATH}:{}),args:["--no-sandbox","--disable-dev-shm-usage"]});
  await fs.mkdir("qa-screens",{recursive:true});
  try{
  for(const d of devices)for(const theme of ["light","dark"]){

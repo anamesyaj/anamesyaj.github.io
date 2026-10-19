@@ -13,7 +13,7 @@ const viewports=[
 ];
 const order=["top","services","showcase","skills","about","results","experience","contact"];
 (async()=>{
- const browser=await chromium.launch({headless:true,args:["--no-sandbox","--disable-dev-shm-usage"]});
+ const browser=await chromium.launch({headless:true,...(process.env.CHROME_PATH?{executablePath:process.env.CHROME_PATH}:{}),args:["--no-sandbox","--disable-dev-shm-usage"]});
  try{
   for(const d of viewports){
    const ctx=await browser.newContext({viewport:{width:d.width,height:d.height},deviceScaleFactor:d.width<=760?2:1,isMobile:d.width<=760,hasTouch:d.width<=760,reducedMotion:"reduce"});
@@ -35,7 +35,7 @@ const order=["top","services","showcase","skills","about","results","experience"
         carousel:document.querySelectorAll(".orbit-card").length,
         skills:document.querySelectorAll("#skills .skill-card").length,
         roles:document.querySelectorAll("#experience .timeline-entry").length,
-        disabledResume:!document.querySelector('a[href$="Mark_Jay_Lisay_Public_Resume.pdf"]'),
+        disabledResume:!document.querySelector('a[href$="Mark_Jay_Lisay_AR_Resume.pdf"]'),
         instructions:/Drag · Swipe · Arrow keys|how (?:this|the) website works|Explore by your priority|illustrative onboarding plan/i.test(main.innerText),
         width:document.documentElement.scrollWidth,viewport:innerWidth,
         bodyText:main.innerText.length

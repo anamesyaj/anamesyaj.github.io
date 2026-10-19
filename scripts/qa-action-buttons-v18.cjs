@@ -1,7 +1,7 @@
 /* v18 action-button and social-icon regression checks. */
 const {chromium}=require("playwright"),assert=require("node:assert/strict"),path=require("node:path"),{pathToFileURL}=require("node:url"),fs=require("node:fs/promises");
 const site=pathToFileURL(path.resolve("index.html")).href;
-(async()=>{const browser=await chromium.launch({headless:true,args:["--no-sandbox","--disable-dev-shm-usage"]});await fs.mkdir("qa-screens",{recursive:true});
+(async()=>{const browser=await chromium.launch({headless:true,...(process.env.CHROME_PATH?{executablePath:process.env.CHROME_PATH}:{}),args:["--no-sandbox","--disable-dev-shm-usage"]});await fs.mkdir("qa-screens",{recursive:true});
 try{for(const d of [{n:"desktop",w:1440,h:900,m:false},{n:"android",w:390,h:844,m:true},{n:"small",w:320,h:568,m:true}])for(const theme of ["light","dark"]){
  const ctx=await browser.newContext({viewport:{width:d.w,height:d.h},isMobile:d.m,hasTouch:d.m,deviceScaleFactor:d.m?2:1,reducedMotion:"reduce"});await ctx.addInitScript(t=>localStorage.setItem("mj-theme",t),theme);const p=await ctx.newPage(),errors=[];p.on("pageerror",e=>errors.push(e.message));
  try{await p.goto(site+"#top",{waitUntil:"load"});await p.waitForFunction(()=>document.documentElement.classList.contains("presentation-fit"),{timeout:10000});if(d.m)await p.waitForFunction(()=>document.documentElement.classList.contains("mobile-app")&&!document.documentElement.classList.contains("mobile-app-boot"),{timeout:10000});
