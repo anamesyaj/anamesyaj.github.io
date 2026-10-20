@@ -1,0 +1,20 @@
+/* Final portfolio refinements. Keep all three carousel cards and their controls. */
+.mobile-resume-link{display:none}
+html.screen-deck.continuous-deck #showcase .orbit-showcase__inner{margin-top:28px!important}
+#showcase .orbit-card[data-position="next"],
+#showcase .orbit-card[data-position="prev"]{opacity:.22}
+@media(max-width:760px){
+  .mobile-resume-link{display:inline-flex;margin-top:12px;min-height:44px}
+  #showcase .orbit-card[data-position="next"],
+  #showcase .orbit-card[data-position="prev"]{opacity:.13}
+  #showcase .orbit-card:not([data-position="current"]) .orbit-card__top,
+  #showcase .orbit-card:not([data-position="current"]) .orbit-card__info{display:none}
+  #showcase .orbit-card[data-position="current"] .orbit-card__info{position:relative;z-index:4}
+  #showcase .orbit-card[data-position="current"] .orbit-card__description{font-size:.84rem;line-height:1.48}
+  #showcase .orbit-card[data-position="current"] .orbit-card__metric small{font-size:.68rem}
+  #about .about-portrait__frame img{object-fit:cover}
+}
+@media(max-width:380px){
+  #showcase .orbit-card[data-position="next"],
+  #showcase .orbit-card[data-position="prev"]{opacity:.10}
+}

@@ -20,7 +20,7 @@
    contactDetail=document.createElement("details");
    contactDetail.className="fit-details fit-contact-more";
    const summary=document.createElement("summary");
-   summary.innerHTML="<span>Write a message</span><span class='fit-detail-count'>Open the email form</span>";
+   summary.innerHTML="<span>Send an inquiry</span><span class='fit-detail-count'>Open the contact form</span>";
    const content=document.createElement("div");
    content.className="fit-details__content";
    contactDetail.append(summary,content);

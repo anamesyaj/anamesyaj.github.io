@@ -3,6 +3,6 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "scripts": { "build": "node scripts/build-css.mjs" },
+  "scripts": { "build": "node scripts/build-css.mjs && node scripts/bundle-css.mjs", "bundle": "node scripts/bundle-css.mjs" },
   "devDependencies": { "tailwindcss": "^4.1.10" }
 }

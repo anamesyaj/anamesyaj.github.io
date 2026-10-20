@@ -106,7 +106,7 @@
   }
   /* Showcase stays large, swipeable and zoomable. Very short phones scroll
      only this Work panel, keeping the bottom navigation fixed. */
-  html.mobile-app #main #showcase .orbit-showcase__inner{margin-top:10px!important}
+  html.mobile-app #main #showcase .orbit-showcase__inner{margin-top:28px!important}
   html.mobile-app #main #showcase .orbit-stage{
     --orbit-card-width:min(90vw,405px);
     --side-shift:clamp(120px,51vw,245px);

@@ -14,7 +14,7 @@ The supplied two-page public résumé remains the factual source for employment 
 
 Open `index.html`, or run `python3 -m http.server 8000` from this directory. `assets/site.css` is already built and requires no online CDN. The site uses vanilla JavaScript and static HTML.
 
-For Tailwind CSS changes, run `npm install && npm run build`. The project uses Tailwind CSS v4 compiled at build time in `scripts/build-css.mjs`. GitHub Pages serves the precompiled CSS; no Node runtime is needed in production.
+For Tailwind CSS changes, run `npm install && npm run build`. Tailwind CSS v4 is compiled in `scripts/build-css.mjs`, then `scripts/bundle-css.mjs` combines the ordered stylesheets into `assets/portfolio.css`. For changes to existing component styles, run `npm run bundle`. GitHub Pages serves the committed bundle through one stylesheet link; no Node runtime is needed in production.
 
 ## Contact form
 
@@ -55,11 +55,11 @@ Phase 2 Playwright checks run at desktop 1440×900 and 900×740 and Android 390�
 
 ## Phase 3: sound-first one-minute personal introduction
 
-The Overview now presents a prominent, accurately labelled **personal introduction video** placeholder, not a welcome video. The actual owner recording is **not provided yet**. Upload it to `assets/introduction-mark-jay-60s.mp4`; the site checks for the file before showing a video player. When available, it attempts autoplay with original sound enabled (`autoplay playsinline`, `muted=false`, volume 1). If audible autoplay is blocked by Chrome, Safari or another browser on a fresh visit, visitors receive a prominent **Play introduction WITH SOUND** button; the site intentionally never substitutes silent autoplay. Provide an exact transcript for a future proper captions track; do not invent spoken words. The fallback poster is factual and its text identifies it as a placeholder. Phase 3 also adds search/social metadata, noindex redirects for obsolete prototype URLs, sitemap/robots and dedicated QA without tracking visitors by default.
+Historical Phase 3 implementation: an introduction-video placeholder was added, then removed in the later AR/readability update. The current Overview leads with verified AR experience and results. There is no video player or unfinished placeholder on the live homepage.
 
 ### Phase 3 site hygiene and dedicated QA
 
-The nine old prototype routes (canvas-v4–v10 and deck-v2–v3) now carry noindex, canonical and an immediate accessible homepage redirect. Only the current homepage is included in `sitemap.xml`; `robots.txt` advertises it. Phase 3 browser QA verifies desktop/Android first-view video-placeholder visibility across eight device/theme combinations and a *mocked* future-clip case with autoplay rejected then user-started, always unmuted. The actual recording's audible end-to-end quality cannot be certified until the owner supplies its MP4. No visitor analytics are enabled without the owner's account configuration and privacy decision.
+The nine old prototype routes (canvas-v4–v10 and deck-v2–v3) carry noindex, canonical and an immediate accessible homepage redirect. Only the current homepage is included in `sitemap.xml`; `robots.txt` advertises it. Current regression checks are `qa-readability-v20.cjs` and `qa-resume-consistency.cjs`. Older video-placeholder QA describes a retired design. No visitor analytics are enabled.
 
 ## September 2026 visual and copy polish
 
@@ -82,3 +82,7 @@ Action links now share a consistent button system while section navigation and t
 ## v19 contact-form visual cleanup
 
 The lower mobile contact form now uses one compact visual hierarchy instead of several disconnected buttons. Empty `#form-status` no longer reserves vertical space, the FormSubmit privacy explanation and provider link form one compact block, direct email is grouped with two equal copy actions, and the copy labels are shortened to `Copy email` / `Copy brief`. The compact Android navigation, action-button system, social icons and sound-first introduction behavior are unchanged. Android QA verifies the submit-to-privacy gap and contact alternatives at 320/390/430px in both themes.
+
+## Approved portrait and portfolio refinements — 20 October 2026
+
+The owner-approved original portrait is stored at `assets/mark-jay-lisay-portrait.jpg` and is used by all profile views and Person structured data. External avatar requests are no longer needed. The carousel keeps all three projects with lower-opacity side cards; inactive phone-card text is hidden so it cannot overlap the active project. Mobile Overview includes a direct two-page résumé download. Contact has one form entry and direct-email alternatives. Test counts are labelled as 2026 development checkpoints. The sitemap date reflects this update.
