@@ -1,6 +1,6 @@
 # Mark Jay Lisay | Portfolio
 
-A mobile-first, single-page portfolio grounded in Mark Jay Lisay's **Accounts Receivable, premium reconciliation, QuickBooks Online and Excel/VBA experience**. His AI-assisted products remain as additional work. The October 2026 editorial update uses the attached two-page AR résumé as the source of truth for the downloadable PDF and visible experience claims.
+A mobile-first, single-page portfolio grounded in Mark Jay Lisay's **Accounts Receivable, premium reconciliation, QuickBooks Online and Excel/VBA experience**. His AI-assisted products remain as additional work. The two-page downloadable AR résumé includes a July 2022 education-date correction supported by the diploma and transcript.
 
 ## Current structure (September 2026)
 

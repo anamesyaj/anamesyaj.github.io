@@ -116,7 +116,7 @@ const base="https://anamesyaj.github.io/";
   const resume=await fetchAsset("assets/Mark_Jay_Lisay_AR_Resume.pdf");
   assert.ok(resume.ok(),"production resume download HTTP status "+resume.status());
   const pdf=await resume.body();
-  assert.equal(pdf.length,1015781,"live PDF is the uploaded public resume (byte length)");
+  assert.equal(pdf.length,1015794,"live PDF includes the verified July 2022 graduation date (byte length)");
   assert.equal(errors.length,0,"desktop page JS errors "+errors.join(" | "));
   console.log("LIVE DESKTOP HTTPS PASS "+JSON.stringify({...desktopState,pdfBytes:pdf.length}));
 

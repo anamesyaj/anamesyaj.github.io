@@ -35,7 +35,7 @@ const order=["top","services","showcase","skills","about","results","experience"
         carousel:document.querySelectorAll(".orbit-card").length,
         skills:document.querySelectorAll("#skills .skill-card").length,
         roles:document.querySelectorAll("#experience .timeline-entry").length,
-        disabledResume:!document.querySelector('a[href$="Mark_Jay_Lisay_AR_Resume.pdf"]'),
+        disabledResume:!document.querySelector('a[href*="Mark_Jay_Lisay_AR_Resume.pdf"]'),
         instructions:/Drag · Swipe · Arrow keys|how (?:this|the) website works|Explore by your priority|illustrative onboarding plan/i.test(main.innerText),
         width:document.documentElement.scrollWidth,viewport:innerWidth,
         bodyText:main.innerText.length

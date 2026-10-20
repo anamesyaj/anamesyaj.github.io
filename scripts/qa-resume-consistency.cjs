@@ -1,5 +1,5 @@
-/* Public résumé coverage and responsive interaction regression, Sep 2026.
-   The Git blob SHA below matches the owner's exact attached public PDF.
+/* Public résumé coverage and responsive interaction regression, Oct 2026.
+   The Git blob SHA below matches the owner's AR PDF with the graduation date corrected from the diploma and TOR.
    Update the expected SHA intentionally when the public résumé is revised. */
 const {chromium}=require("playwright");
 const assert=require("node:assert/strict");
@@ -9,7 +9,7 @@ const {createHash}=require("node:crypto");
 const {pathToFileURL}=require("node:url");
 const pdf=fs.readFileSync(path.resolve("assets/Mark_Jay_Lisay_AR_Resume.pdf"));
 const blobSha=createHash("sha1").update(Buffer.from("blob "+pdf.length+"\0")).update(pdf).digest("hex");
-assert.equal(blobSha,"9633537c7af490b35772eeb7030852cb5e0c76a2","downloadable résumé must be the audited two-page public PDF");
+assert.equal(blobSha,"b15de708ff0da64d25234611f113979692b64058","downloadable résumé must be the audited two-page public PDF");
 const origin=pathToFileURL(path.resolve("index.html")).href;
 const screens=[
  {name:"wide desktop",width:1440,height:900,mobile:false},
@@ -35,7 +35,7 @@ const included=(text,terms,label)=>terms.forEach(term=>assert.ok(text.includes(t
     await page.waitForFunction(ready,{timeout:7000});
     const root=page.locator("html");
     assert.equal(await page.locator(".orbit-card").count(),3,d.name+" keep three HD project previews");
-    assert.ok(await page.locator('a[href="assets/Mark_Jay_Lisay_AR_Resume.pdf"]').count()>=1,"public résumé download exists");
+    assert.ok(await page.locator('a[href^="assets/Mark_Jay_Lisay_AR_Resume.pdf"]').count()>=1,"public résumé download exists");
     const route=async(view)=>{
       const selector=d.mobile?'.mobile-tabs a[data-app-tab="'+view+'"]':'.portfolio-rail__nav a[href="#'+({work:"showcase",skills:"skills",about:"about",contact:"contact",experience:"experience"})[view]+'"]';
       await page.locator(selector).click();
@@ -59,7 +59,13 @@ const included=(text,terms,label)=>terms.forEach(term=>assert.ok(text.includes(t
       await extra.locator("summary").click();
     }else await route("experience");
     const exp=await page.locator("#experience").innerText();
-    included(exp,["Health Operations New Associate","30–100","3,000","Peddlr","accounts payable/receivable","Jan 2022"],d.name+" experience");
+    included(exp,["Health Operations New Associate","30–100","3,000","Peddlr","accounts payable/receivable","Jul 2022"],d.name+" experience");
+    const proofImages=page.locator("#experience .education-proof__card img");
+    assert.equal(await proofImages.count(),4,d.name+" diploma, recognition and both redacted TOR pages");
+    for(const image of await proofImages.all()){
+      await image.scrollIntoViewIfNeeded();
+      assert.ok(await image.evaluate(el=>el.complete&&el.naturalWidth>0),d.name+" education proof image loads");
+    }
     const certificate=page.locator(".certificate-proof--"+(d.mobile?"mobile":"desktop"));
     if(d.mobile){const aboutExtra=page.locator('.mobile-app__more[data-subsection="experience"]');await aboutExtra.locator("summary").click();assert.equal(await aboutExtra.evaluate(el=>el.open),false,"About disclosure reclosed before independent certificate check");}
     await certificate.scrollIntoViewIfNeeded();
