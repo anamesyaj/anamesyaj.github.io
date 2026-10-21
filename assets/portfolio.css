@@ -5888,3 +5888,62 @@ html.screen-deck.continuous-deck #showcase .orbit-showcase__inner{margin-top:28p
   #showcase .orbit-card[data-position="next"],
   #showcase .orbit-card[data-position="prev"]{opacity:.10}
 }
+
+/* assets/mobile-organization-v24.css */
+/* Keep the phone app's sections in distinct, readable cards. */
+@media (max-width:760px){
+  html.mobile-app #main .mobile-app__page>section[data-app-view]{padding-bottom:23px!important}
+  html.mobile-app #top>.mx-auto{gap:14px!important}
+  html.mobile-app #top>.mx-auto>.relative.z-10,
+  html.mobile-app #showcase .orbit-showcase__head,
+  html.mobile-app #skills .section-intro,
+  html.mobile-app #about .about-heading-panel,
+  html.mobile-app #contact>.mx-auto>.reveal:first-child{
+    min-width:0;
+    padding:clamp(16px,4.5vw,22px)!important;
+    border:1px solid var(--border-strong);
+    border-radius:19px;
+    background:var(--surface);
+    box-shadow:0 12px 28px rgba(0,0,0,.12);
+  }
+  html.mobile-app #top .eyebrow{margin:18px 0 10px!important;line-height:1.45}
+  html.mobile-app #top .hero-heading{
+    font-size:clamp(1.88rem,7.3vw,2.65rem)!important;
+    hyphens:none!important;word-break:normal!important;overflow-wrap:normal!important;
+  }
+  html.mobile-app #top .body-lead{margin-top:15px!important}
+  html.mobile-app #top .mt-9.flex{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px!important;margin-top:18px!important;
+  }
+  html.mobile-app #top .mt-9.flex>.button{
+    display:flex;justify-content:center;align-items:center;
+    min-width:0;width:100%;min-height:48px;
+    padding:10px 8px!important;text-align:center;line-height:1.25;
+    white-space:normal;
+  }
+  /* The introduction is immediately above this card on the Home tab. */
+  html.mobile-app #top .mt-9.flex>a[href="#introduction"]{display:none!important}
+  html.mobile-app #top .mobile-resume-link{width:100%;justify-content:center;margin-top:10px}
+  html.mobile-app #top .hero-proofline{
+    margin-top:16px!important;padding:14px!important;
+    border:1px solid var(--border);border-radius:12px;
+    background:var(--surface-raised,var(--surface));
+    overflow-wrap:anywhere;
+  }
+  html.mobile-app #showcase .orbit-showcase__head{margin-bottom:14px}
+  html.mobile-app #showcase .orbit-card:not([data-position="current"]){opacity:0!important;pointer-events:none!important}
+  html.mobile-app #main .mobile-app__page .skill-card,
+  html.mobile-app #main .mobile-app__page .project-feature,
+  html.mobile-app #main .mobile-app__page .client-service-card{
+    min-width:0;overflow-wrap:anywhere;
+  }
+  html.mobile-app #about .about-heading-panel{margin-bottom:12px}
+  html.mobile-app #contact>.mx-auto>.reveal:first-child{margin-bottom:14px}
+  html.mobile-app #contact .contact-details,
+  html.mobile-app #contact .resume-panel{min-width:0;overflow-wrap:anywhere}
+}
+@media (max-width:360px){
+  html.mobile-app #top .mt-9.flex{grid-template-columns:minmax(0,1fr)!important}
+}

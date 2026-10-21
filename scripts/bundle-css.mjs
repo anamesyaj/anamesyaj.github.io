@@ -35,7 +35,8 @@ const styles=[
   "assets/readability-v20.css",
   "assets/ar-positioning-v21.css",
   "assets/education-proof-v22.css",
-  "assets/portfolio-refinement-v23.css"
+  "assets/portfolio-refinement-v23.css",
+  "assets/mobile-organization-v24.css"
 ];
 const bundled=styles.map(file=>`/* ${file} */\n${fs.readFileSync(path.join(project,file),'utf8')}`).join('\n');
 fs.writeFileSync(path.join(project,'assets/portfolio.css'),bundled);

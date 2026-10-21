@@ -9,7 +9,7 @@
  // application owns five fixed views and their local content scrollers.
  if(window.matchMedia("(max-width:760px)").matches)return;
 
- const order=["top","introduction","services","showcase","skills","about","results","experience","contact"];
+ const order=["introduction","top","services","showcase","skills","about","results","experience","contact"];
  const sections=order.map(id=>document.getElementById(id)).filter(Boolean);
  if(sections.length!==order.length)return;
  // Arrange the real HTML sections into the visitor's reading order. The
@@ -118,7 +118,7 @@
  window.addEventListener("scroll",onScroll,{passive:true});
  window.addEventListener("resize",onScroll,{passive:true});
  window.addEventListener("portfolioappviewchange",event=>{
-   const target=document.getElementById(event.detail?.target||"top")||sections[0];
+   const target=document.getElementById(event.detail?.target||"introduction")||sections[0];
    const section=target.closest("section[data-app-view]")||target;
    mark(section);
    programmaticUntil=performance.now()+150;
@@ -128,7 +128,7 @@
    }));
  });
  window.addEventListener("popstate",()=>{
-   const target=document.getElementById((location.hash||"#top").slice(1))||sections[0];
+   const target=document.getElementById((location.hash||"#introduction").slice(1))||sections[0];
    navigate(target,{smooth:false,historyMode:"none"});
  });
  document.addEventListener("keydown",event=>{
@@ -142,7 +142,7 @@
    else if(event.key==="End"){event.preventDefault();navigate(sections[sections.length-1])}
  });
  root.classList.add("screen-deck","continuous-deck");
- const initial=document.getElementById((location.hash||"#top").slice(1))||sections[0];
+ const initial=document.getElementById((location.hash||"#introduction").slice(1))||sections[0];
  mark(initial.closest("section[data-app-view]")||sections[0]);
  requestAnimationFrame(()=>requestAnimationFrame(()=>{
    programmaticUntil=performance.now()+300;

@@ -72,7 +72,7 @@
   function findTarget(id){
     const element=document.getElementById(id);
     const section=element?.closest("section[data-app-view]");
-    if(!section)return {view:"home",section:document.getElementById("top"),element:document.getElementById("top")};
+    if(!section)return {view:"home",section:document.getElementById("introduction"),element:document.getElementById("introduction")};
     const view=tabs.includes(section.dataset.appView)?section.dataset.appView:"home";
     return {view,section,element};
   }
@@ -111,7 +111,7 @@
     root.dataset.appView=chosen;
     syncTab(chosen);
 
-    const target=findTarget(id||({home:"top",work:"showcase",contact:"contact",skills:"skills",about:"about"})[chosen]);
+    const target=findTarget(id||({home:"introduction",work:"showcase",contact:"contact",skills:"skills",about:"about"})[chosen]);
     const targeted=target.view===chosen?target.element:null;
     if(targeted&&chosen==="about"){
       const disclosure=targeted.closest(".mobile-app__more");
@@ -119,7 +119,7 @@
     }
 
     const current=++navCounter;
-    const resetToTop=!targeted||targeted.id===({home:"top",work:"showcase",contact:"contact",skills:"skills",about:"about"})[chosen];
+    const resetToTop=!targeted||targeted.id===({home:"introduction",work:"showcase",contact:"contact",skills:"skills",about:"about"})[chosen];
     requestAnimationFrame(()=>{
       if(current!==navCounter)return;
       // For canonical tab taps, open the page from the top. An explicit
@@ -143,7 +143,7 @@
 
   // Direct edits to the hash (as opposed to pushState) still find their tab.
   window.addEventListener("hashchange",()=>{
-    const id=(window.location.hash||"#top").slice(1);
+    const id=(window.location.hash||"#introduction").slice(1);
     const target=findTarget(id);
     activate(target.view,id);
   });
@@ -152,7 +152,7 @@
   // and project links remain untouched by app view navigation.
   root.classList.add("screen-deck","continuous-deck","mobile-app");
   root.classList.remove("mobile-app-boot");
-  const id=(window.location.hash||"#top").slice(1);
+  const id=(window.location.hash||"#introduction").slice(1);
   const target=findTarget(id);
   activate(target.view,id,{initial:true});
 })();

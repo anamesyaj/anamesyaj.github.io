@@ -24,7 +24,7 @@
   let viewToken=0;
 
   const canonicalTarget={
-    home:"top",
+    home:"introduction",
     work:"showcase",
     contact:"contact",
     skills:"skills",
@@ -83,7 +83,7 @@
   }
 
   function focusTarget(targetId,behavior){
-    const target=document.getElementById(targetId)||document.getElementById(canonicalTarget[currentView]||"top");
+    const target=document.getElementById(targetId)||document.getElementById(canonicalTarget[currentView]||"introduction");
     if(!target)return;
     const focusable=target.querySelector("h1,h2,h3,[tabindex]");
     requestAnimationFrame(()=>{
@@ -117,7 +117,7 @@
   }
 
   function navigateHash(hash,opts={}){
-    const id=(hash||"#top").slice(1);
+    const id=(hash||"#introduction").slice(1);
     const view=resolveView(id);
     setView(view,id,opts);
   }
@@ -132,7 +132,7 @@
   });
 
   window.addEventListener("popstate",()=>{
-    navigateHash(location.hash||"#top",{historyMode:"none",focus:true});
+    navigateHash(location.hash||"#introduction",{historyMode:"none",focus:true});
   });
 
   const mobileTheme=document.getElementById("theme-toggle-mobile");
@@ -171,7 +171,7 @@
   });
   syncThemeControls();
 
-  const initialId=(location.hash||"#top").slice(1);
+  const initialId=(location.hash||"#introduction").slice(1);
   const initialView=resolveView(initialId);
   setView(initialView,initialId,{historyMode:"replace",focus:false});
   requestAnimationFrame(()=>window.scrollTo({top:0,left:0,behavior:"auto"}));
