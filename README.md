@@ -86,3 +86,7 @@ The lower mobile contact form now uses one compact visual hierarchy instead of s
 ## Approved portrait and portfolio refinements — 20 October 2026
 
 The owner-approved original portrait is stored at `assets/mark-jay-lisay-portrait.jpg` and is used by all profile views and Person structured data. External avatar requests are no longer needed. The carousel keeps all three projects with lower-opacity side cards; inactive phone-card text is hidden so it cannot overlap the active project. Mobile Overview includes a direct two-page résumé download. Contact has one form entry and direct-email alternatives. Test counts are labelled as 2026 development checkpoints. The sitemap date reflects this update.
+
+## Narrated introduction video
+
+The Home view includes a 54-second, 16:9 introduction with chapter navigation, captions, transcript, and a downloadable web MP4 in `assets/intro/`. Its spoken claims are based on the current AR resume. The illustrated presenter follows the supplied character reference; the video uses Microsoft's Andrew voice. Scene 4 displays the portfolio's Gold Ops OS, Aspirva, and PuddleLoom Studio screenshots as examples of ongoing work. The rendered web video is stored in this repository; the production source and 1080p60 master are maintained separately.
