@@ -1,53 +1,14 @@
-/* Keep the appearance control inside the phone dock. The former raised
-   control forced a 129px page inset and left a strip that hid content. */
-@media (max-width:760px){
+/* Keep the original floating appearance orbit, while letting page content
+   use the space beneath it. A little scroll padding lets the last item move
+   fully above the orbit when visitors reach the end of a phone page. */
+@media(max-width:760px){
   html.mobile-app,
   html.screen-deck.continuous-deck.mobile-app{
     --mobile-app-page-bottom:calc(82px + env(safe-area-inset-bottom,0px))!important;
   }
-  html.mobile-app .mobile-tabs,
-  html.screen-deck.continuous-deck.mobile-app .mobile-tabs{
-    grid-template-columns:repeat(6,minmax(0,1fr))!important;
-    gap:2px!important;
-  }
-  html.mobile-app .mobile-tabs>a[data-app-tab]{font-size:clamp(.54rem,2.3vw,.68rem)!important}
-  html.mobile-app .mobile-tabs>.mobile-theme-float,
-  html.screen-deck.continuous-deck.mobile-app .mobile-tabs>.mobile-theme-float{
-    position:relative!important;
-    grid-column:6!important;
-    top:auto!important;bottom:auto!important;left:auto!important;right:auto!important;
-    width:100%!important;height:54px!important;
-    min-width:0!important;margin:0!important;padding:2px!important;
-    transform:none!important;filter:none!important;
-    display:flex!important;align-items:center!important;justify-content:flex-start!important;
-    pointer-events:auto!important;isolation:isolate;
-  }
-  html.mobile-app .mobile-tabs>.mobile-theme-float::before,
-  html.mobile-app .mobile-tabs>.mobile-theme-float::after{
-    animation:none!important;mask:none!important;-webkit-mask:none!important;
-    background:none!important;box-shadow:none!important;
-  }
-  html.mobile-app .mobile-tabs>.mobile-theme-float::before{content:none!important;display:none!important}
-  html.mobile-app .mobile-tabs>.mobile-theme-float::after{
-    content:"Theme"!important;display:block!important;
-    position:absolute!important;top:auto!important;bottom:2px!important;
-    left:0!important;right:0!important;width:auto!important;height:auto!important;
-    color:var(--app-tab-ink)!important;text-align:center!important;
-    font-size:clamp(.54rem,2.3vw,.68rem)!important;font-weight:750!important;
-    line-height:1.1!important;letter-spacing:0!important;
-  }
-  html.mobile-app .mobile-tabs>.mobile-theme-float>.mobile-theme-float__button{
-    position:relative!important;inset:auto!important;
-    width:35px!important;height:35px!important;
-    min-width:35px!important;min-height:35px!important;
-    margin:0 auto!important;padding:0!important;
-    border:2px solid #289eea!important;border-radius:50%!important;
-    box-shadow:0 0 0 2px #f3bd45,0 2px 8px rgba(0,0,0,.16)!important;
-  }
-  html.mobile-app .mobile-tabs>.mobile-theme-float>.mobile-theme-float__button svg{
-    width:19px!important;height:19px!important;
-  }
-  html.mobile-app #main>.mobile-app__page{
-    padding-bottom:24px!important;scroll-padding-bottom:24px!important;
+  html.mobile-app #main>.mobile-app__page,
+  html.screen-deck.continuous-deck.mobile-app #main>.mobile-app__page{
+    padding-bottom:70px!important;
+    scroll-padding-bottom:70px!important;
   }
 }

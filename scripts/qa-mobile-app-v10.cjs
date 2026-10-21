@@ -115,23 +115,31 @@ async function run(browser,device){
     const arcEl=document.querySelector(".mobile-tabs>.mobile-theme-float");
     const arc=arcEl.getBoundingClientRect();
     const button=document.getElementById("theme-toggle-mobile").getBoundingClientRect();
-    const main=document.querySelector("#main").getBoundingClientRect();
+    const main=document.getElementById("main").getBoundingClientRect();
     const dock=document.querySelector(".mobile-tabs").getBoundingClientRect();
+    const outer=getComputedStyle(arcEl);
+    const ring=getComputedStyle(arcEl,"::before");
     return{
       contact:{x:contact.x,y:contact.y,w:contact.width,h:contact.height},
       arc:{x:arc.x,y:arc.y,w:arc.width,h:arc.height},
       button:{w:button.width,h:button.height},
-      mainBottom:main.bottom,dockTop:dock.top,dockBottom:dock.bottom,
-      viewportHeight:innerHeight,
-      themeTargetIsInsideDock:arcEl.parentElement===document.querySelector(".mobile-tabs")
+      gap:contact.y-(arc.y+arc.height),
+      pageToDockGap:dock.top-main.bottom,
+      bottomRadius:outer.borderBottomLeftRadius,
+      gradient:ring.backgroundImage,animation:ring.animationName
     };
   });
-  assert.ok(Math.abs(geometry.mainBottom-geometry.dockTop)<=2,device.name+": no empty strip between content and dock: "+JSON.stringify(geometry));
-  assert.ok(geometry.arc.x>=geometry.contact.x+geometry.contact.w-2,device.name+": theme control does not cover Contact: "+JSON.stringify(geometry));
-  assert.ok(geometry.arc.y>=geometry.dockTop&&geometry.arc.y+geometry.arc.h<=geometry.dockBottom,device.name+": theme control stays inside dock: "+JSON.stringify(geometry));
-  assert.ok(geometry.arc.w>=44&&geometry.arc.h>=44,device.name+": accessible theme slot: "+JSON.stringify(geometry));
-  assert.ok(geometry.button.w>=32&&geometry.button.h>=32,device.name+": visible theme button: "+JSON.stringify(geometry));
-  assert.equal(geometry.themeTargetIsInsideDock,true,device.name+": theme control belongs to dock");
+  const contactCentre=geometry.contact.x+geometry.contact.w/2;
+  const arcCentre=geometry.arc.x+geometry.arc.w/2;
+  assert.ok(Math.abs(contactCentre-arcCentre)<=3,device.name+": attached appearance orbit centered over Contact: "+JSON.stringify(geometry));
+  assert.ok(Math.abs(geometry.pageToDockGap)<=2,device.name+": no reserved blank strip below content: "+JSON.stringify(geometry));
+  assert.ok(geometry.gap>=-5&&geometry.gap<=5,device.name+": attached appearance orbit must touch Contact without reserving a gap: "+JSON.stringify(geometry));
+  assert.ok(geometry.arc.w>=47&&geometry.arc.w<=52&&geometry.arc.h>=47&&geometry.arc.h<=52,device.name+": 50px full-circle orbit, not an attached semicircle");
+  assert.ok(geometry.button.w>=44&&geometry.button.h>=44,device.name+": >=44px accessible theme target");
+  assert.notEqual(geometry.bottomRadius,"0px",device.name+": orbit has a curved bottom");
+  assert.ok(geometry.gradient.includes("conic-gradient"),device.name+": blue/gold orbital gradient exists");
+  assert.ok(geometry.gradient.includes("rgb(40, 158, 234)")&&geometry.gradient.includes("rgb(243, 189, 69)"),device.name+": both blue and yellow arcs exist");
+  assert.equal(geometry.animation,"none",device.name+": reduced-motion preference respected");
   assert.equal(await page.locator('.orbit-card[data-title="PuddleLoom Studio"] .orbit-card__action[href="https://puddleloom-studio.loomstudio.workers.dev/"]').count(),1,device.name+": correct public PuddleLoom Studio URL");
   await page.evaluate(()=>{document.documentElement.dataset.theme="dark"});
   const prior=await page.evaluate(()=>document.documentElement.dataset.theme);
@@ -166,7 +174,7 @@ async function run(browser,device){
   assert.equal(await page.evaluate(()=>document.documentElement.dataset.appView),"contact",device.name+": theme does not navigate");
   await page.locator("#theme-toggle-mobile").click();
   assert.equal(await page.evaluate(()=>document.documentElement.dataset.theme),prior,device.name+": theme toggles back");
-  // Contact tile remains independently tappable beside the theme control.
+  // Contact tile remains independently tappable beneath the attached orbit.
   await select("work");
   await select("contact");
   assert.equal(await page.evaluate(()=>window.__mobileInstance),session);
@@ -196,15 +204,14 @@ async function run(browser,device){
   try{
     await page.goto(site+"#contact",{waitUntil:"load",timeout:30000});
     await page.waitForFunction(()=>document.documentElement.classList.contains("mobile-app"),{timeout:7000});
-    const dock=await page.evaluate(()=>{
-      const main=document.querySelector("#main").getBoundingClientRect();
-      const nav=document.querySelector(".mobile-tabs").getBoundingClientRect();
-      const theme=document.querySelector(".mobile-theme-float").getBoundingClientRect();
-      return{gap:nav.top-main.bottom,themeTop:theme.top,dockTop:nav.top,themeBottom:theme.bottom,dockBottom:nav.bottom};
+    const animated=await page.locator(".mobile-tabs>.mobile-theme-float").evaluate(el=>{
+      const a=getComputedStyle(el,"::before"),b=getComputedStyle(el,"::after");
+      return{forward:a.animationName,reverse:b.animationName,background:a.backgroundImage};
     });
-    assert.ok(Math.abs(dock.gap)<=2,"phone content must meet its dock without a blank strip");
-    assert.ok(dock.themeTop>=dock.dockTop&&dock.themeBottom<=dock.dockBottom,"theme control must not float over content");
-    console.log("CONTAINED PHONE DOCK PASS "+JSON.stringify(dock));
+    assert.equal(animated.forward,"portfolio-blue-gold-orbit","blue-and-gold ring must rotate when motion is allowed");
+    assert.equal(animated.reverse,"portfolio-blue-gold-counterorbit","inner arc must counterrotate");
+    assert.ok(animated.background.includes("conic-gradient"),"animated ring must retain its colored gradient");
+    console.log("BLUE/YELLOW ORBIT ROTATION PASS "+JSON.stringify(animated));
   }finally{await ctx.close()}
   console.log("ALL ANDROID-STYLE PHONE TESTS PASSED");
  }
