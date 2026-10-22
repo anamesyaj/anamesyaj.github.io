@@ -140,7 +140,7 @@ async function run(browser,device){
   assert.ok(geometry.gradient.includes("conic-gradient"),device.name+": blue/gold orbital gradient exists");
   assert.ok(geometry.gradient.includes("rgb(40, 158, 234)")&&geometry.gradient.includes("rgb(243, 189, 69)"),device.name+": both blue and yellow arcs exist");
   assert.equal(geometry.animation,"none",device.name+": reduced-motion preference respected");
-  assert.equal(await page.locator('.orbit-card[data-title="PuddleLoom Studio"] .orbit-card__action[href="https://puddleloom-studio.loomstudio.workers.dev/"]').count(),1,device.name+": correct public PuddleLoom Studio URL");
+  assert.equal(await page.locator('.orbit-card[data-title="PuddleLoom Studio"] .orbit-card__action[href="#contact"]').count(),1,device.name+": private PuddleLoom Studio access routes to contact");
   await page.evaluate(()=>{document.documentElement.dataset.theme="dark"});
   const prior=await page.evaluate(()=>document.documentElement.dataset.theme);
   await page.locator("#theme-toggle-mobile").click();

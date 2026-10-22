@@ -91,3 +91,5 @@
   .orbit-card__footer{gap:8px}
 }
 @media(prefers-reduced-motion:reduce){.orbit-card__zoom-hint{transition:none}}
+
+@media(min-width:761px) and (max-width:1100px){.orbit-stage{--orbit-card-width:min(100%,calc(100vw - 300px),680px);--side-shift:clamp(235px,34vw,400px)}}

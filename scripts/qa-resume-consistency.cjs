@@ -48,7 +48,7 @@ const included=(text,terms,label)=>terms.forEach(term=>assert.ok(text.includes(t
     await route("work");
     const projects=await page.locator("#showcase .orbit-track").textContent();
     included(projects,["Gold Ops OS","Aspirva","PuddleLoom Studio"],d.name+" project carousel");
-    assert.equal(await page.locator("#growth-os-evidence-title").count(),0,"Growth OS omitted from public portfolio");
+    assert.equal(await page.locator("#growth-os-evidence-title").count(),1,"Growth OS documented in project evidence");
     await route("skills");
     await page.locator("#skills .resume-skills-more summary").click();
     const skills=await page.locator("#skills .resume-skills-more").innerText();
@@ -64,7 +64,7 @@ const included=(text,terms,label)=>terms.forEach(term=>assert.ok(text.includes(t
     assert.equal(await proofImages.count(),4,d.name+" diploma, recognition and both redacted TOR pages");
     for(const image of await proofImages.all()){
       await image.scrollIntoViewIfNeeded();
-      assert.ok(await image.evaluate(el=>el.complete&&el.naturalWidth>0),d.name+" education proof image loads");
+      await image.evaluate(el=>new Promise((resolve,reject)=>{if(el.complete)return el.naturalWidth>0?resolve():reject(new Error("image failed"));el.addEventListener("load",resolve,{once:true});el.addEventListener("error",()=>reject(new Error("image failed")),{once:true})}));
     }
     const certificate=page.locator(".certificate-proof--"+(d.mobile?"mobile":"desktop"));
     if(d.mobile){const aboutExtra=page.locator('.mobile-app__more[data-subsection="experience"]');await aboutExtra.locator("summary").click();assert.equal(await aboutExtra.evaluate(el=>el.open),false,"About disclosure reclosed before independent certificate check");}
@@ -96,7 +96,7 @@ const included=(text,terms,label)=>terms.forEach(term=>assert.ok(text.includes(t
     const geometry=await page.evaluate(()=>({overflow:document.documentElement.scrollWidth-innerWidth,docY:scrollY}));
     assert.ok(geometry.overflow<=7,d.name+" no horizontal overflow "+JSON.stringify(geometry));
     assert.equal(errors.length,0,d.name+" uncaught JS exceptions: "+errors.join(" | "));
-    console.log("RESUME CONTENT + RESPONSIVE PASS "+JSON.stringify({screen:d.name,overflow:geometry.overflow,projects:3,growthOS:false,skills:true,certificateImage:true,contactTested:d.mobile}));
+    console.log("RESUME CONTENT + RESPONSIVE PASS "+JSON.stringify({screen:d.name,overflow:geometry.overflow,projects:3,growthOS:true,skills:true,certificateImage:true,contactTested:d.mobile}));
    }catch(e){console.error("RESUME AUDIT FAIL "+d.name,e.stack||e);throw e}
    finally{await ctx.close()}
   }

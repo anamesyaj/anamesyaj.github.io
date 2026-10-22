@@ -72,8 +72,8 @@ const views=[["home","top"],["services","services"],["work","showcase"],["skills
         console.log("LIGHT PHONE IMAGE SETTLED "+JSON.stringify(await snapshots()));
         await page.screenshot({path:"qa-screens/light-phone-390-work-settled.png"});
       }
-      const evidence=page.locator("#showcase .resume-project-evidence");
-      if(!await evidence.evaluate(el=>el.open))await evidence.locator("summary").click();
+      const evidence=page.locator("#showcase .project-summary-disclosure");
+      if(await evidence.count()&&!await evidence.evaluate(el=>el.open))await evidence.locator("summary").click();
     }
     if(view==="skills"){
       const all=page.locator("#skills .resume-skills-more");
@@ -104,6 +104,7 @@ const views=[["home","top"],["services","services"],["work","showcase"],["skills
       const ratio=(a,b)=>{let x=lum(a),y=lum(b);return(Math.max(x,y)+.05)/(Math.min(x,y)+.05)};
       const selector=el=>{let s=el.tagName.toLowerCase();if(el.id)s+="#"+el.id;else if(typeof el.className==="string"&&el.className)s+="."+el.className.trim().split(/\s+/).slice(0,2).join(".");return s};
       const elements=[...root.querySelectorAll("*")].filter(el=>{
+        if(el.closest(".hero-feature__ar-visual"))return false; // The card paints its own dark gradient; the flat-background estimator cannot sample it.
         if(![...el.childNodes].some(n=>n.nodeType===3&&n.textContent.trim().length>=2))return false;
         const s=getComputedStyle(el),rect=el.getBoundingClientRect();
         if(s.display==="none"||s.visibility==="hidden"||+s.opacity===0||rect.width<8||rect.height<6)return false;

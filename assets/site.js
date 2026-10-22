@@ -10,6 +10,7 @@
  document.querySelectorAll("[data-service],[data-inquiry-intent]").forEach(link=>link.addEventListener("click",()=>{
   if(link.dataset.service)setService(link.dataset.service);
   else if(link.dataset.inquiryIntent==="call")setService("15-minute introductory call");
+  else if(link.dataset.inquiryIntent==="private-access"){setService("Not sure yet");const message=document.getElementById("contact-message");if(message&&!message.value.trim())message.value="I would like to request access to your private PuddleLoom project for review.";}
   else if(link.dataset.inquiryIntent==="project"&&!service.value)setService("Not sure yet");
   // A service CTA should reveal the project brief on phones instead of
   // requiring the visitor to discover an extra hidden accordion.
