@@ -4,4 +4,26 @@
 .intro-play-sound{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;max-width:calc(100% - 24px);padding:13px 20px;border:2px solid #fff;border-radius:999px;background:#073e4c;color:#fff;font:inherit;font-weight:800;box-shadow:0 6px 25px #0009;cursor:pointer}
 .intro-play-sound[hidden]{display:none!important}
 .intro-play-sound:focus-visible{outline:3px solid #ffd977;outline-offset:3px}
+/* The phone welcome screen uses the same inset card rhythm as the portfolio. */
+@media(max-width:760px){
+  html.mobile-app #main #introduction{padding:18px 14px 22px!important;background:var(--bg);overflow:visible}
+  html.mobile-app #introduction .intro-video-inner{padding:20px 16px 16px;border:1px solid var(--border-strong);border-radius:22px;background:var(--surface);box-shadow:0 10px 30px var(--shadow);min-width:0}
+  html.mobile-app #introduction .intro-video-heading{margin:0 0 18px}
+  html.mobile-app #introduction .section-kicker{font-size:10px;letter-spacing:.11em}
+  html.mobile-app #introduction .intro-video-heading h2{font-size:clamp(23px,6.2vw,32px)!important;line-height:1.12;margin:10px 0!important;letter-spacing:-.04em}
+  html.mobile-app #introduction .intro-video-heading p{margin:0;font-size:14px!important;line-height:1.55;color:var(--body);opacity:1}
+  html.mobile-app #introduction .intro-video-frame{border-radius:13px;border-color:var(--border-strong);box-shadow:0 7px 20px var(--shadow)}
+  html.mobile-app #introduction .intro-video-description{margin:18px 0 9px;font-size:11px!important;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);opacity:1}
+  html.mobile-app #introduction .intro-video-chapters{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:7px;margin:0}
+  html.mobile-app #introduction .intro-video-chapters button{grid-column:span 2;min-height:42px;padding:9px 4px;border-radius:10px;border:1px solid var(--border-strong);background:var(--surface-elevated);color:var(--body);font-size:11px;font-weight:750;line-height:1.2;outline:none}
+  html.mobile-app #introduction .intro-video-chapters button:nth-last-child(-n+2){grid-column:span 3}
+  html.mobile-app #introduction .intro-video-chapters button[aria-current=true]{background:var(--accent-wash);color:var(--accent-strong);border-color:var(--accent-strong);box-shadow:inset 0 0 0 1px var(--accent-strong)}
+  html.mobile-app #introduction .intro-video-chapters button:focus-visible{outline:2px solid var(--accent-strong);outline-offset:2px}
+  html.mobile-app #introduction .intro-video-actions{margin:14px 0 0}
+  html.mobile-app #introduction .intro-video-actions a{width:100%;justify-content:center;min-height:44px;border-radius:11px;font-size:13px}
+  html.mobile-app #introduction .intro-video-transcript{margin:14px 0 0;padding:0;border-top:1px solid var(--border-strong)}
+  html.mobile-app #introduction .intro-video-transcript summary{padding:14px 0 0;color:var(--muted);font-size:12px;line-height:1.4}
+  html.mobile-app #introduction .intro-video-transcript p{font-size:14px;line-height:1.7;color:var(--body);margin:14px 0 0}
+  html.mobile-app #introduction .intro-play-sound{width:max-content;max-width:90%;padding:10px 13px;font-size:11px}
+}
 @media(max-width:360px){.intro-video-section{padding-top:18px}.intro-video-heading{margin-bottom:12px}.intro-video-heading h2{margin:5px 0}.intro-video-heading p{font-size:.84rem;line-height:1.35}.intro-video-description{margin:8px 0}.intro-video-chapters{gap:6px;margin:8px 0}.intro-video-chapters button{padding:6px 8px;font-size:12px}.intro-video-actions{margin:8px 0}.intro-play-sound{font-size:.75rem;padding:9px 12px}}
