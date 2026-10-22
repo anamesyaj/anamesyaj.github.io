@@ -22,7 +22,7 @@ const screens=[{name:"desktop-1440",w:1440,h:900,mobile:false},{name:"compact-90
      assert.equal(await p.locator("#services .client-service-card").count(),3,"exactly three services");
      if(s.mobile)await p.waitForFunction(()=>document.documentElement.classList.contains("mobile-app")&&!document.querySelector('.mobile-app__page[data-mobile-view="home"]')?.hidden);
      const content=await p.locator("#services").textContent();
-     for(const evidence of ["Accounts Receivable","130 business accounts","30–100","QuickBooks","Power Query","five hours"]){
+     for(const evidence of ["Payment checking","130 business accounts","30–100","QuickBooks","Excel tool","five hours"]){
       assert.ok(content.toLowerCase().includes(evidence.toLowerCase()),"Résumé-based copy missing "+evidence);
      }
      assert.ok(!content.includes("Growth OS"),"Growth OS intentionally omitted");
@@ -43,13 +43,13 @@ const screens=[{name:"desktop-1440",w:1440,h:900,mobile:false},{name:"compact-90
       const d=p.locator('#contact .fit-contact-more');if(!(await d.evaluate(el=>el.open)))await d.locator("summary").click();
      }
      const form=p.locator("#contact-form");
-     assert.equal(await p.locator("#contact-service").inputValue(),"AR & reconciliation support","service link prefills brief");
+     assert.equal(await p.locator("#contact-service").inputValue(),"Payment checking","service link selects payment checking");
      assert.equal(await form.getAttribute("method"),"POST","native POST, not mailto");
      assert.equal(await form.getAttribute("action"),"https://formsubmit.co/markjay.lisay@gmail.com","real endpoint");
      assert.equal(await form.locator('[name="_captcha"]').inputValue(),"true","provider reCAPTCHA ON");
      assert.equal(await form.locator('[name="_honey"]').count(),1,"server-recognized honeypot");
      assert.equal(await p.locator('a[href*="calendar.google.com/calendar/appointments"]').count(),0,"no invented booking URL");
-     assert.ok(/confirm it together/i.test(await p.locator("#contact").textContent()),"introductory call is a request, not automatic booking");
+     assert.ok(/agree on a time by email/i.test(await p.locator("#contact").textContent()),"introductory call requires an agreed time");
      let posted=null;
      await p.route("https://formsubmit.co/**",async route=>{
       const req=route.request();posted={method:req.method(),data:req.postData()||""};
@@ -61,7 +61,7 @@ const screens=[{name:"desktop-1440",w:1440,h:900,mobile:false},{name:"compact-90
      await form.locator('button[type="submit"]').click();
      await p.waitForFunction(()=>document.title==="QA MOCK FORM ACCEPTED",{timeout:10000});
      assert.equal(posted?.method,"POST","native POST reaches mocked real-form endpoint");
-     for(const field of ["name=Test+Visitor","email=test%40example.org","project_type=AR+%26+reconciliation+support","_captcha=true","_honey="])assert.ok(posted.data.includes(field),"missing submitted field "+field);
+     for(const field of ["name=Test+Visitor","email=test%40example.org","project_type=Payment+checking","_captcha=true","_honey="])assert.ok(posted.data.includes(field),"missing submitted field "+field);
      assert.equal(errors.length,0,"no page errors "+errors.join(" | "));
      console.log("CLIENT PHASE1 PASS "+s.name+" "+theme+" POST mock passed");
     }catch(e){console.error("CLIENT PHASE1 FAIL "+s.name+" "+theme,e.stack||e);await p.screenshot({path:"qa-screens/phase1-fail-"+s.name+"-"+theme+".png"}).catch(()=>{});throw e}

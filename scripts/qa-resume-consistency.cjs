@@ -52,14 +52,14 @@ const included=(text,terms,label)=>terms.forEach(term=>assert.ok(text.includes(t
     await route("skills");
     await page.locator("#skills .resume-skills-more summary").click();
     const skills=await page.locator("#skills .resume-skills-more").innerText();
-    included(skills,["Codex","OpenCode","Firebase Test Lab","Docker fundamentals","FastAPI","Next.js","Node.js","FFmpeg","XLOOKUP/VLOOKUP"],d.name+" full skill list");
+    included(skills,["Codex","OpenCode","Firebase Test Lab","Docker knowledge covers the basics","FastAPI","Next.js","Node.js","FFmpeg","XLOOKUP/VLOOKUP"],d.name+" full skill list");
     if(d.mobile){
       await route("about");
       const extra=page.locator('.mobile-app__more[data-subsection="experience"]');
       await extra.locator("summary").click();
     }else await route("experience");
     const exp=await page.locator("#experience").innerText();
-    included(exp,["Health Operations New Associate","30–100","3,000","Peddlr","accounts payable/receivable","Jul 2022"],d.name+" experience");
+    included(exp,["Health Operations New Associate","30–100","3,000","Peddlr","money owed to or by the business","Jul 2022"],d.name+" experience");
     const proofImages=page.locator("#experience .education-proof__card img");
     assert.equal(await proofImages.count(),4,d.name+" diploma, recognition and both redacted TOR pages");
     for(const image of await proofImages.all()){

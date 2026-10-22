@@ -24,9 +24,9 @@
   if(!form.reportValidity()){event.preventDefault();return}
   if(v("contact-honey")){event.preventDefault();status.textContent="Please use the direct email link instead.";return}
   if(v("contact-message").length<25){event.preventDefault();status.textContent="Please describe the requested project in a few sentences.";return}
-  status.textContent="Opening the form service. Please finish any security prompts. Your message is not submitted until the provider confirms it.";
+  status.textContent="Opening the message form. Please complete any security checks and wait for confirmation that your message was accepted.";
  });
- const prepare=()=>["Name: "+v("contact-name"),"Email: "+v("contact-email"),"Topic: "+(service?.value||"Not selected"),"Timeframe: "+(v("contact-timeline")||"Not decided"),"Business/project: "+(v("contact-company")||"Not provided"),"",v("contact-message")].join("\n").trim();
+ const prepare=()=>["Name: "+v("contact-name"),"Email: "+v("contact-email"),"Topic: "+(service?.selectedOptions[0]?.textContent||"Not selected"),"When to start: "+(v("contact-timeline")||"Not decided"),"Business/project: "+(v("contact-company")||"Not provided"),"",v("contact-message")].join("\n").trim();
  const copy=async text=>{
   try{if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(text);return true}}catch(_){}
   const field=document.createElement("textarea");field.value=text;field.readOnly=true;field.style.cssText="position:fixed;left:-9999px;top:0;opacity:0";document.body.append(field);field.select();let okay=false;try{okay=document.execCommand("copy")}catch(_){}field.remove();return okay;
@@ -35,8 +35,8 @@
   const okay=await copy(dest);status.textContent=okay?"Email address copied.":"Select and copy the email address above.";if(okay)event.currentTarget.textContent="Email copied ✓";
  });
  document.getElementById("copy-message")?.addEventListener("click",async event=>{
-  if(!v("contact-message")){status.textContent="Write a brief first, then copy it.";document.getElementById("contact-message")?.focus();return}
-  const okay=await copy(prepare());status.textContent=okay?"Brief copied. Paste it in an email to "+dest+".":"Copy your brief and email it to "+dest+".";if(okay)event.currentTarget.textContent="Brief copied ✓";
+  if(!v("contact-message")){status.textContent="Write your message first, then copy it.";document.getElementById("contact-message")?.focus();return}
+  const okay=await copy(prepare());status.textContent=okay?"Message copied. Paste it in an email to "+dest+".":"Copy your message and email it to "+dest+".";if(okay)event.currentTarget.textContent="Message copied ✓";
  });
  const y=document.getElementById("year");if(y)y.textContent=new Date().getFullYear();
 })();
